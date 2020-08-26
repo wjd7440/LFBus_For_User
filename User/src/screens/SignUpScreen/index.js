@@ -1,43 +1,41 @@
 import React, { Component } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { RadioButton, Text } from "react-native-paper";
+import { View, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 
 export default ({ navigation }) => {
+  const [value, setValue] = React.useState("first");
   return (
-    <View style={styles.container}>
-      <View style={styles.titleArea}>
-        <Text style={styles.title}>LFBus_For_User</Text>
+    <View>
+      <View>
+        <Text style={styles.title}>회원가입</Text>
       </View>
       <View style={styles.formArea}>
+        <Text style={styles.question}>아이디 : </Text>
         <TextInput style={styles.textForm} placeholder={"ID"} />
+        <Text style={styles.question}>비밀번호 : </Text>
         <TextInput style={styles.textForm} placeholder={"Password"} />
-      </View>
-      <View style={styles.buttonArea}>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("HomeScreen");
-          }}
-        >
-          <Text style={styles.buttonTitle}>로그인</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => {
-            navigation.navigate("SignUpScreen");
-          }}
-        >
-          <Text style={styles.buttonTitle}>회원가입</Text>
-        </TouchableOpacity>
+        <Text style={styles.question}>도움이 필요하신가요? : </Text>
+        <View>
+          <RadioButton.Group
+            onValueChange={(value) => setValue(value)}
+            value={value}
+          >
+            <View>
+              <RadioButton value="first" />
+              <Text>필요해요.</Text>
+              <RadioButton value="second" />
+              <Text>괜찮아요.</Text>
+            </View>
+          </RadioButton.Group>
+        </View>
+        <Text style={styles.question}>보조기구 종류 : </Text>
+        <TextInput style={styles.textForm} placeholder={"보조기구 종류"} />
+        <Text style={styles.question}>메모</Text>
+        <TextInput style={styles.textForm} placeholder={"메모"} />
       </View>
     </View>
   );
@@ -58,6 +56,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: wp("8%"),
+  },
+  question: {
+    fontSize: wp("6%"),
   },
   formArea: {
     width: "100%",

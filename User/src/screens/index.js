@@ -10,6 +10,7 @@ import SettingScreen from "./SettingScreen";
 import SomethingScreen from "./SomethingScreen";
 import ReserveScreen from "./ReserveScreen";
 import ReservationScreen from "./ReserveScreen/ReservationScreen";
+import SignUpScreen from "./SignUpScreen";
 
 const HomeStack = createStackNavigator(
   {
@@ -74,6 +75,7 @@ const TabNavigator = createBottomTabNavigator(
 
 const AppStack = createStackNavigator({
   LoginScreen: LoginScreen,
+  SignUpScreen: SignUpScreen,
   TabNavigator: {
     screen: TabNavigator,
     navigationOptions: ({ navigation }) => ({
