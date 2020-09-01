@@ -1,4 +1,16 @@
 import { gql } from "apollo-boost";
+//User
+export const ACCOUNT_INFO_QUERY = gql`
+  query {
+    UserInfo {
+      userId
+      needHelp
+      equipment
+      memo
+      createdAt
+    }
+  }
+`;
 
 //Login
 export const LOGIN_QUERY = gql`

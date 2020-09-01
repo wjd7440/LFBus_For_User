@@ -57,16 +57,16 @@ export default ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    const tokenLoad = async () => {
-      await messaging()
-        .getToken()
-        .then((token) => {
-          setToken(token);
-        });
-    };
-    tokenLoad();
-  }, []);
+  // useEffect(() => {
+  //   const tokenLoad = async () => {
+  //     await messaging()
+  //       .getToken()
+  //       .then((token) => {
+  //         setToken(token);
+  //       });
+  //   };
+  //   tokenLoad();
+  // }, []);
 
   useEffect(() => {
     register({ name: "userId" }, { required: "아이디를 입력해주세요." });
@@ -94,6 +94,7 @@ export default ({ navigation }) => {
           </Block>
         )}
         <TextInput
+          secureTextEntry={true}
           style={styles.textForm}
           placeholder={"Password"}
           name="password"

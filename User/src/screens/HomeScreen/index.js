@@ -104,6 +104,7 @@ export default ({ navigation }) => {
                     }}
                   >
                     <MapView.Callout
+                      key={index}
                       tooltip={true}
                       onPress={() => {
                         navigation.navigate("예약하기", {

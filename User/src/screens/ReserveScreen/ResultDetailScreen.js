@@ -31,69 +31,8 @@ export default ({
     return null;
   } else {
     if (data.UserBusInfo) {
-      // return (
-      //   <View style={{ ...styles.container }}>
-      //     <View style={styles.row}>
-      //       <View style={[styles.cell, styles.cell1]}>
-      //         {ROUTE_TP == 1 && (
-      //           <Image
-      //             style={styles.busIcon}
-      //             source={require("../../assets/bus_red.png")}
-      //           />
-      //         )}
-      //         {ROUTE_TP == 2 && (
-      //           <Image
-      //             style={styles.busIcon}
-      //             source={require("../../assets/bus_blue.png")}
-      //           />
-      //         )}
-      //         {ROUTE_TP == 3 && (
-      //           <Image
-      //             style={styles.busIcon}
-      //             source={require("../../assets/bus_green.png")}
-      //           />
-      //         )}
-
-      //         <Text style={styles.cellFont} numberOfLines={1}>
-      //           {ROUTE_NO}
-      //         </Text>
-      //       </View>
-      //       <View style={[styles.cell, styles.cell2]}>
-      //         <Text style={styles.cellFont} numberOfLines={1}>
-      //           {DESTINATION}
-      //         </Text>
-      //       </View>
-      //       <View style={[styles.cell, styles.cell3]}>
-      //         <LinearGradient
-      //           style={styles.numberBox}
-      //           colors={["#00427E", "#002548"]}
-      //         >
-      //           <Text
-      //             style={{ ...styles.cellFont, color: "#fff" }}
-      //             numberOfLines={1}
-      //           >
-      //             {EXTIME_MIN}
-      //           </Text>
-      //         </LinearGradient>
-      //       </View>
-      //       {STATUS_POS > 0 ? (
-      //         <View style={[styles.cell, styles.cell4]}>
-      //           <Text style={styles.cellFont} numberOfLines={1}>
-      //             {STATUS_POS}정류장 전
-      //           </Text>
-      //         </View>
-      //       ) : (
-      //         <View style={[styles.cell, styles.cell4]}>
-      //           <Text style={styles.cellFont} numberOfLines={1}>
-      //             진입중
-      //           </Text>
-      //         </View>
-      //       )}
-      //     </View>
-      //   </View>
-      // );
       return (
-        <View>
+        <View key={ROUTE_NO}>
           <Text>버스번호 : {ROUTE_NO}</Text>
           <Text>종착지 : {DESTINATION}</Text>
           <Text>남은시간 : {EXTIME_MIN}</Text>

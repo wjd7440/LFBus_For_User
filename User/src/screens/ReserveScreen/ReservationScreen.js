@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import { BUS_STATION_LIST_QUERY } from "../Queries";
+import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import axios from "axios";
 import {
@@ -24,7 +24,9 @@ export default ({ navigation, route }) => {
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
   const DESTINATION = route.params ? route.params.DESTINATION : null;
-
+  const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+    fetchPolicy: "network-only",
+  });
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
   const parseString = require("react-native-xml2js").parseString;
@@ -61,7 +63,7 @@ export default ({ navigation, route }) => {
       setItemsArray(tempItems);
     }
   }, [loaded]);
-  console.log(items);
+
   return (
     <View>
       <Text>
@@ -105,11 +107,16 @@ export default ({ navigation, route }) => {
           nestedScrollEnabled: true,
         }}
       />
-      <Text>보조기구 종류 : 전동휠체어</Text>
+      <Text>보조기구 종류 :</Text>
+      <TextInput
+        onChangeText={(text) => setValue("equipment", text, true)}
+        value={!loading && user.UserInfo.equipment}
+      ></TextInput>
       <Text>메모 :</Text>
-      <Text>
-        교통약자석에 앉아계신분들이 있으면 미리 안내말씀 부탁드립니다.
-      </Text>
+      <TextInput
+        onChangeText={(text) => setValue("memo", text, true)}
+        value={!loading && user.UserInfo.memo}
+      ></TextInput>
       <Button title="예약하기" onPress={() => this.props.navigation.goBack()} />
       <Button title="취소하기" onPress={() => this.props.navigation.goBack()} />
     </View>
