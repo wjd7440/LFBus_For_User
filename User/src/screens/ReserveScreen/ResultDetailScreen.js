@@ -35,7 +35,7 @@ export default ({
         <View key={ROUTE_NO}>
           <Text>버스번호 : {ROUTE_NO}</Text>
           <Text>종착지 : {DESTINATION}</Text>
-          <Text>남은시간 : {EXTIME_MIN}</Text>
+          <Text>남은시간 : {EXTIME_MIN}분</Text>
           {STATUS_POS > 0 ? (
             <Text>{STATUS_POS}정류장 전</Text>
           ) : (

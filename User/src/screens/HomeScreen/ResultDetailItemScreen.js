@@ -33,12 +33,14 @@ export default ({ serviceKey, BusStopID }) => {
   };
 
   useEffect(() => {
-    const loader = dataLoader();
-    return dataLoader;
+    dataLoader();
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 15000);
   }, []);
 
   if (!loaded || !data[0]) {
-    return <Text>저상버스 도착정보가 없습니다.</Text>;
+    return <Text>실시간 저상버스 정보를 검색중입니다.</Text>;
   } else {
     return data[0].itemList.map((rowData, index) => {
       return (

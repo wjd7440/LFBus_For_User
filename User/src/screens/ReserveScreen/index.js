@@ -30,9 +30,10 @@ export default ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    // let timer = setInterval(() => {
     dataLoader();
-    // }, 15000);
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 15000);
   }, [BUS_NODE_ID]);
 
   useEffect(() => {
@@ -52,7 +53,7 @@ export default ({ navigation, route }) => {
     <View>
       {!loaded || !data[0] ? (
         <View>
-          <Text>저상버스 도착정보가 없습니다.</Text>
+          <Text>실시간 저상버스 정보를 검색중입니다.</Text>
         </View>
       ) : (
         <ScrollView>
