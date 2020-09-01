@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import SearchableDropdown from "react-native-searchable-dropdown";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
@@ -20,13 +21,22 @@ export default ({ navigation, route }) => {
   const [items, setItemsArray] = useState([]);
   const [arriveStationNo, setArriveStationNo] = useState(null);
   const [arriveStationName, setArriveStationName] = useState(null);
+  const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+    fetchPolicy: "network-only",
+  });
+  const { register, setValue, handleSubmit, errors, watch } = useForm({
+    defaultValues: {
+      equipment: route.params ? route.params.equipment : null,
+      memo: route.params ? route.params.memo : null,
+    },
+  });
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
   const DESTINATION = route.params ? route.params.DESTINATION : null;
-  const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
-    fetchPolicy: "network-only",
-  });
+  // const equipment = route.params ? route.params.equipment : null;
+  // const memo = route.params ? route.params.memo : null;
+  // console.log(equipment, memo);
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
   const parseString = require("react-native-xml2js").parseString;
@@ -45,9 +55,7 @@ export default ({ navigation, route }) => {
   };
 
   useEffect(() => {
-    // let timer = setInterval(() => {
     dataLoader();
-    // }, 15000);
   }, []);
 
   useEffect(() => {
@@ -110,12 +118,12 @@ export default ({ navigation, route }) => {
       <Text>보조기구 종류 :</Text>
       <TextInput
         onChangeText={(text) => setValue("equipment", text, true)}
-        value={!loading && user.UserInfo.equipment}
+        value={watch("equipment")}
       ></TextInput>
       <Text>메모 :</Text>
       <TextInput
         onChangeText={(text) => setValue("memo", text, true)}
-        value={!loading && user.UserInfo.memo}
+        value={watch("memo")}
       ></TextInput>
       <Button title="예약하기" onPress={() => this.props.navigation.goBack()} />
       <Button title="취소하기" onPress={() => this.props.navigation.goBack()} />

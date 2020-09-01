@@ -4,6 +4,8 @@ import ResultDetailScreen from "./ResultDetailScreen";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
+import { ACCOUNT_INFO_QUERY } from "../Queries";
+import { useQuery } from "react-apollo-hooks";
 
 export default ({ navigation, route }) => {
   const [data, setData] = useState([]);
@@ -28,6 +30,10 @@ export default ({ navigation, route }) => {
       });
     });
   };
+
+  const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+    fetchPolicy: "network-only",
+  });
 
   useEffect(() => {
     dataLoader();
@@ -72,6 +78,8 @@ export default ({ navigation, route }) => {
                         ROUTE_TP: rowData.ROUTE_TP,
                         ROUTE_CD: rowData.ROUTE_CD,
                         BUSSTOP_NM: BUSSTOP_NM,
+                        equipment: !loading && user.UserInfo.equipment,
+                        memo: !loading && user.UserInfo.memo,
                       });
                     }}
                   >
