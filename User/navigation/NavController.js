@@ -26,5 +26,4 @@ export default () => {
       <AuthNavigation></AuthNavigation>
     </>
   );
-  // }
 };

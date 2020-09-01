@@ -17,15 +17,12 @@ import { SIGNUP_QUERY, USERID_CHECK_QUERY } from "../Queries";
 import { Block, theme } from "galio-framework";
 
 export default ({ navigation }) => {
-  const [help, setHelp] = React.useState("true");
   const [signupMutation] = useMutation(SIGNUP_QUERY);
   const [loaded, setLoaded] = useState(false);
   const { register, setValue, handleSubmit, errors } = useForm();
 
   const [UserIdCheckMutation] = useMutation(USERID_CHECK_QUERY);
-
   const onSubmit = async (data) => {
-    console.log(data);
     setLoaded(true);
     try {
       const {

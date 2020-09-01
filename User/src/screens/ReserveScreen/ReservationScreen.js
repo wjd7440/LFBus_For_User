@@ -14,16 +14,16 @@ import {
   Button,
 } from "react-native";
 
-export default ({ navigation }) => {
+export default ({ navigation, route }) => {
   const [data, setData] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [items, setItemsArray] = useState([]);
   const [arriveStationNo, setArriveStationNo] = useState(null);
   const [arriveStationName, setArriveStationName] = useState(null);
-  const ROUTE_NO = navigation.getParam("ROUTE_NO");
-  const ROUTE_CD = navigation.getParam("ROUTE_CD");
-  const BUSSTOP_NM = navigation.getParam("BUSSTOP_NM");
-  const DESTINATION = navigation.getParam("DESTINATION");
+  const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
+  const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
+  const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
+  const DESTINATION = route.params ? route.params.DESTINATION : null;
 
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";

@@ -13,6 +13,7 @@ import Icon from "react-native-fontawesome-pro";
 import TabBar from "../components/TabBar";
 
 import HomeStack from "./HomeStack";
+import ReservationStack from "./ReservationStack";
 
 export default () => {
   return (
@@ -21,7 +22,8 @@ export default () => {
         initialRouteName="HomeStack"
         cardStyle={{ backgroundColor: "transparent" }}
       >
-        <Stack.Screen name="HomeStack" component={HomeStack} />
+        <Stack.Screen name="내 주변 버스정류장" component={HomeStack} />
+        <Stack.Screen name="예약하기" component={ReservationStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

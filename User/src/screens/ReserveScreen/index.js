@@ -5,11 +5,11 @@ import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default ({ navigation }) => {
+export default ({ navigation, route }) => {
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const BUS_NODE_ID = navigation.getParam("BUS_NODE_ID");
-  const BUSSTOP_NM = navigation.getParam("BUSSTOP_NM");
+  const BUS_NODE_ID = route.params ? route.params.BUS_NODE_ID : null;
+  const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
   const [time, setTime] = useState({});
 
   const API_KEY =
@@ -22,7 +22,6 @@ export default ({ navigation }) => {
       method: "get",
     }).then((response) => {
       parseString(response.data, function (err, result) {
-        // console.log(result);
         const busArriveInfoArray = result.ServiceResult.msgBody;
         setData(busArriveInfoArray);
         setLoaded(true);
@@ -57,37 +56,6 @@ export default ({ navigation }) => {
         </View>
       ) : (
         <ScrollView>
-          {/* <LinearGradient colors={["#00427E", "#002548"]}> */}
-          {/* <View>
-            <View>
-              <Text>{BUSSTOP_NM}</Text>
-            </View>
-            <View>
-              <Text>저상버스안내시스템</Text>
-            </View>
-            <View>
-              <Text>{time}</Text>
-            </View>
-          </View>
-          <View>
-            <View>
-              <Text>노선번호</Text>
-              <Text>Route</Text>
-            </View>
-            <View>
-              <Text>종착지</Text>
-              <Text>Destination</Text>
-            </View>
-            <View>
-              <Text>예정시간</Text>
-              <Text>Minute</Text>
-            </View>
-            <View>
-              <Text>버스위치</Text>
-              <Text>Location</Text>
-            </View>
-          </View> */}
-          {/* </LinearGradient> */}
           {data[0].itemList.map((rowData, index) => {
             return (
               <>

@@ -106,9 +106,12 @@ export default ({ navigation }) => {
                     <MapView.Callout
                       tooltip={true}
                       onPress={() => {
-                        navigation.navigate("ReserveScreen", {
-                          BUS_NODE_ID: rowData.BUS_NODE_ID,
-                          BUSSTOP_NM: rowData.BUSSTOP_NM,
+                        navigation.navigate("예약하기", {
+                          screen: "ReserveScreen",
+                          params: {
+                            BUS_NODE_ID: rowData.BUS_NODE_ID,
+                            BUSSTOP_NM: rowData.BUSSTOP_NM,
+                          },
                         });
                       }}
                     >
