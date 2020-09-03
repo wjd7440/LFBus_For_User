@@ -47,6 +47,7 @@ export default ({ serviceKey, BusStopID }) => {
         <>
           {rowData.CAR_REG_NO && (
             <ResultDetailScreen
+              key={index}
               CAR_REG_NO={rowData.CAR_REG_NO}
               ROUTE_NO={rowData.ROUTE_NO}
               STATUS_POS={rowData.STATUS_POS}

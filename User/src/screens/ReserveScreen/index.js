@@ -78,6 +78,7 @@ export default ({ navigation, route }) => {
                         ROUTE_TP: rowData.ROUTE_TP,
                         ROUTE_CD: rowData.ROUTE_CD,
                         BUSSTOP_NM: BUSSTOP_NM,
+                        BUS_NODE_ID: BUS_NODE_ID,
                         equipment: !loading && user.UserInfo.equipment,
                         memo: !loading && user.UserInfo.memo,
                       });

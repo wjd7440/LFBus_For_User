@@ -97,14 +97,20 @@ export default ({ navigation }) => {
               {data.UserBusStationList &&
                 data.UserBusStationList.busStations.map((rowData, index) => (
                   <MapView.Marker
-                    key={index}
+                    key={`Marker-${index}`}
+                    onMarkerPress={() => {
+                      console.log("hihihi");
+                    }}
                     coordinate={{
                       latitude: rowData.GPS_LATI,
                       longitude: rowData.GPS_LONG,
                     }}
                   >
                     <MapView.Callout
-                      key={index}
+                      key={`Callout-${index}`}
+                      onMarkerPress={() => {
+                        console.log("hihihi");
+                      }}
                       tooltip={true}
                       onPress={() => {
                         navigation.navigate("예약하기", {

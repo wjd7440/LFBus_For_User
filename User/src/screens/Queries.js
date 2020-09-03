@@ -82,3 +82,24 @@ export const BUS_INFO_QUERY = gql`
     }
   }
 `;
+
+// Reservation
+export const RESERVATION_WRITE_QUERY = gql`
+  mutation UserReservationWrite(
+    $CAR_REG_NO: String!
+    $BUS_NODE_ID: Int!
+    $departureStation: String!
+    $arrivalStation: String!
+    $equipment: String
+    $memo: String
+  ) {
+    UserReservationWrite(
+      CAR_REG_NO: $CAR_REG_NO
+      BUS_NODE_ID: $BUS_NODE_ID
+      departureStation: $departureStation
+      arrivalStation: $arrivalStation
+      equipment: $equipment
+      memo: $memo
+    )
+  }
+`;
