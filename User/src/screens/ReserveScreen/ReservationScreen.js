@@ -102,6 +102,7 @@ export default ({ navigation, route }) => {
               data: { UserReservationWrite },
             } = await reservationMutation({
               variables: {
+                ROUTE_NO: ROUTE_NO[0],
                 CAR_REG_NO: CAR_REG_NO[0],
                 BUS_NODE_ID,
                 departureStation: BUSSTOP_NM,

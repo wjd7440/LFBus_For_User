@@ -1,13 +1,12 @@
 import React from "react";
 import { StyleSheet, TouchableOpacity, Platform } from "react-native";
-import { useToggleModal } from "../AuthContext";
 import { Button, Text, Block, theme } from "galio-framework";
 import Icon from "react-native-fontawesome-pro";
 const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
 
-export default props => {
+export default (props) => {
   const {
     renderIcon,
     activeTintColor,
@@ -15,16 +14,15 @@ export default props => {
     onTabPress,
     onTabLongPress,
     getAccessibilityLabel,
-    navigation
+    navigation,
   } = props;
-  const toggleModal = useToggleModal();
   const { routes, index: activeRouteIndex } = navigation.state;
   const iconMap = {
     0: "home",
     1: "coins",
     2: "money-check-edit",
     3: "bars",
-    4: "qrcode"
+    4: "qrcode",
   };
 
   //   console.log(routes);
@@ -102,6 +100,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     borderTopWidth: 1,
-    borderColor: "#ddd"
-  }
+    borderColor: "#ddd",
+  },
 });

@@ -13,6 +13,7 @@ import { BUS_STATION_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import Loader from "../../../components/Loader";
 import ResultDetailItemScreen from "./ResultDetailItemScreen";
+import { ScrollView } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("window");
 
@@ -85,57 +86,68 @@ export default ({ navigation }) => {
     if (!loading) {
       return (
         <>
-          <View style={styles.container}>
-            <MapView
-              provider={PROVIDER_GOOGLE}
-              style={styles.map}
-              initialRegion={initialRegion}
-              region={region}
-              minZoomLevel={16}
-              maxZoomLevel={17}
-            >
-              {data.UserBusStationList &&
-                data.UserBusStationList.busStations.map((rowData, index) => (
-                  <MapView.Marker
-                    key={`Marker-${index}`}
-                    onMarkerPress={() => {
-                      console.log("hihihi");
-                    }}
-                    coordinate={{
-                      latitude: rowData.GPS_LATI,
-                      longitude: rowData.GPS_LONG,
-                    }}
-                  >
-                    <MapView.Callout
-                      key={`Callout-${index}`}
+          <View style={{ flex: 1, flexDirection: "column" }}>
+            <View style={styles.container}>
+              <MapView
+                provider={PROVIDER_GOOGLE}
+                style={styles.map}
+                initialRegion={initialRegion}
+                region={region}
+                minZoomLevel={16}
+                maxZoomLevel={17}
+              >
+                {data.UserBusStationList &&
+                  data.UserBusStationList.busStations.map((rowData, index) => (
+                    <MapView.Marker
+                      key={`Marker-${index}`}
                       onMarkerPress={() => {
                         console.log("hihihi");
                       }}
-                      tooltip={true}
-                      onPress={() => {
-                        navigation.navigate("예약하기", {
-                          screen: "ReserveScreen",
-                          params: {
-                            BUS_NODE_ID: rowData.BUS_NODE_ID,
-                            BUSSTOP_NM: rowData.BUSSTOP_NM,
-                          },
-                        });
+                      coordinate={{
+                        latitude: rowData.GPS_LATI,
+                        longitude: rowData.GPS_LONG,
                       }}
                     >
-                      <View style={styles.viewStyle}>
-                        <Text style={styles.textStyle}>
-                          {rowData.BUSSTOP_NM}
-                          {"\n"}({rowData.BUS_NODE_ID})
-                        </Text>
-                        <ResultDetailItemScreen
-                          serviceKey={API_KEY}
-                          BusStopID={rowData.BUS_NODE_ID}
-                        />
-                      </View>
-                    </MapView.Callout>
-                  </MapView.Marker>
-                ))}
-            </MapView>
+                      <MapView.Callout
+                        key={`Callout-${index}`}
+                        onMarkerPress={() => {
+                          console.log("hihihi");
+                        }}
+                        tooltip={true}
+                        onPress={() => {
+                          navigation.navigate("탑승 예약", {
+                            screen: "ReserveScreen",
+                            params: {
+                              BUS_NODE_ID: rowData.BUS_NODE_ID,
+                              BUSSTOP_NM: rowData.BUSSTOP_NM,
+                            },
+                          });
+                        }}
+                      >
+                        <View style={styles.viewStyle}>
+                          <Text style={styles.textStyle}>
+                            {rowData.BUSSTOP_NM}
+                            {"\n"}({rowData.BUS_NODE_ID})
+                          </Text>
+                          <ResultDetailItemScreen
+                            serviceKey={API_KEY}
+                            BusStopID={rowData.BUS_NODE_ID}
+                          />
+                        </View>
+                      </MapView.Callout>
+                    </MapView.Marker>
+                  ))}
+              </MapView>
+            </View>
+            <ScrollView>
+              <View style={styles.container2}>
+                <Text>버스 정류장 리스트</Text>
+                {data.UserBusStationList &&
+                  data.UserBusStationList.busStations.map((rowData, index) => (
+                    <Text>{rowData.BUSSTOP_NM}</Text>
+                  ))}
+              </View>
+            </ScrollView>
           </View>
         </>
       );
@@ -201,8 +213,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   container: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: "flex-end",
+    flex: 1,
+    alignItems: "center",
+  },
+  container2: {
+    flex: 1,
     alignItems: "center",
   },
   map: {

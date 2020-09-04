@@ -87,6 +87,7 @@ export const BUS_INFO_QUERY = gql`
 export const RESERVATION_WRITE_QUERY = gql`
   mutation UserReservationWrite(
     $CAR_REG_NO: String!
+    $ROUTE_NO: String!
     $BUS_NODE_ID: Int!
     $departureStation: String!
     $arrivalStation: String!
@@ -95,11 +96,35 @@ export const RESERVATION_WRITE_QUERY = gql`
   ) {
     UserReservationWrite(
       CAR_REG_NO: $CAR_REG_NO
+      ROUTE_NO: $ROUTE_NO
       BUS_NODE_ID: $BUS_NODE_ID
       departureStation: $departureStation
       arrivalStation: $arrivalStation
       equipment: $equipment
       memo: $memo
     )
+  }
+`;
+
+export const RESERVATION_LIST_QUERY = gql`
+  query UserReservationList($keyword: String, $skip: Int, $first: Int) {
+    UserReservationList(
+      keyword: $keyword
+      orderBy: "id_DESC"
+      skip: $skip
+      first: $first
+    ) {
+      reservations {
+        id
+        CAR_REG_NO
+        ROUTE_NO
+        BUS_NODE_ID
+        departureStation
+        arrivalStation
+        equipment
+        memo
+      }
+      count
+    }
   }
 `;
