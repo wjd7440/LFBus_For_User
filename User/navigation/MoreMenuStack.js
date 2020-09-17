@@ -5,6 +5,7 @@ const Stack = createStackNavigator();
 
 import MenuScreen from "../src/screens/MenuScreen/index";
 import ReservationCheckScreen from "../src/screens/MenuScreen/ReservationCheckScreen";
+import RouteScreen from "../src/screens/MenuScreen/RouteScreen";
 
 export default () => {
   return (
@@ -21,6 +22,7 @@ export default () => {
         name="ReservationCheckScreen"
         component={ReservationCheckScreen}
       />
+      <Stack.Screen name="RouteScreen" component={RouteScreen} />
     </Stack.Navigator>
   );
 };
