@@ -139,7 +139,7 @@ export default ({ navigation }) => {
                   ))}
               </MapView>
             </View>
-            <ScrollView>
+            {/* <ScrollView>
               <View style={styles.container2}>
                 <Text>버스 정류장 리스트</Text>
                 {data.UserBusStationList &&
@@ -147,7 +147,7 @@ export default ({ navigation }) => {
                     <Text>{rowData.BUSSTOP_NM}</Text>
                   ))}
               </View>
-            </ScrollView>
+            </ScrollView> */}
           </View>
         </>
       );

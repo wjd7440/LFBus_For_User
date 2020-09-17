@@ -14,6 +14,7 @@ export default ({ serviceKey, BusStopID }) => {
   const parseString = require("react-native-xml2js").parseString;
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState([]);
+  const [busExist, setBusExist] = useState(false);
 
   const dataLoader = () => {
     axios({
@@ -42,22 +43,29 @@ export default ({ serviceKey, BusStopID }) => {
   if (!loaded || !data[0]) {
     return <Text>실시간 저상버스 정보를 검색중입니다.</Text>;
   } else {
-    return data[0].itemList.map((rowData, index) => {
-      return (
-        <>
-          {rowData.CAR_REG_NO && (
-            <ResultDetailScreen
-              key={index}
-              CAR_REG_NO={rowData.CAR_REG_NO}
-              ROUTE_NO={rowData.ROUTE_NO}
-              STATUS_POS={rowData.STATUS_POS}
-              EXTIME_MIN={rowData.EXTIME_MIN}
-              DESTINATION={rowData.DESTINATION}
-              ROUTE_TP={rowData.ROUTE_TP}
-            />
-          )}
-        </>
-      );
-    });
+    return (
+      <>
+        {data[0].itemList.map((rowData, index) => {
+          return (
+            <>
+              {rowData.CAR_REG_NO && (
+                <ResultDetailScreen
+                  busExist={busExist}
+                  setBusExist={setBusExist}
+                  key={index}
+                  CAR_REG_NO={rowData.CAR_REG_NO}
+                  ROUTE_NO={rowData.ROUTE_NO}
+                  STATUS_POS={rowData.STATUS_POS}
+                  EXTIME_MIN={rowData.EXTIME_MIN}
+                  DESTINATION={rowData.DESTINATION}
+                  ROUTE_TP={rowData.ROUTE_TP}
+                />
+              )}
+            </>
+          );
+        })}
+        {!busExist && <Text>현재 저상버스 도착정보가 없습니다.</Text>}
+      </>
+    );
   }
 };
