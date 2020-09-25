@@ -47,8 +47,8 @@ export default ({
           ) : (
             <Text>버스위치 : 진입중</Text>
           )}
-          <Text>좌석1 : {data.UserBusInfo.SEAT1 ? "사용중" : "사용가능"}</Text>
-          <Text>좌석2 : {data.UserBusInfo.SEAT2 ? "사용중" : "사용가능"}</Text>
+          <Text>좌석1 : {data.UserBusInfo.SEAT1 ? "사용가능" : "사용중"}</Text>
+          <Text>좌석2 : {data.UserBusInfo.SEAT2 ? "사용가능" : "사용중"}</Text>
         </>
       );
     } else {

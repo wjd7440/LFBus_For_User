@@ -41,6 +41,10 @@ export default ({
           ) : (
             <Text>진입중</Text>
           )}
+
+          <Text>좌석1 : {data.UserBusInfo.SEAT1 ? "사용가능" : "사용중"}</Text>
+          <Text>좌석2 : {data.UserBusInfo.SEAT2 ? "사용가능" : "사용중"}</Text>
+          {/* <Text>CAR_REG_NO : {data.UserBusInfo.CAR_REG_NO}</Text> */}
         </View>
       );
     } else {
