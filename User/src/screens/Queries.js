@@ -79,6 +79,8 @@ export const BUS_INFO_QUERY = gql`
     UserBusInfo(CAR_REG_NO: $CAR_REG_NO) {
       BUS_TYPE
       CAR_REG_NO
+      SEAT1
+      SEAT2
     }
   }
 `;

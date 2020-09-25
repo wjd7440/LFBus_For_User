@@ -6385,6 +6385,11 @@ react-native-maps@0.27.1:
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
   integrity sha512-HygBkZBecTnIVRYrSiLRAvu4OmXOYso/A7c6Cy73HkOh9CgGV8Ap5eBea24tvmFGptjj5Hg8AJ94/YbmWK1Okw==
 
+react-native-nmap@0.0.52:
+  version "0.0.52"
+  resolved "https://registry.yarnpkg.com/react-native-nmap/-/react-native-nmap-0.0.52.tgz#d1fe0a44e79da0fc1f08a8c2aa03d93b7a5bf6b6"
+  integrity sha512-YjGxZ5Gzebrto5CjDsKdjvVlNGKrw4Pyx7aIm80WHhJpa3iQlVFilp8QS/inMpG0ou+cbDc2xJqgnLDyVIkGjg==
+
 react-native-paper@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-4.0.1.tgz#13d2272757fb738113582e900787f365cfa77c74"
