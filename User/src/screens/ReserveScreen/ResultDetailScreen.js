@@ -17,6 +17,7 @@ export default ({
   STATUS_POS,
   EXTIME_MIN,
   DESTINATION,
+  TOTAL_DIST,
   ROUTE_TP,
   navigation,
 }) => {

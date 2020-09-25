@@ -67,6 +67,7 @@ export const BUS_STATION_LIST_QUERY = gql`
         BUS_NODE_ID
         GPS_LATI
         GPS_LONG
+        DISTANCE
       }
       count
     }

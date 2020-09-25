@@ -127,7 +127,8 @@ export default ({ navigation }) => {
                         <View style={styles.viewStyle}>
                           <Text style={styles.textStyle}>
                             {rowData.BUSSTOP_NM}
-                            {"\n"}({rowData.BUS_NODE_ID})
+                            {"\n"}({rowData.BUS_NODE_ID}){"\n"}거리 :{" "}
+                            {rowData.DISTANCE * 1000}m
                           </Text>
                           <ResultDetailItemScreen
                             serviceKey={API_KEY}
