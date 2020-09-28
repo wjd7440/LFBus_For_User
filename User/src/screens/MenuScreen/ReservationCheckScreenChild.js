@@ -41,7 +41,7 @@ export default ({
     });
     console.log(UserReservationDelete);
     if (UserReservationDelete) {
-      Alert.alert("삭제에 되었습니다.");
+      Alert.alert("삭제 되었습니다.");
       navigation.replace("ReservationCheckScreen");
     } else {
       setLoaded(false);

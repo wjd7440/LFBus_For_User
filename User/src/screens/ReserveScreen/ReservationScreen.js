@@ -114,11 +114,15 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.navigate("HomeScreen");
+              navigation.replace("내 주변 정류장", {
+                screen: "HomeScreen",
+              });
             } else {
               setLoaded(false);
               Alert.alert("예약에 실패했습니다. 다시 시도해주세요.");
-              navigation.navigate("HomeScreen");
+              navigation.replace("내 주변 정류장", {
+                screen: "HomeScreen",
+              });
             }
           } else {
             Alert.alert("선택하신 정류장에 예약하시려는 버스가 없습니다.");
