@@ -84,9 +84,7 @@ export default ({ navigation }) => {
     getLocation();
   }, []);
 
-
   const renderMap = () => {
-    const
     if (!loading) {
       return (
         <>
