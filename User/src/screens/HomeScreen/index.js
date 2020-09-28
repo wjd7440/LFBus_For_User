@@ -14,6 +14,7 @@ import { useQuery } from "react-apollo-hooks";
 import Loader from "../../../components/Loader";
 import ResultDetailItemScreen from "./ResultDetailItemScreen";
 import { ScrollView } from "react-native-gesture-handler";
+import * as Font from "expo-font";
 
 const { width, height } = Dimensions.get("window");
 
@@ -82,12 +83,14 @@ export default ({ navigation }) => {
     getLocation();
   }, []);
 
+
   const renderMap = () => {
+    const
     if (!loading) {
       return (
         <>
           <View style={{ flex: 1, flexDirection: "column" }}>
-            <View style={styles.container}>
+            <View style={styles.mainMapWrap}>
               <MapView
                 provider={PROVIDER_GOOGLE}
                 style={styles.map}
@@ -140,15 +143,17 @@ export default ({ navigation }) => {
                   ))}
               </MapView>
             </View>
-            {/* <ScrollView>
-              <View style={styles.container2}>
-                <Text>버스 정류장 리스트</Text>
-                {data.UserBusStationList &&
-                  data.UserBusStationList.busStations.map((rowData, index) => (
-                    <Text>{rowData.BUSSTOP_NM}</Text>
-                  ))}
-              </View>
-            </ScrollView> */}
+            <View style={styles.busListWrap}>
+              <Text style={styles.busListTit}>내 주변정류장</Text>
+              <ScrollView>
+                <View style={styles.busListItem}>
+                  {data.UserBusStationList &&
+                    data.UserBusStationList.busStations.map(
+                      (rowData, index) => <Text>{rowData.BUSSTOP_NM}12</Text>
+                    )}
+                </View>
+              </ScrollView>
+            </View>
           </View>
         </>
       );
@@ -161,6 +166,20 @@ export default ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  mainMapWrap: {
+    flex: 3,
+  },
+  busListWrap: {
+    backgroundColor: "#f5f5f5",
+    flex: 2,
+    paddingRight: 15,
+    paddingLeft: 15,
+  },
+  busListTit: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    fontWeight: "bold",
+  },
   textStyle: {
     fontSize: 16,
     alignSelf: "center",
@@ -217,10 +236,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-  container2: {
-    flex: 1,
-    alignItems: "center",
-  },
+
   map: {
     ...StyleSheet.absoluteFillObject,
   },
