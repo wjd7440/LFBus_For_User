@@ -116,7 +116,7 @@ export default ({ navigation }) => {
                         }}
                         tooltip={true}
                         onPress={() => {
-                          navigation.navigate("탑승 예약", {
+                          navigation.replace("탑승 예약", {
                             screen: "ReserveScreen",
                             params: {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,

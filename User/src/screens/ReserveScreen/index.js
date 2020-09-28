@@ -99,7 +99,15 @@ export default ({ navigation, route }) => {
               </>
             );
           })}
-          <Text>뒤로가기</Text>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("내 주변 정류장", {
+                screen: "HomeScreen",
+              });
+            }}
+          >
+            <Text>뒤로가기</Text>
+          </TouchableOpacity>
         </ScrollView>
       )}
     </View>
