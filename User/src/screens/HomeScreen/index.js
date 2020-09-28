@@ -5,6 +5,7 @@ import {
   Text,
   Dimensions,
   TouchableOpacity,
+  RefreshControl,
 } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";

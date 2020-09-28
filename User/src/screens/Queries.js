@@ -126,8 +126,15 @@ export const RESERVATION_LIST_QUERY = gql`
         arrivalStation
         equipment
         memo
+        createdAt
       }
       count
     }
+  }
+`;
+
+export const RESERVATION_DELETE_QUERY = gql`
+  mutation UserReservationDelete($id: String) {
+    UserReservationDelete(id: $id)
   }
 `;

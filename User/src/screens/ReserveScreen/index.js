@@ -99,6 +99,7 @@ export default ({ navigation, route }) => {
               </>
             );
           })}
+          <Text>뒤로가기</Text>
         </ScrollView>
       )}
     </View>
