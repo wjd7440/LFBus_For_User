@@ -6,6 +6,7 @@ import {
   Dimensions,
   TouchableOpacity,
   RefreshControl,
+  Image,
 } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -101,6 +102,7 @@ export default ({ navigation }) => {
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
                     <MapView.Marker
+                      image={require("../../../assets/busmarker.png")}
                       key={`Marker-${index}`}
                       onMarkerPress={() => {
                         console.log("hihihi");
@@ -142,13 +144,70 @@ export default ({ navigation }) => {
                   ))}
               </MapView>
             </View>
-            <View style={styles.busListWrap}>
-              <Text style={styles.busListTit}>내 주변정류장</Text>
+            <View style={styles.busWrap}>
+              <Text
+                style={{
+                  fontSize: 12,
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  marginRight: 15,
+                  marginLeft: 15,
+                  color: "#454545",
+                }}
+              >
+                내 주변정류장
+              </Text>
               <ScrollView>
-                <View style={styles.busListItem}>
+                <View style={styles.busListTitBox}>
                   {data.UserBusStationList &&
                     data.UserBusStationList.busStations.map(
-                      (rowData, index) => <Text>{rowData.BUSSTOP_NM}12</Text>
+                      (rowData, index) => (
+                        <View style={styles.busItem}>
+                          <View style={styles.busLeft}>
+                            <View style={styles.away}>
+                              <Image
+                                style={styles.markerImg}
+                                source={require("../../../assets/marker01.png")}
+                              />
+                              <Text
+                                style={{
+                                  fontSize: 20,
+                                  color: "#4B56F1",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                {/* 정류장거리가 몇 미터 남았는지 넣어주세요 */}
+                                2171
+                              </Text>
+                              <Text
+                                style={{
+                                  fontSize: 14,
+                                  color: "#4B56F1",
+                                  marginTop: -3,
+                                }}
+                              >
+                                미터
+                              </Text>
+                            </View>
+                          </View>
+                          <View style={styles.busRight}>
+                            <Text style={styles.busTit}>
+                              {rowData.BUSSTOP_NM}
+                            </Text>
+                            {/* 정류장이 어느방면인지 넣어주세요 */}
+                            <Text style={styles.busDirection}>중구청 방면</Text>
+                            <View style={styles.busListBox}>
+                              <Text style={styles.busLabel}>저상</Text>
+                              <View style={styles.busList}>
+                                {/* 진입중인 버스번호 입니다. */}
+                                <Text style={styles.busNum}>101</Text>
+                                <Text style={styles.busNum}>102</Text>
+                                <Text style={styles.busNum}>103</Text>
+                              </View>
+                            </View>
+                          </View>
+                        </View>
+                      )
                     )}
                 </View>
               </ScrollView>
@@ -168,21 +227,78 @@ const styles = StyleSheet.create({
   mainMapWrap: {
     flex: 3,
   },
-  busListWrap: {
+  busWrap: {
     backgroundColor: "#f5f5f5",
     flex: 2,
-    paddingRight: 15,
-    paddingLeft: 15,
   },
-  busListTit: {
-    paddingTop: 5,
-    paddingBottom: 5,
+  busItem: {
+    backgroundColor: "#ffffff",
+    borderRadius: 7,
+    marginBottom: 10,
+    marginRight: 15,
+    marginLeft: 15,
+
+    paddingTop: 15,
+    paddingBottom: 18,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 1.41,
+    elevation: 0.6,
+    flexDirection: "row",
+  },
+  busLeft: {
+    width: 90,
+    paddingLeft: 15,
+    paddingRight: 15,
+    justifyContent: "center",
+    alignItems: "flex-start",
+  },
+  busRight: {},
+  away: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  markerImg: {
+    marginTop: 2
+    ,
+    width: 12,
+    height: 18,
+  },
+  busTit: {
+    fontSize: 20,
+    color: "#4B56F1",
     fontWeight: "bold",
   },
-  textStyle: {
+  busDirection: {
+    fontSize: 14,
+    color: "#a1a1a1",
+    paddingBottom: 6,
+  },
+  busListBox: {
+    flexDirection: "row",
+    alignSelf: "flex-start",
+  },
+  busList: {
+    flexDirection: "row",
+  },
+  busNum: {
     fontSize: 16,
-    alignSelf: "center",
-    padding: 5,
+    marginRight: 8,
+  },
+  busLabel: {
+    fontSize: 12,
+    color: "white",
+    backgroundColor: "#4B56F1",
+    paddingRight: 4,
+    paddingLeft: 4,
+    paddingTop: 2,
+    paddingBottom: 2,
+    borderRadius: 4,
+    marginRight: 5,
   },
   button: {
     width: 80,
@@ -214,10 +330,6 @@ const styles = StyleSheet.create({
     elevation: 3,
     position: "relative",
   },
-  headerStyle: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
   modalContainerViewStyle: {
     flex: 1,
     flexDirection: "column",
@@ -235,15 +347,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
   },
-
   map: {
     ...StyleSheet.absoluteFillObject,
-  },
-  bubble: {
-    backgroundColor: "rgba(255,255,255,0.7)",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20,
   },
   latlng: {
     width: 200,
