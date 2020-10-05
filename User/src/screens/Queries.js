@@ -61,13 +61,18 @@ export const SIGNUP_QUERY = gql`
 // BusStationList
 export const BUS_STATION_LIST_QUERY = gql`
   query UserBusStationList($latitude: String!, $longitude: String!) {
-    UserBusStationList(latitude: $latitude, longitude: $longitude) {
+    UserBusStationList(
+      latitude: $latitude
+      longitude: $longitude
+      orderBy: "DISTANCE_DESC"
+    ) {
       busStations {
         BUSSTOP_NM
         BUS_NODE_ID
         GPS_LATI
         GPS_LONG
         DISTANCE
+        BUS_STOP_ID
       }
       count
     }

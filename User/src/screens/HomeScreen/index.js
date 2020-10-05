@@ -15,6 +15,7 @@ import { BUS_STATION_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import Loader from "../../../components/Loader";
 import ResultDetailItemScreen from "./ResultDetailItemScreen";
+import StationListDetailItemScreen from "./StationListDetailItemScreen";
 import { ScrollView } from "react-native-gesture-handler";
 import * as Font from "expo-font";
 
@@ -162,7 +163,18 @@ export default ({ navigation }) => {
                   {data.UserBusStationList &&
                     data.UserBusStationList.busStations.map(
                       (rowData, index) => (
-                        <View style={styles.busItem}>
+                        <TouchableOpacity
+                          style={styles.busItem}
+                          onPress={() => {
+                            navigation.replace("탑승 예약", {
+                              screen: "ReserveScreen",
+                              params: {
+                                BUS_NODE_ID: rowData.BUS_NODE_ID,
+                                BUSSTOP_NM: rowData.BUSSTOP_NM,
+                              },
+                            });
+                          }}
+                        >
                           <View style={styles.busLeft}>
                             <View style={styles.away}>
                               <Image
@@ -176,8 +188,7 @@ export default ({ navigation }) => {
                                   fontWeight: "bold",
                                 }}
                               >
-                                {/* 정류장거리가 몇 미터 남았는지 넣어주세요 */}
-                                2171
+                                {rowData.DISTANCE * 1000}
                               </Text>
                               <Text
                                 style={{
@@ -194,19 +205,20 @@ export default ({ navigation }) => {
                             <Text style={styles.busTit}>
                               {rowData.BUSSTOP_NM}
                             </Text>
-                            {/* 정류장이 어느방면인지 넣어주세요 */}
-                            <Text style={styles.busDirection}>중구청 방면</Text>
+                            <Text style={styles.busDirection}>
+                              {rowData.BUS_STOP_ID}
+                            </Text>
                             <View style={styles.busListBox}>
                               <Text style={styles.busLabel}>저상</Text>
                               <View style={styles.busList}>
-                                {/* 진입중인 버스번호 입니다. */}
-                                <Text style={styles.busNum}>101</Text>
-                                <Text style={styles.busNum}>102</Text>
-                                <Text style={styles.busNum}>103</Text>
+                                <StationListDetailItemScreen
+                                  serviceKey={API_KEY}
+                                  BusStopID={rowData.BUS_NODE_ID}
+                                />
                               </View>
                             </View>
                           </View>
-                        </View>
+                        </TouchableOpacity>
                       )
                     )}
                 </View>
@@ -263,8 +275,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   markerImg: {
-    marginTop: 2
-    ,
+    marginTop: 2,
     width: 12,
     height: 18,
   },
