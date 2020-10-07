@@ -1,7 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import SearchableDropdown from "react-native-searchable-dropdown";
-import { ACCOUNT_INFO_QUERY, RESERVATION_WRITE_QUERY } from "../Queries";
+import {
+  ACCOUNT_INFO_QUERY,
+  RESERVATION_WRITE_QUERY,
+  BUS_INFO_QUERY,
+} from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
 import axios from "axios";
@@ -40,6 +44,13 @@ export default ({ navigation, route }) => {
   const DESTINATION = route.params ? route.params.DESTINATION : null;
   const CAR_REG_NO = route.params ? route.params.CAR_REG_NO : null;
 
+  const { data: busInfo, loading } = useQuery(BUS_INFO_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      CAR_REG_NO: CAR_REG_NO[0],
+    },
+  });
+
   const API_KEY =
     "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
   const parseString = require("react-native-xml2js").parseString;
@@ -65,16 +76,15 @@ export default ({ navigation, route }) => {
       // console.log(arr[i][prop][0]);
       // console.log(value);
       if (arr[i][prop][0] === value) {
-        console.log("버스있음");
+        // console.log("버스있음");
         return true;
       }
     }
-    console.log("버스지나감");
+    // console.log("버스지나감");
     return false;
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       axios({
         url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY2}&BusStopID=${BUS_NODE_ID}`,
@@ -90,14 +100,6 @@ export default ({ navigation, route }) => {
               "CAR_REG_NO"
             )
           ) {
-            console.log({
-              CAR_REG_NO,
-              BUS_NODE_ID,
-              departureStation: BUSSTOP_NM,
-              arrivalStation: arriveStationName,
-              equipment: data.equipment,
-              memo: data.memo,
-            });
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({
@@ -109,6 +111,7 @@ export default ({ navigation, route }) => {
                 arrivalStation: arriveStationName,
                 equipment: data.equipment,
                 memo: data.memo,
+                deviceToken: busInfo.UserBusInfo.deviceToken,
               },
             });
 

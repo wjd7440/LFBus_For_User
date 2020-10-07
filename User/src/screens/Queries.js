@@ -87,6 +87,7 @@ export const BUS_INFO_QUERY = gql`
       CAR_REG_NO
       SEAT1
       SEAT2
+      deviceToken
     }
   }
 `;
@@ -101,6 +102,7 @@ export const RESERVATION_WRITE_QUERY = gql`
     $arrivalStation: String!
     $equipment: String
     $memo: String
+    $deviceToken: String
   ) {
     UserReservationWrite(
       CAR_REG_NO: $CAR_REG_NO
@@ -110,6 +112,7 @@ export const RESERVATION_WRITE_QUERY = gql`
       arrivalStation: $arrivalStation
       equipment: $equipment
       memo: $memo
+      deviceToken: $deviceToken
     )
   }
 `;
