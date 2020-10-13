@@ -33,7 +33,7 @@ const TabStack = () => {
       }}
     >
       <Tab.Screen
-        name="매인"
+        name="내 주변 정류장"
         component={HomeStack}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -86,9 +86,9 @@ export default () => {
         cardStyle={{ backgroundColor: "transparent" }}
       >
         <Stack.Screen name="내 주변 정류장" component={TabStack} />
-        <Stack.Screen name="메뉴" component={MoreMenuStack} />
+        <Stack.Screen name="메뉴" component={TabStack} />
         <Stack.Screen name="탑승 예약" component={ReservationStack} />
-        <Stack.Screen name="검색" component={SearchStack} />
+        <Stack.Screen name="검색" component={TabStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

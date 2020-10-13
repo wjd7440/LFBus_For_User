@@ -92,6 +92,50 @@ export const BUS_INFO_QUERY = gql`
   }
 `;
 
+// BusRoute
+export const BUS_ROUTE_LIST_QUERY = gql`
+  query UserBusRouteList($ROUTE_TP: Int,$keyword: String, $skip: Int, $first: Int) {
+    UserBusRouteList(
+      ROUTE_TP: $ROUTE_TP
+      keyword: $keyword
+      orderBy: "ROUTE_NO_ASC"
+      skip: $skip
+      first: $first
+    ) {
+      busRoutes {
+        ALLO_INTERVAL
+        ALLO_INTERVAL_SAT
+        ALLO_INTERVAL_SUN
+        BUSSTOP_CNT
+        END_NODE_ID
+        END_STOP_ID
+        ORIGIN_END
+        ORIGIN_END_SAT
+        ORIGIN_END_SUN
+        ORIGIN_START
+        ORIGIN_START_SAT
+        ORIGIN_START_SUN
+        ROUTE_CD
+        ROUTE_NO
+        ROUTE_TP
+        RUN_DIST_HALF
+        RUN_TM
+        START_NODE_ID
+        START_STOP_ID
+        TURN_END
+        TURN_END_SAT
+        TURN_END_SUN
+        TURN_NODE_ID
+        TURN_START
+        TURN_START_SAT
+        TURN_START_SUN
+        TURN_STOP_ID
+      }
+      count
+    }
+  }
+`;
+
 // Reservation
 export const RESERVATION_WRITE_QUERY = gql`
   mutation UserReservationWrite(
