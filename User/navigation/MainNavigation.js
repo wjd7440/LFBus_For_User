@@ -15,6 +15,7 @@ import TabBar from "../components/TabBar";
 import HomeStack from "./HomeStack";
 import ReservationStack from "./ReservationStack";
 import MoreMenuStack from "./MoreMenuStack";
+import SearchStack from "./SearchStack";
 
 const TabStack = () => {
   return (
@@ -59,6 +60,20 @@ const TabStack = () => {
           ),
         }}
       />
+      <Tab.Screen
+        name="정류장 검색"
+        component={SearchStack}
+        options={{
+          tabBarIcon: ({ focused, color }) => (
+            <Block center>
+              <Icon name="search" type="light" color={color} size={24} />
+              <Text style={{ marginTop: 5 }} color={color} size={13}>
+                검색
+              </Text>
+            </Block>
+          ),
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -73,6 +88,7 @@ export default () => {
         <Stack.Screen name="내 주변 정류장" component={TabStack} />
         <Stack.Screen name="메뉴" component={MoreMenuStack} />
         <Stack.Screen name="탑승 예약" component={ReservationStack} />
+        <Stack.Screen name="검색" component={SearchStack} />
       </Stack.Navigator>
     </NavigationContainer>
   );

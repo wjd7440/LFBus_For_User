@@ -230,7 +230,11 @@ export default ({ navigation, route }) => {
 
       <Button
         title="취소하기"
-        onPress={() => navigation.navigate("HomeScreen")}
+        onPress={() => {
+          navigation.replace("내 주변 정류장", {
+            screen: "HomeScreen",
+          });
+        }}
       />
     </View>
   );

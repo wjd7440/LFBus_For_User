@@ -6,6 +6,7 @@ import { ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "expo-linear-gradient";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
+import { Header } from "../../../components";
 
 export default ({ navigation, route }) => {
   const [data, setData] = useState([]);
@@ -57,6 +58,12 @@ export default ({ navigation, route }) => {
 
   return (
     <View>
+      {/* <Header
+        title="탑승 예약"
+        close
+        closeNavigate={"HomeScreen"}
+        navigation={navigation}
+      /> */}
       {!loaded || !data[0] ? (
         <View>
           <Text>실시간 저상버스 정보를 검색중입니다.</Text>

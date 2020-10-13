@@ -21,6 +21,7 @@ export default ({
   TOTAL_DIST,
   ROUTE_TP,
   navigation,
+  route
 }) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
