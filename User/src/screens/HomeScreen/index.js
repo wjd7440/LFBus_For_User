@@ -98,7 +98,7 @@ export default ({ navigation }) => {
                 initialRegion={initialRegion}
                 region={region}
                 minZoomLevel={16}
-                maxZoomLevel={17}
+                maxZoomLevel={18}
               >
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
@@ -129,11 +129,25 @@ export default ({ navigation }) => {
                           });
                         }}
                       >
-                        <View style={styles.viewStyle}>
-                          <Text style={styles.textStyle}>
+                        {/* 팝업 모달창 */}
+                        <View style={styles.busModalStyle}>
+                          {/* 정류장 이름 */}
+                          <Text style={{ fontSize: 15 }}>
                             {rowData.BUSSTOP_NM}
-                            {"\n"}({rowData.BUS_NODE_ID}){"\n"}거리 :{" "}
-                            {rowData.DISTANCE * 1000}m
+                          </Text>
+                          {/* 정류장 아이디 */}
+                          <Text
+                            style={{
+                              fontSize: 13,
+                              color: "#8D8E93",
+                              marginBottom: 5,
+                            }}
+                          >
+                            {rowData.BUS_NODE_ID}
+                          </Text>
+                          {/* 정류장 거리 */}
+                          <Text style={{ fontSize: 13, color: "#FF4444" }}>
+                            {rowData.DISTANCE * 1000}미터
                           </Text>
                           <ResultDetailItemScreen
                             serviceKey={API_KEY}
@@ -323,11 +337,15 @@ const styles = StyleSheet.create({
     backgroundColor: "transparent",
     justifyContent: "center",
   },
-  viewStyle: {
+  busModalStyle: {
     width: 200,
-    height: 250,
     backgroundColor: "#fff",
-    padding: 20,
+    paddingTop: 13,
+    paddingBottom: 14,
+    paddingRight: 15,
+    paddingLeft: 15,
+    borderColor: "#ddd",
+    borderWidth: 1,
   },
   headerViewStyle: {
     justifyContent: "center",

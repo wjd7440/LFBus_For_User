@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Alert,
   StyleSheet,
+  Image,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -53,7 +54,7 @@ export default ({ navigation }) => {
       }
     } catch (e) {
       console.log(e);
-      Alert.alert("로그인 할 수 없습니다. 다시 시도해주새요.");
+      Alert.alert("아이디 또는 비빌번호가 일치하지 않습니다.");
     }
   };
 
@@ -76,12 +77,15 @@ export default ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.titleArea}>
-        <Text style={styles.title}>LFBus_For_User</Text>
+        <Image
+          style={styles.loginLogo}
+          source={require("../../../assets/logo.png")}
+        />
       </View>
       <View style={styles.formArea}>
         <TextInput
           style={styles.textForm}
-          placeholder={"ID"}
+          placeholder={"아이디(이메일)를 입력해주세요."}
           name="userId"
           onChangeText={(text) => {
             var lowerCase = text.toLowerCase();
@@ -90,13 +94,15 @@ export default ({ navigation }) => {
         />
         {errors.userId && (
           <Block>
-            <Text color={"#F5365C"}>{errors.userId.message}</Text>
+            <Text style={styles.errorTxt}>{errors.userId.message}</Text>
           </Block>
         )}
+      </View>
+      <View style={styles.formArea}>
         <TextInput
           secureTextEntry={true}
           style={styles.textForm}
-          placeholder={"Password"}
+          placeholder={"비밀번호를 입력해주세요."}
           name="password"
           onChangeText={(text) => {
             setValue("password", text, true);
@@ -104,12 +110,13 @@ export default ({ navigation }) => {
         />
         {errors.password && (
           <Block>
-            <Text color={"#F5365C"}>{errors.password.message}</Text>
+            <Text style={styles.errorTxt}>{errors.password.message}</Text>
           </Block>
         )}
       </View>
-      <View style={styles.buttonArea}>
+      <View style={{ ...styles.buttonArea }}>
         <TouchableOpacity
+          activeOpacity={0.95}
           style={styles.button}
           onPress={handleSubmit(onSubmit)}
         >
@@ -132,43 +139,53 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    paddingLeft: wp("10%"),
-    paddingRight: wp("10%"),
+    paddingLeft: wp("7%"),
+    paddingRight: wp("7%"),
     justifyContent: "center",
   },
   titleArea: {
     width: "100%",
-    padding: wp("10%"),
+    paddingBottom: wp("10%"),
     alignItems: "center",
   },
-  title: {
-    fontSize: wp("8%"),
+  loginLogo: {
+    width: 180,
+    resizeMode: "contain",
   },
   formArea: {
     width: "100%",
-    paddingBottom: wp("10%"),
+    paddingBottom: wp("3%"),
   },
   textForm: {
-    borderWidth: 0.5,
-    borderColor: "#888",
+    borderBottomWidth: 0.5,
+    borderColor: "#ddd",
     width: "100%",
     height: hp("5%"),
     paddingLeft: 5,
     paddingRight: 5,
-    marginBottom: 5,
+    marginBottom: 8,
   },
   buttonArea: {
     width: "100%",
     height: hp("5%"),
+    marginTop: 20,
   },
   button: {
-    backgroundColor: "#46c3ad",
+    backgroundColor: "#4B56F1",
     width: "100%",
-    height: "100%",
+    height: hp("7.6%"),
     justifyContent: "center",
     alignItems: "center",
+    borderRadius: 4,
+    marginBottom: 20,
   },
   buttonTitle: {
     color: "white",
+    // fontSize: wp("3.9%"),
+    fontSize: 16,
+  },
+  errorTxt: {
+    color: "#FF3B3B",
+    fontSize: 13,
   },
 });
