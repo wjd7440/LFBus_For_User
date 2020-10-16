@@ -1,6 +1,7 @@
 import React, { useEffect, useState, Component } from "react";
 import { Text } from "react-native-paper";
 import RadioGroup from "../../../components/RadioGroup";
+import CheckBox from "react-native-check-box";
 import RNPickerSelect from 'react-native-picker-select';
 import {
   View,
@@ -18,6 +19,8 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo-hooks";
 import { SIGNUP_QUERY, USERID_CHECK_QUERY } from "../Queries";
 import { Block, theme } from "galio-framework";
+import Provision1Modal from "./Provision1Modal";
+
 const localArray = [
   {
     0: {
@@ -262,7 +265,7 @@ const localArray = [
     }
   }
 ];
-console.log(localArray)
+
 const sexArray = [
   {
     backgroundBtnColor: "#FFF6E3",
@@ -321,11 +324,16 @@ const equipmentArray = [
 
 export default ({ navigation }) => {
   const [gu, setGu] = useState(0);
+  const [allProvision, setAllProvision] = useState(false);
+  const [provision1IsVisible, setProvision1IsVisible] = useState(false);
   const [signupMutation] = useMutation(SIGNUP_QUERY);
   const [loaded, setLoaded] = useState(false);
   const { register, setValue, handleSubmit, errors, watch } = useForm();
 
   const [UserIdCheckMutation] = useMutation(USERID_CHECK_QUERY);
+  const provision1ToggleModal = () => {
+    setProvision1IsVisible(!provision1IsVisible);
+  };
   const onSubmit = async (data) => {
     setLoaded(true);
     try {
@@ -411,6 +419,10 @@ export default ({ navigation }) => {
         required: "보조기구를 선택해주세요.",
       }
     );
+    register(
+      { name: "provision1" },
+      { required: "서비스 이용약관에 동의해주세요." }
+    );
   }, [register]);
 
   return (
@@ -476,22 +488,30 @@ export default ({ navigation }) => {
           flexDirection="row"
         />
         <Text style={styles.question}>거주지 : </Text>
-        <RNPickerSelect
+        {/* <RNPickerSelect
+          onValueChange={
+            (value) => setGu(value)
+          }
+
+          items={[
+            { label: '동구', value: 0 },
+            { label: '중구', value: 1 },
+            { label: '서구', value: 2 },
+            { label: '유성구', value: 3 },
+            { label: '대덕구', value: 4 },
+          ]}
+        /> */}
+        {/* {console.log(gu)}
+        {console.log(localArray[0][gu])} */}
+
+        {/* <RNPickerSelect
           onValueChange={(value) => setGu(value)}
           items={[
-            { label: '동구', value: '0' },
-            { label: '중구', value: '1' },
-            { label: '서구', value: '2' },
-            { label: '유성구', value: '3' },
-            { label: '대덕구', value: '4' },
+            localArray[0][0].localDongCode.map((rowData, index) => {
+              console.log(rowData)
+            })
           ]}
-        />
-        <RNPickerSelect
-          // onValueChange={(value) => setGu(value)}
-          items={[
-
-          ]}
-        />
+        /> */}
         <Text style={styles.question}>사용하는 보조기구 : </Text>
         <RadioGroup
           radioButtons={equipmentArray}
@@ -516,13 +536,69 @@ export default ({ navigation }) => {
             }}
           />
         </View>
+        <TouchableOpacity>
+          <CheckBox
+            rightTextStyle={{
+              color: "#333",
+              fontSize: 15,
+              lineHeight: 60,
+            }}
+            onClick={() => {
+              setValue("provision1", !watch("provision1"), true);
+              if (
+                watch("provision1") === true
+              ) {
+                setAllProvision(true);
+              } else {
+                setAllProvision(false);
+              }
+            }}
+            rightText={"서비스 이용약관 동의"}
+            isChecked={watch("provision1")}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ height: 60 }}
+          middle
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: "#eee",
+          }}
+          onPress={() => {
+            provision1ToggleModal();
+          }}
+        >
+          <Block middle style={{ height: 60 }}>
+            <Text
+              style={{
+                color: "#777",
+                textDecorationLine: "underline",
+              }}
+              size={14}
+            >
+              내용보기
+            </Text>
+          </Block>
+        </TouchableOpacity>
+        {errors.provision1 && (
+          <Block style={{ height: 30 }}>
+            <Text color={"#F5365C"}>{errors.provision1.message}</Text>
+          </Block>
+        )}
       </View>
-      <TouchableOpacity onPress={() => {
-
-        console.log("qweqweqweqqqqweqwe");
-        handleSubmit(onSubmit);
-      }}>
+      <Provision1Modal
+        isVisible={provision1IsVisible}
+        toggleModal={provision1ToggleModal}
+      />
+      <TouchableOpacity onPress={handleSubmit(onSubmit)}>
         <Text size={25}>가입</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("LoginScreen");
+        }}
+      >
+        <Text>뒤로가기</Text>
       </TouchableOpacity>
     </View>
   );
@@ -545,7 +621,7 @@ const styles = StyleSheet.create({
     fontSize: wp("8%"),
   },
   question: {
-    fontSize: wp("6%"),
+    fontSize: wp("2%"),
   },
   formArea: {
     width: "100%",
