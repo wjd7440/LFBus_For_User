@@ -21,6 +21,25 @@ import { SIGNUP_QUERY, USERID_CHECK_QUERY } from "../Queries";
 import { Block, theme } from "galio-framework";
 import Provision1Modal from "./Provision1Modal";
 
+const localGuArray = [
+  {
+    label: "동구",
+    value: 0
+  }, {
+    label: "중구",
+    value: 1
+  }, {
+    label: "서구",
+    value: 2
+  }, {
+    label: "유성구",
+    value: 3
+  }, {
+    label: "대덕구",
+    value: 4
+  }
+]
+
 const localArray = [
   {
     0: {
@@ -488,21 +507,15 @@ export default ({ navigation }) => {
           flexDirection="row"
         />
         <Text style={styles.question}>거주지 : </Text>
-        {/* <RNPickerSelect
+        <RNPickerSelect
           onValueChange={
             (value) => setGu(value)
           }
 
-          items={[
-            { label: '동구', value: 0 },
-            { label: '중구', value: 1 },
-            { label: '서구', value: 2 },
-            { label: '유성구', value: 3 },
-            { label: '대덕구', value: 4 },
-          ]}
-        /> */}
-        {/* {console.log(gu)}
-        {console.log(localArray[0][gu])} */}
+          items={localGuArray}
+        />
+        {console.log(gu)}
+        {/* {console.log(localArray[0][gu])} */}
 
         {/* <RNPickerSelect
           onValueChange={(value) => setGu(value)}
