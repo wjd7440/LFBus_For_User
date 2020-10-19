@@ -221,12 +221,12 @@ export default ({ navigation, route }) => {
       {arriveStationName ? (
         <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
       ) : (
-        <Button
-          disabled={true}
-          title="예약하기"
-          onPress={handleSubmit(onSubmit)}
-        />
-      )}
+          <Button
+            disabled={true}
+            title="예약하기"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
 
       <Button
         title="취소하기"
@@ -236,8 +236,6 @@ export default ({ navigation, route }) => {
           });
         }}
       />
-
-      
     </View>
   );
 };

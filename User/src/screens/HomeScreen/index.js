@@ -86,7 +86,6 @@ export default ({ navigation }) => {
   useEffect(() => {
     getLocation();
   }, []);
-
   const renderMap = () => {
     if (!loading) {
       return (
@@ -104,7 +103,7 @@ export default ({ navigation }) => {
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
                     <MapView.Marker
-                    
+
                       image={require("../../../assets/busmarker.png")}
                       key={`Marker-${index}`}
                       onMarkerPress={() => {
@@ -127,6 +126,7 @@ export default ({ navigation }) => {
                             params: {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,
                               BUSSTOP_NM: rowData.BUSSTOP_NM,
+                              DISTANCE: rowData.DISTANCE * 1000
                             },
                           });
                         }}
@@ -151,7 +151,7 @@ export default ({ navigation }) => {
                           <Text style={{ fontSize: 13, color: "#FF4444" }}>
                             {rowData.DISTANCE * 1000}미터
                           </Text>
-                          <View style={{flexDirection:'row',}}>
+                          <View style={{ flexDirection: 'row', }}>
                             <ResultDetailItemScreen
                               serviceKey={API_KEY}
                               BusStopID={rowData.BUS_NODE_ID}
@@ -190,6 +190,7 @@ export default ({ navigation }) => {
                               params: {
                                 BUS_NODE_ID: rowData.BUS_NODE_ID,
                                 BUSSTOP_NM: rowData.BUSSTOP_NM,
+                                DISTANCE: rowData.DISTANCE * 1000
                               },
                             });
                           }}
@@ -233,6 +234,7 @@ export default ({ navigation }) => {
                                 <StationListDetailItemScreen
                                   serviceKey={API_KEY}
                                   BusStopID={rowData.BUS_NODE_ID}
+                                  DISTANCE={rowData.DISTANCE}
                                 />
                               </View>
                             </View>

@@ -124,7 +124,7 @@ export default ({ navigation }) => {
           <Text style={styles.buttonTitle}>로그인</Text>
         </TouchableHighlight>
         <TouchableHighlight
-           underlayColor={'#333FDA'}
+          underlayColor={'#333FDA'}
           style={styles.button}
           onPress={() => {
             navigation.navigate("SignUpScreen");

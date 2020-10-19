@@ -6,7 +6,6 @@ export const ACCOUNT_INFO_QUERY = gql`
       userId
       needHelp
       equipment
-      memo
       createdAt
     }
   }
