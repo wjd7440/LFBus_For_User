@@ -354,6 +354,7 @@ export default ({ navigation }) => {
     setProvision1IsVisible(!provision1IsVisible);
   };
   const onSubmit = async (data) => {
+    console.log(data)
     setLoaded(true);
     try {
       const {
@@ -370,12 +371,12 @@ export default ({ navigation }) => {
           variables: {
             userId: data.userId,
             password: data.password,
-            needHelp: data.needHelp,
+            sex: data.sex,
+            // gu: gu,
             equipment: data.equipment,
-            memo: data.memo,
+            needHelp: data.needHelp
           },
         });
-
         if (UserSignUp) {
           Alert.alert("회원가입이 완료되었습니다. 감사합니다.");
           navigation.navigate("LoginScreen");
@@ -385,12 +386,12 @@ export default ({ navigation }) => {
           navigation.navigate("SignUpScreen");
         }
       } else {
-        Alert.alert("이미 등록된 아이디 입니다.");
+        Alert.alert("이미 등록된 아이디 입니다1.");
       }
     } catch (e) {
       console.log(e);
       setLoaded(false);
-      Alert.alert("이미 등록된 아이디입니다.");
+      Alert.alert("이미 등록된 아이디입니다2.");
       navigation.navigate("SignUpScreen");
     }
   };
@@ -432,6 +433,7 @@ export default ({ navigation }) => {
       }
     );
     register({ name: "sex" }, { required: "성별을 선택해주세요." });
+    // register({ name: "gu" }, { required: "거주지를 선택해주세요." });
     register(
       { name: "equipment" },
       {
@@ -506,24 +508,13 @@ export default ({ navigation }) => {
           }}
           flexDirection="row"
         />
-        <Text style={styles.question}>거주지 : </Text>
+        {/* <Text style={styles.question}>거주지 : </Text>
         <RNPickerSelect
+          name="gu"
           onValueChange={
             (value) => setGu(value)
           }
-
           items={localGuArray}
-        />
-        {console.log(gu)}
-        {/* {console.log(localArray[0][gu])} */}
-
-        {/* <RNPickerSelect
-          onValueChange={(value) => setGu(value)}
-          items={[
-            localArray[0][0].localDongCode.map((rowData, index) => {
-              console.log(rowData)
-            })
-          ]}
         /> */}
         <Text style={styles.question}>사용하는 보조기구 : </Text>
         <RadioGroup

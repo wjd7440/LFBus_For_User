@@ -44,16 +44,16 @@ export const SIGNUP_QUERY = gql`
   mutation UserSignUp(
     $userId: String!
     $password: String!
+    $sex: String!
     $needHelp: String
     $equipment: String!
-    $memo: String
   ) {
     UserSignUp(
       userId: $userId
       password: $password
+      sex: $sex
       needHelp: $needHelp
       equipment: $equipment
-      memo: $memo
     )
   }
 `;
