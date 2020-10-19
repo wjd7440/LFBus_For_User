@@ -50,7 +50,9 @@ export default class RadioGroup extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <View style={{ flexDirection: this.props.flexDirection, marginTop: 0 }}>
+        <View
+          style={{ flexDirection: this.props.flexDirection, marginTop: 0, }}
+        >
           {this.state.radioButtons.map((data) => (
             <RadioButton key={data.label} data={data} onPress={this.onPress} />
           ))}
@@ -67,14 +69,14 @@ class RadioButton extends Component {
     let layout = {
       flexDirection: "row",
       paddingVertical: 10,
-      paddingHorizontal: 6,
+      paddingHorizontal: 12,
       borderRadius: 4,
     };
     let margin = { marginLeft: 0 };
-    let textMarin = { marginLeft: 10 };
+    let textMarin = { marginLeft:10, };
     if (data.layout === "column") {
       layout = { alignItems: "center" };
-      margin = { marginTop: 10 };
+      margin = { marginTop: 10, };
     }
     return (
       <View>
@@ -92,7 +94,7 @@ class RadioButton extends Component {
             data.disabled ? null : this.props.onPress(data.label);
           }}
         >
-          {data.selected ? (
+          {data.selected ? 
             <View
               style={[
                 styles.border,
@@ -106,22 +108,23 @@ class RadioButton extends Component {
             >
               <Icon name="check" type="regular" size={14} color={"#fff"} />
             </View>
-          ) : (
+            :
             <View
               style={[
                 styles.border,
                 {
                   backgroundColor: "#fff",
-                  borderColor: "#4B56F1",
-                  borderWidth: 1,
+                  borderColor:"#4B56F1",
+                  borderWidth:1,
                   width: data.size,
                   height: data.size,
                   borderRadius: data.size / 2,
                 },
               ]}
-            ></View>
-          )}
-
+            >
+            </View>
+          }
+          
           <Text style={[{ alignSelf: "center", fontSize: 16 }, textMarin]}>
             {data.label}
           </Text>

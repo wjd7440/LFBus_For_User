@@ -7,7 +7,8 @@ import {
   Alert,
   StyleSheet,
   Image,
-  TouchableHighlight
+  TouchableHighlight,
+  ScrollView,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -76,7 +77,7 @@ export default ({ navigation }) => {
   }, [register]);
 
   return (
-    <View style={styles.container}>
+    <View style={{ ...styles.container, marginTop: -50 }}>
       <View style={styles.titleArea}>
         <Image
           style={styles.loginLogo}
@@ -117,14 +118,18 @@ export default ({ navigation }) => {
       </View>
       <View style={{ ...styles.buttonArea }}>
         <TouchableHighlight
-          underlayColor={'#333FDA'}
+          underlayColor={"#333FDA"}
           style={styles.button}
           onPress={handleSubmit(onSubmit)}
         >
           <Text style={styles.buttonTitle}>로그인</Text>
         </TouchableHighlight>
         <TouchableHighlight
+<<<<<<< Updated upstream
           underlayColor={'#333FDA'}
+=======
+          underlayColor={"#333FDA"}
+>>>>>>> Stashed changes
           style={styles.button}
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -147,7 +152,7 @@ const styles = StyleSheet.create({
   },
   titleArea: {
     width: "100%",
-    paddingBottom: wp("10%"),
+    paddingBottom: wp("8%"),
     alignItems: "center",
   },
   loginLogo: {

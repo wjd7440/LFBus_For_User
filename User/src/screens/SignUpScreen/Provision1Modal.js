@@ -26,7 +26,7 @@ export default ({ isVisible, toggleModal }) => {
       {Platform.OS === "android" ? (
         <StatusBar backgroundColor="rgba(0,0,0,0.8)" />
       ) : null}
-      <Block flex={0.6} style={styles.modalContent}>
+      <Block flex={0.7} style={styles.modalContent}>
         <Block row middle style={styles.modalHeader}>
           <Block flex left />
           <Block flex center>
@@ -36,12 +36,13 @@ export default ({ isVisible, toggleModal }) => {
           </Block>
           <Block flex right>
             <TouchableOpacity
+              activeOpacity={1}
               style={styles.closeBtn}
               onPress={() => {
                 toggleModal();
               }}
             >
-              <Text center size={16} color={"#666"}>
+              <Text center size={14} color={"#666"}>
                 닫기
               </Text>
             </TouchableOpacity>
