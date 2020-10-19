@@ -168,7 +168,7 @@ export default ({ navigation, route }) => {
       <Text>
         {ROUTE_NO}번({DESTINATION} 방면)
       </Text>
-      <Text>승차 정류장 : {BUSSTOP_NM}</Text>
+      <Text>승차 정as류장 : {BUSSTOP_NM}</Text>
       <Text>하차 정류장 : </Text>
       <SearchableDropdown
         multi={true}
@@ -236,6 +236,8 @@ export default ({ navigation, route }) => {
           });
         }}
       />
+
+      
     </View>
   );
 };

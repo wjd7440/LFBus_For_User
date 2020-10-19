@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Button, StyleSheet, TouchableOpacity,ActivityIndicator,TouchableHighlight } from "react-native";
 import ResultDetailScreen from "./ResultDetailScreen";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
@@ -7,6 +7,11 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
+
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({ navigation, route }) => {
   const [data, setData] = useState([]);
@@ -57,18 +62,31 @@ export default ({ navigation, route }) => {
   }, []);
 
   return (
-    <View>
+    <View style={styles.container}>
       {!loaded || !data[0] ? (
-        <View>
-          <Text>실시간 저상버스 정보를 검색중입니다.</Text>
+        <View style={styles.loadingWrap}>
+          <Text style={{fontSize:16, marginBottom:15,}}>실시간 저상버스 정보를 검색중입니다.</Text>
+          
+          <ActivityIndicator color="#111" />
+          <TouchableOpacity
+            onPress={() => {
+              navigation.replace("내 주변 정류장", {
+                screen: "HomeScreen",
+              });
+            }}
+          >
+            <Text>뒤로가기</Text>
+          </TouchableOpacity>
         </View>
       ) : (
+        <View>
         <ScrollView>
           {data[0].itemList.map((rowData, index) => {
             return (
               <>
                 {rowData.CAR_REG_NO && (
-                  <TouchableOpacity
+                  <TouchableHighlight
+                  underlayColor={'#f6f6f6'}
                     onPress={() => {
                       navigation.navigate("ReservationScreen", {
                         CAR_REG_NO: rowData.CAR_REG_NO,
@@ -95,7 +113,7 @@ export default ({ navigation, route }) => {
                       ROUTE_CD={rowData.ROUTE_CD}
                       BUSSTOP_NM={BUSSTOP_NM}
                     />
-                  </TouchableOpacity>
+                  </TouchableHighlight>
                 )}
               </>
             );
@@ -109,7 +127,9 @@ export default ({ navigation, route }) => {
           >
             <Text>뒤로가기</Text>
           </TouchableOpacity>
+          
         </ScrollView>
+        </View>
       )}
     </View>
   );
@@ -119,7 +139,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
+  },
+  loadingWrap: {
+    justifyContent:'center',
+    alignItems:"center",
+    flex:1,
   },
 });

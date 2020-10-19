@@ -35,18 +35,59 @@ export default ({
   } else {
     if (data.UserBusInfo) {
       return (
-        <View key={ROUTE_NO}>
-          <Text>버스번호 : {ROUTE_NO}</Text>
-          <Text>종착지 : {DESTINATION}</Text>
-          <Text>남은시간 : {EXTIME_MIN}분</Text>
-          {STATUS_POS > 0 ? (
-            <Text>{STATUS_POS}정류장 전</Text>
-          ) : (
-            <Text>진입중</Text>
-          )}
-
-          <Text>좌석1 : {data.UserBusInfo.SEAT1 ? "사용가능" : "사용중"}</Text>
-          <Text>좌석2 : {data.UserBusInfo.SEAT2 ? "사용가능" : "사용중"}</Text>
+        <View key={ROUTE_NO} style={[styles.busList, styles.row]}>
+          {/* 왼쪽박스 */}
+          <View style={styles.left}>
+            <Text style={{fontSize:21, color:'#4B56F1', fontWeight:'bold',}}>{ROUTE_NO}</Text>
+            <Text style={{fontSize:16, paddingTop:2,}}>종착지 - {DESTINATION}</Text>
+            
+            {STATUS_POS > 0 ? (
+              <View style={{...styles.row, paddingTop:2,}}>
+                <Text style={{fontSize:16, color:'#FF4646'}}>{EXTIME_MIN}분후 도착</Text>
+                <Text style={{marginLeft:5, fontSize:15, color:"#8D8E93",}}>({STATUS_POS}정류장 전)</Text>
+              </View>
+            ) : (
+              <View style={{...styles.row, paddingTop:2,}}>
+                <Text style={{fontSize:16, color:'#FF4646'}}>진입중</Text>
+              </View>
+            )}
+          </View>
+          {/* 오른쪽박스 자리 여부 이미지 */}
+          <View style={styles.right}>
+            {/* 좌석1 */}
+            {data.UserBusInfo.SEAT1 ? 
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
+                <Text style={styles.offSeatTxt}>탑승가능</Text>
+              </View> : 
+              <View style={styles.seatImgBox}>
+                <Image
+                  source={require("../../../assets/on_seat.png")}
+                />
+                <Text style={styles.onSeatTxt}>탑승중</Text>
+             </View>
+            }
+            {/* 좌석2 */}
+            {data.UserBusInfo.SEAT2 ? 
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
+                <Text style={styles.offSeatTxt}>탑승가능</Text>
+              </View> : 
+              <View style={styles.seatImgBox}>
+                <Image
+                  source={require("../../../assets/on_seat.png")}
+                />
+                <Text style={styles.onSeatTxt}>탑승중</Text>
+              </View>
+            }
+          </View>
+          
           {/* <Text>CAR_REG_NO : {data.UserBusInfo.CAR_REG_NO}</Text> */}
         </View>
       );
@@ -56,10 +97,6 @@ export default ({
   }
 };
 
-const cell1 = "20%";
-const cell2 = "25%";
-const cell3 = "20%";
-const cell4 = "35%";
 
 const styles = StyleSheet.create({
   container: {
@@ -70,45 +107,39 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
   },
-  cell: {
-    justifyContent: "center",
-    alignItems: "center",
-    height: 150,
-    padding: 10,
-    borderBottomWidth: 2,
-    borderLeftWidth: 2,
-    borderColor: "#ddd",
+  busList:{
+    borderBottomWidth:1,
+    borderColor:"#ddd",
+    paddingRight:15,
+    paddingLeft:15,
+    paddingTop: 18,
+    paddingBottom:18,
+    justifyContent:'space-between',
   },
-  cell1: {
-    width: cell1,
-    borderLeftWidth: 0,
-    justifyContent: "space-between",
+  left:{
+    maxWidth:'65%',
+  },
+  right:{
+    maxWidth:'35%',
     flexDirection: "row",
   },
-  cell2: {
-    width: cell2,
+  seatImgBox:{
+    paddingRight:5,
+    paddingLeft:5,
   },
-  cell3: {
-    width: cell3,
+  seatImg:{
+    width:48,
+    height:48,
+    resizeMode: 'contain',
   },
-  cell4: {
-    width: cell4,
-    alignItems: "baseline",
+  offSeatTxt:{
+    marginTop:5,
+    fontSize:12,
+    color:"#9a9a9a",
   },
-  cellFont: {
-    fontSize: 54,
-    fontWeight: "bold",
-    color: "#111",
-  },
-  numberBox: {
-    width: 120,
-    height: 110,
-    borderRadius: 8,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  busIcon: {
-    width: 52,
-    height: 52,
+  onSeatTxt: {
+    marginTop:5,
+    fontSize:12,
+    color:"#4B56F1",
   },
 });

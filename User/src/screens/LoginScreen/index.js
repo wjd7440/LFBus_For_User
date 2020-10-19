@@ -7,6 +7,7 @@ import {
   Alert,
   StyleSheet,
   Image,
+  TouchableHighlight
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -115,21 +116,22 @@ export default ({ navigation }) => {
         )}
       </View>
       <View style={{ ...styles.buttonArea }}>
-        <TouchableOpacity
-          activeOpacity={0.95}
+        <TouchableHighlight
+          underlayColor={'#333FDA'}
           style={styles.button}
           onPress={handleSubmit(onSubmit)}
         >
           <Text style={styles.buttonTitle}>로그인</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
+        </TouchableHighlight>
+        <TouchableHighlight
+           underlayColor={'#333FDA'}
           style={styles.button}
           onPress={() => {
             navigation.navigate("SignUpScreen");
           }}
         >
           <Text style={styles.buttonTitle}>회원가입</Text>
-        </TouchableOpacity>
+        </TouchableHighlight>
       </View>
     </View>
   );

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   RefreshControl,
   Image,
+  TouchableHighlight,
 } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
@@ -103,6 +104,7 @@ export default ({ navigation }) => {
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
                     <MapView.Marker
+                    
                       image={require("../../../assets/busmarker.png")}
                       key={`Marker-${index}`}
                       onMarkerPress={() => {
@@ -149,10 +151,12 @@ export default ({ navigation }) => {
                           <Text style={{ fontSize: 13, color: "#FF4444" }}>
                             {rowData.DISTANCE * 1000}미터
                           </Text>
-                          <ResultDetailItemScreen
-                            serviceKey={API_KEY}
-                            BusStopID={rowData.BUS_NODE_ID}
-                          />
+                          <View style={{flexDirection:'row',}}>
+                            <ResultDetailItemScreen
+                              serviceKey={API_KEY}
+                              BusStopID={rowData.BUS_NODE_ID}
+                            />
+                          </View>
                         </View>
                       </MapView.Callout>
                     </MapView.Marker>
@@ -178,6 +182,7 @@ export default ({ navigation }) => {
                     data.UserBusStationList.busStations.map(
                       (rowData, index) => (
                         <TouchableOpacity
+                          activeOpacity={0.92}
                           style={styles.busItem}
                           onPress={() => {
                             navigation.replace("탑승 예약", {
