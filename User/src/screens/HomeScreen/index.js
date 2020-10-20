@@ -99,7 +99,6 @@ export default ({ navigation }) => {
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
                     <MapView.Marker
-
                       key={index}
                       image={require("../../../assets/busmarker.png")}
                       onMarkerPress={() => {

@@ -38,17 +38,7 @@ export default ({
     if (data.UserBusInfo) {
       return (
         <>
-          <Text style={{marginRight:5,}}>{ROUTE_NO}</Text>
-          {/* {STATUS_POS > 0 ? (
-            <Text>
-              버스위치 : {STATUS_POS}정류장 전(
-              {EXTIME_MIN}분)
-            </Text>
-          ) : (
-            <Text>버스위치 : 진입중</Text>
-          )}
-          <Text>좌석1 : {data.UserBusInfo.SEAT1 ? "사용가능" : "사용중"}</Text>
-          <Text>좌석2 : {data.UserBusInfo.SEAT2 ? "사용가능" : "사용중"}</Text> */}
+          <Text style={{ marginRight: 5, }}>{ROUTE_NO}</Text>
         </>
       );
     } else {
