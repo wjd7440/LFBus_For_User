@@ -21,15 +21,19 @@ const TabStack = () => {
   return (
     <Tab.Navigator
       tabBarOptions={{
+        animationEnabled: true,
+        swipeEnabled: true,
         showLabel: false,
-        activeTintColor: "#2396F0",
-        inactiveTintColor: "rgba(0,0,0,0.4)",
+        barStyle: { backgroundColor: "#B0C4DE" },
+        activeTintColor: "#4B56F1",
+        inactiveTintColor: "rgba(0,0,0,0.6)",
         labelStyle: {
           fontFamily: "open-sans-regular",
         },
         style: {
           height: 60,
         },
+        pressColor: "black",
       }}
     >
       <Tab.Screen
@@ -38,8 +42,8 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             <Block center>
-              <Icon name="home" type="light" color={color} size={24} />
-              <Text style={{ marginTop: 5 }} center color={color} size={13}>
+              <Icon name="bus" type="light" color={color} size={22} />
+              <Text style={{ marginTop: 4 }} center color={color} size={12}>
                 내 주변 정류장
               </Text>
             </Block>
@@ -52,8 +56,8 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Block center>
-              <Icon name="heart" type="light" color={color} size={24} />
-              <Text style={{ marginTop: 5 }} color={color} size={13}>
+              <Icon name="bars" type="light" color={color} size={22} />
+              <Text style={{ marginTop: 4 }} color={color} size={12}>
                 메뉴
               </Text>
             </Block>
@@ -66,8 +70,8 @@ const TabStack = () => {
         options={{
           tabBarIcon: ({ focused, color }) => (
             <Block center>
-              <Icon name="search" type="light" color={color} size={24} />
-              <Text style={{ marginTop: 5 }} color={color} size={13}>
+              <Icon name="search" type="light" color={color} size={22} />
+              <Text style={{ marginTop: 4 }} color={color} size={12}>
                 검색
               </Text>
             </Block>
