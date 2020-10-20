@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, Button, StyleSheet, TouchableOpacity, ActivityIndicator, TouchableHighlight } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  ActivityIndicator,
+  TouchableHighlight,
+} from "react-native";
 import ResultDetailScreen from "./ResultDetailScreen";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
@@ -65,9 +73,11 @@ export default ({ navigation, route }) => {
     <View style={styles.container}>
       {!loaded || !data[0] ? (
         <View style={styles.loadingWrap}>
-          <Text style={{ fontSize: 16, marginBottom: 15, }}>실시간 저상버스 정보를 검색중입니다.</Text>
+          <Text style={{ fontSize: 16, marginBottom: 15 }}>
+            실시간 저상버스 정보를 검색중입니다.
+          </Text>
 
-          <ActivityIndicator color="#111" />
+          <ActivityIndicator size="large" color="#4B56F1" />
           <TouchableOpacity
             onPress={() => {
               navigation.replace("내 주변 정류장", {
@@ -79,61 +89,60 @@ export default ({ navigation, route }) => {
           </TouchableOpacity>
         </View>
       ) : (
-          <View>
-            <ScrollView>
-              {data[0].itemList.map((rowData, index) => {
-                return (
-                  <>
-                    {rowData.CAR_REG_NO && (
-                      <TouchableHighlight
-                        underlayColor={'#f6f6f6'}
-                        onPress={() => {
-                          // navigation.navigate("ReservationScreen", {
-                          navigation.navigate("BusInfoScreen", {
-                            DISTANCE: DISTANCE,
-                            CAR_REG_NO: rowData.CAR_REG_NO,
-                            ROUTE_NO: rowData.ROUTE_NO,
-                            STATUS_POS: rowData.STATUS_POS,
-                            EXTIME_MIN: rowData.EXTIME_MIN,
-                            DESTINATION: rowData.DESTINATION,
-                            ROUTE_TP: rowData.ROUTE_TP,
-                            ROUTE_CD: rowData.ROUTE_CD,
-                            BUSSTOP_NM: BUSSTOP_NM,
-                            BUS_NODE_ID: BUS_NODE_ID,
-                            equipment: !loading && user.UserInfo.equipment,
-                            memo: !loading && user.UserInfo.memo,
-                          });
-                        }}
-                      >
-                        <ResultDetailScreen
-                          DISTANCE={DISTANCE}
-                          CAR_REG_NO={rowData.CAR_REG_NO}
-                          ROUTE_NO={rowData.ROUTE_NO}
-                          STATUS_POS={rowData.STATUS_POS}
-                          EXTIME_MIN={rowData.EXTIME_MIN}
-                          DESTINATION={rowData.DESTINATION}
-                          ROUTE_TP={rowData.ROUTE_TP}
-                          ROUTE_CD={rowData.ROUTE_CD}
-                          BUSSTOP_NM={BUSSTOP_NM}
-                        />
-                      </TouchableHighlight>
-                    )}
-                  </>
-                );
-              })}
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.replace("내 주변 정류장", {
-                    screen: "HomeScreen",
-                  });
-                }}
-              >
-                <Text>뒤로가기</Text>
-              </TouchableOpacity>
-
-            </ScrollView>
-          </View>
-        )}
+        <View>
+          <ScrollView>
+            {data[0].itemList.map((rowData, index) => {
+              return (
+                <>
+                  {rowData.CAR_REG_NO && (
+                    <TouchableHighlight
+                      underlayColor={"#f6f6f6"}
+                      onPress={() => {
+                        // navigation.navigate("ReservationScreen", {
+                        navigation.navigate("BusInfoScreen", {
+                          DISTANCE: DISTANCE,
+                          CAR_REG_NO: rowData.CAR_REG_NO,
+                          ROUTE_NO: rowData.ROUTE_NO,
+                          STATUS_POS: rowData.STATUS_POS,
+                          EXTIME_MIN: rowData.EXTIME_MIN,
+                          DESTINATION: rowData.DESTINATION,
+                          ROUTE_TP: rowData.ROUTE_TP,
+                          ROUTE_CD: rowData.ROUTE_CD,
+                          BUSSTOP_NM: BUSSTOP_NM,
+                          BUS_NODE_ID: BUS_NODE_ID,
+                          equipment: !loading && user.UserInfo.equipment,
+                          memo: !loading && user.UserInfo.memo,
+                        });
+                      }}
+                    >
+                      <ResultDetailScreen
+                        DISTANCE={DISTANCE}
+                        CAR_REG_NO={rowData.CAR_REG_NO}
+                        ROUTE_NO={rowData.ROUTE_NO}
+                        STATUS_POS={rowData.STATUS_POS}
+                        EXTIME_MIN={rowData.EXTIME_MIN}
+                        DESTINATION={rowData.DESTINATION}
+                        ROUTE_TP={rowData.ROUTE_TP}
+                        ROUTE_CD={rowData.ROUTE_CD}
+                        BUSSTOP_NM={BUSSTOP_NM}
+                      />
+                    </TouchableHighlight>
+                  )}
+                </>
+              );
+            })}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.replace("내 주변 정류장", {
+                  screen: "HomeScreen",
+                });
+              }}
+            >
+              <Text>뒤로가기</Text>
+            </TouchableOpacity>
+          </ScrollView>
+        </View>
+      )}
     </View>
   );
 };
@@ -144,7 +153,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   loadingWrap: {
-    justifyContent: 'center',
+    justifyContent: "center",
     alignItems: "center",
     flex: 1,
   },

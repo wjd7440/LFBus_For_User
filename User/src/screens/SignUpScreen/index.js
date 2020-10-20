@@ -12,6 +12,8 @@ import {
   Alert,
   TouchableHighlight,
   Picker,
+  Keyboard,
+  KeyboardAvoidingView
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -353,6 +355,8 @@ export default ({ navigation }) => {
   const [signupMutation] = useMutation(SIGNUP_QUERY);
   const [loaded, setLoaded] = useState(false);
   const { register, setValue, handleSubmit, errors, watch } = useForm();
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
+
 
   const [UserIdCheckMutation] = useMutation(USERID_CHECK_QUERY);
   const provision1ToggleModal = () => {
@@ -451,184 +455,221 @@ export default ({ navigation }) => {
     );
   }, [register]);
 
-  return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-    >
-      <View style={{ ...styles.container, paddingBottom: hp("2%") }}>
-        <View style={styles.formArea}>
-          <Text style={styles.signTit}>평등한 사회로{"\n"}한걸음</Text>
-          <View style={styles.formControl}>
-            <Text style={styles.question}>아이디(이메일)</Text>
-            <TextInput
-              style={styles.textForm}
-              placeholder={"아이디를(이메일) 입력해주세요."}
-              name="userId"
-              onChangeText={(text) => {
-                var lowerCase = text.toLowerCase();
-                setValue("userId", lowerCase, true);
-              }}
-            />
-            {errors.userId && (
-              <Block>
-                <Text style={styles.errorTxt}>{errors.userId.message}</Text>
-              </Block>
-            )}
-          </View>
-          <View style={styles.formControl}>
-            <Text style={styles.question}>비밀번호</Text>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.textForm}
-              placeholder={"비밀번호를 입력해주세요."}
-              name="password"
-              onChangeText={(text) => {
-                setValue("password", text, true);
-              }}
-            />
-            {errors.password && (
-              <Block>
-                <Text style={styles.errorTxt}>{errors.password.message}</Text>
-              </Block>
-            )}
-          </View>
-          <View style={styles.formControl}>
-            <Text style={styles.question}>비밀번호 확인</Text>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.textForm}
-              placeholder={"비밀번호를 확인해주세요."}
-              name="passwordConfirm"
-              onChangeText={(text) => {
-                setValue("passwordConfirm", text, true);
-              }}
-            />
-            {errors.passwordConfirm && (
-              <Block>
-                <Text style={styles.errorTxt}>
-                  {errors.passwordConfirm.message}
-                </Text>
-              </Block>
-            )}
-          </View>
-          <View style={styles.formControl}>
-            <Text style={styles.question}>성별</Text>
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      event => {
+        const keyboardHeight =
+          event.endCoordinates.height > 100
+            ? Platform.OS == "ios"
+              ? event.endCoordinates.height
+              : 0
+            : 0;
 
-            <RadioGroup
-              radioButtons={sexArray}
-              onPress={(data) => {
-                const item = data.find((sex) => {
-                  if (sex.selected === true) {
-                    return sex;
-                  }
-                });
-                setValue("sex", item.value, true);
-              }}
-              flexDirection="row"
-            />
-          </View>
-          {/* <Text style={styles.question}>거주지 : </Text>
-          <RNPickerSelect
-            name="gu"
-            onValueChange={
-              (value) => setGu(value)
-            }
-            items={localGuArray}
-          /> */}
-          <View style={styles.formControl}>
-            <Text style={styles.question}>사용하는 보조기구</Text>
-            <RadioGroup
-              radioButtons={equipmentArray}
-              onPress={(data) => {
-                const item = data.find((equipment) => {
-                  if (equipment.selected === true) {
-                    return equipment;
-                  }
-                });
-                setValue("equipment", item.value, true);
-              }}
-              flexDirection="column"
-            />
-          </View>
-          <View style={styles.formControl}>
-            <Text style={styles.question}>
-              어떤 도움이 필요하신가요? (선택)
-            </Text>
-            <View>
+        setKeyboardHeight(keyboardHeight);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      event => {
+        setKeyboardHeight(0);
+      }
+    );
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
+  return (
+    <KeyboardAvoidingView style={{ flex: 1 }}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
+        <View style={{ ...styles.container, paddingBottom: hp("15%") }}>
+          <View style={styles.formArea}>
+            <Text style={styles.signTit}>평등한 사회로{"\n"}한걸음</Text>
+            <View style={styles.formControl}>
+              <Text style={styles.question}>아이디(이메일)</Text>
               <TextInput
                 style={styles.textForm}
-                placeholder={"ex) 교통카드를 대신 찍어주세요. / 괜찮습니다."}
-                name="needHelp"
+                placeholder={"아이디를(이메일) 입력해주세요."}
+                name="userId"
                 onChangeText={(text) => {
-                  setValue("needHelp", text, true);
+                  var lowerCase = text.toLowerCase();
+                  setValue("userId", lowerCase, true);
                 }}
               />
+              {errors.userId && (
+                <Block>
+                  <Text style={styles.errorTxt}>{errors.userId.message}</Text>
+                </Block>
+              )}
             </View>
-          </View>
-          <View
-            style={{
-              ...styles.formControl,
-              marginTop: 30,
-              marginBottom: 40,
-            }}
-          >
-            <Text style={{ ...styles.question, fontSize: 24 }}>약관동의</Text>
+            <View style={styles.formControl}>
+              <Text style={styles.question}>비밀번호</Text>
+              <TextInput
+                secureTextEntry={true}
+                style={styles.textForm}
+                placeholder={"비밀번호를 입력해주세요."}
+                name="password"
+                onChangeText={(text) => {
+                  setValue("password", text, true);
+                }}
+              />
+              {errors.password && (
+                <Block>
+                  <Text style={styles.errorTxt}>{errors.password.message}</Text>
+                </Block>
+              )}
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.question}>비밀번호 확인</Text>
+              <TextInput
+                secureTextEntry={true}
+                style={styles.textForm}
+                placeholder={"비밀번호를 확인해주세요."}
+                name="passwordConfirm"
+                onChangeText={(text) => {
+                  setValue("passwordConfirm", text, true);
+                }}
+              />
+              {errors.passwordConfirm && (
+                <Block>
+                  <Text style={styles.errorTxt}>
+                    {errors.passwordConfirm.message}
+                  </Text>
+                </Block>
+              )}
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.question}>성별</Text>
+
+              <RadioGroup
+                radioButtons={sexArray}
+                onPress={(data) => {
+                  const item = data.find((sex) => {
+                    if (sex.selected === true) {
+                      return sex;
+                    }
+                  });
+                  setValue("sex", item.value, true);
+                }}
+                flexDirection="row"
+              />
+            </View>
+            {/* <Text style={styles.question}>거주지 : </Text>
+            <RNPickerSelect
+              name="gu"
+              onValueChange={
+                (value) => setGu(value)
+              }
+              items={localGuArray}
+            /> */}
+            <View style={styles.formControl}>
+              <Text style={styles.question}>사용하는 보조기구</Text>
+              <RadioGroup
+                radioButtons={equipmentArray}
+                onPress={(data) => {
+                  const item = data.find((equipment) => {
+                    if (equipment.selected === true) {
+                      return equipment;
+                    }
+                  });
+                  setValue("equipment", item.value, true);
+                }}
+                flexDirection="column"
+              />
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.question}>
+                어떤 도움이 필요하신가요? (선택)
+              </Text>
+              <View>
+                <TextInput
+                  style={styles.textForm}
+                  placeholder={"ex) 교통카드를 대신 찍어주세요. / 괜찮습니다."}
+                  name="needHelp"
+                  onChangeText={(text) => {
+                    setValue("needHelp", text, true);
+                  }}
+                />
+              </View>
+            </View>
             <View
               style={{
-                justifyContent: "space-between",
-                flex: 1,
-                flexDirection: "row",
+                ...styles.formControl,
+                marginTop: 30,
+                marginBottom: 40,
               }}
             >
-              <TouchableOpacity style={{ flex: 1 }}>
-                <CheckBox
-                  rightTextStyle={{
-                    color: "#111",
-                    fontSize: 14,
-                    lineHeight: 32,
-                  }}
-                  onClick={() => {
-                    setValue("provision1", !watch("provision1"), true);
-                    if (watch("provision1") === true) {
-                      setAllProvision(true);
-                    } else {
-                      setAllProvision(false);
-                    }
-                  }}
-                  checkBoxColor={"#4B56F1"}
-                  rightText={"서비스 이용약관 동의"}
-                  isChecked={watch("provision1")}
-                />
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={{ justifyContent: "center" }}
-                onPress={() => {
-                  provision1ToggleModal();
+              <Text style={{ ...styles.question, fontSize: 24 }}>약관동의</Text>
+              <View
+                style={{
+                  justifyContent: "space-between",
+                  flex: 1,
+                  flexDirection: "row",
                 }}
               >
-                <Text
-                  style={{
-                    color: "#979797",
-                    textDecorationLine: "underline",
+                <TouchableOpacity style={{ flex: 1 }}>
+                  <CheckBox
+                    rightTextStyle={{
+                      color: "#111",
+                      fontSize: 14,
+                      lineHeight: 32,
+                    }}
+                    onClick={() => {
+                      setValue("provision1", !watch("provision1"), true);
+                      if (watch("provision1") === true) {
+                        setAllProvision(true);
+                      } else {
+                        setAllProvision(false);
+                      }
+                    }}
+                    checkBoxColor={"#4B56F1"}
+                    rightText={"서비스 이용약관 동의"}
+                    isChecked={watch("provision1")}
+                  />
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={{ justifyContent: "center" }}
+                  onPress={() => {
+                    provision1ToggleModal();
                   }}
-                  size={14}
                 >
-                  상세보기
-                </Text>
-              </TouchableOpacity>
+                  <Text
+                    style={{
+                      color: "#979797",
+                      textDecorationLine: "underline",
+                    }}
+                    size={14}
+                  >
+                    상세보기
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
+            {errors.provision1 && (
+              <Block>
+                <Text style={styles.errorTxt}>{errors.provision1.message}</Text>
+              </Block>
+            )}
           </View>
-          {errors.provision1 && (
-            <Block>
-              <Text style={styles.errorTxt}>{errors.provision1.message}</Text>
-            </Block>
-          )}
+          <Provision1Modal
+            isVisible={provision1IsVisible}
+            toggleModal={provision1ToggleModal}
+          />
         </View>
-        <Provision1Modal
-          isVisible={provision1IsVisible}
-          toggleModal={provision1ToggleModal}
-        />
+      </ScrollView>
+      <View 
+        style={
+          ({
+            position:'absolute', width:'100%', backgroundColor:'#fff',
+            bottom: Platform.OS === "android" ? 15 : 0,
+            marginBottom: keyboardHeight
+          })
+        }>
         <TouchableHighlight
           underlayColor={"#333FDA"}
           style={{ ...styles.onButton, marginBottom: 5 }}
@@ -646,7 +687,7 @@ export default ({ navigation }) => {
           <Text style={{ color: "#8D8E93" }}>취소</Text>
         </TouchableHighlight>
       </View>
-    </ScrollView>
+    </KeyboardAvoidingView>
   );
 };
 
