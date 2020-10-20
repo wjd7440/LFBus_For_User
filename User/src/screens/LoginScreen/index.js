@@ -125,11 +125,7 @@ export default ({ navigation }) => {
           <Text style={styles.buttonTitle}>로그인</Text>
         </TouchableHighlight>
         <TouchableHighlight
-<<<<<<< Updated upstream
-          underlayColor={'#333FDA'}
-=======
           underlayColor={"#333FDA"}
->>>>>>> Stashed changes
           style={styles.button}
           onPress={() => {
             navigation.navigate("SignUpScreen");
