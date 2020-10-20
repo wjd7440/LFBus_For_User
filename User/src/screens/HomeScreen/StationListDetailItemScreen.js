@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import {
   View,
   Text,
@@ -47,7 +47,7 @@ export default ({ serviceKey, BusStopID }) => {
     return <Text style={{ fontSize: 13, color: '#8D8E93' }}>실시간 저상버스 정보를 검색중입니다.</Text>;
   } else {
     return (
-      <>
+      <Fragment key={BusStopID}>
         {data[0].itemList.map((rowData, index) => {
           return (
             <>
@@ -68,7 +68,7 @@ export default ({ serviceKey, BusStopID }) => {
           );
         })}
         {!busExist && <Text style={{ fontSize: 13, color: '#8D8E93' }}>저상버스 도착정보가 없습니다.</Text>}
-      </>
+      </Fragment>
     );
   }
 };
