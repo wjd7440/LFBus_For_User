@@ -12,25 +12,45 @@ import {
 export default ({ navigation }) => {
   return (
     <View style={styles.container}>
-      <View style={styles.shadow}>
-        <View>
-          <Text>내 포인트</Text>
-          <Text>8,850 P</Text>
+      <View
+        style={{
+          ...styles.shadow,
+          flexDirection: "row",
+          justifyContent: "space-between",
+          marginTop: 20,
+        }}
+      >
+        <View
+          style={{
+            padding: 20,
+            borderRightWidth: 1,
+            borderColor: "#f1f1f1",
+            flex: 1,
+          }}
+        >
+          <Text style={styles.myPointTxt}>내 포인트</Text>
+          <Text style={styles.myPointNumber}>8,850 P</Text>
         </View>
-        <TouchableHighlight>
-          <Text>충전하기</Text>
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
+          style={{ justifyContent: "center", padding: 20, maxWidth: 120 }}
+        >
+          <Text style={{ fontSize: 18, color: "#4B56F1", fontWeight: "700" }}>
+            충전하기
+          </Text>
         </TouchableHighlight>
       </View>
-      <TouchableOpacity>
+      <TouchableHighlight>
         <Text>공지사항</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
+      </TouchableHighlight>
+      <TouchableHighlight
+        underlayColor={"#f5f5f5"}
         onPress={() => {
           navigation.navigate("ReservationCheckScreen");
         }}
       >
         <Text>버스 예약 확인</Text>
-      </TouchableOpacity>
+      </TouchableHighlight>
       <TouchableOpacity
         onPress={() => {
           navigation.navigate("RouteScreen");
@@ -61,5 +81,26 @@ const styles = StyleSheet.create({
       },
       android: { elevation: 5 },
     }),
+  },
+  cont: {
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  myPointTxt: {
+    borderRadius: 8,
+    borderTopLeftRadius: 0,
+    backgroundColor: "#4B56F1",
+    color: "#fff",
+    fontSize: 14,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    width: 76,
+    textAlign: "center",
+  },
+  myPointNumber: {
+    fontSize: 28,
+    marginTop: 4,
+    color: "#4B56F1",
+    fontWeight: "bold",
   },
 });

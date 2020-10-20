@@ -13,7 +13,7 @@ import {
   TouchableHighlight,
   Picker,
   Keyboard,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -357,7 +357,6 @@ export default ({ navigation }) => {
   const { register, setValue, handleSubmit, errors, watch } = useForm();
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
-
   const [UserIdCheckMutation] = useMutation(USERID_CHECK_QUERY);
   const provision1ToggleModal = () => {
     setProvision1IsVisible(!provision1IsVisible);
@@ -458,7 +457,7 @@ export default ({ navigation }) => {
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
-      event => {
+      (event) => {
         const keyboardHeight =
           event.endCoordinates.height > 100
             ? Platform.OS == "ios"
@@ -471,7 +470,7 @@ export default ({ navigation }) => {
     );
     const keyboardDidHideListener = Keyboard.addListener(
       "keyboardDidHide",
-      event => {
+      (event) => {
         setKeyboardHeight(0);
       }
     );
@@ -487,7 +486,7 @@ export default ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
       >
-        <View style={{ ...styles.container, paddingBottom: hp("15%") }}>
+        <View style={{ ...styles.container, paddingBottom: hp("8%") }}>
           <View style={styles.formArea}>
             <Text style={styles.signTit}>평등한 사회로{"\n"}한걸음</Text>
             <View style={styles.formControl}>
@@ -616,7 +615,7 @@ export default ({ navigation }) => {
                   <CheckBox
                     rightTextStyle={{
                       color: "#111",
-                      fontSize: 14,
+                      fontSize: 15,
                       lineHeight: 32,
                     }}
                     onClick={() => {
@@ -627,7 +626,8 @@ export default ({ navigation }) => {
                         setAllProvision(false);
                       }
                     }}
-                    checkBoxColor={"#4B56F1"}
+                    checkBoxColor={"#A1A1A1"}
+                    checkedCheckBoxColor={"#4B56F1"}
                     rightText={"서비스 이용약관 동의"}
                     isChecked={watch("provision1")}
                   />
@@ -649,12 +649,14 @@ export default ({ navigation }) => {
                   </Text>
                 </TouchableOpacity>
               </View>
+              {errors.provision1 && (
+                <Block>
+                  <Text style={styles.errorTxt}>
+                    {errors.provision1.message}
+                  </Text>
+                </Block>
+              )}
             </View>
-            {errors.provision1 && (
-              <Block>
-                <Text style={styles.errorTxt}>{errors.provision1.message}</Text>
-              </Block>
-            )}
           </View>
           <Provision1Modal
             isVisible={provision1IsVisible}
@@ -662,22 +664,23 @@ export default ({ navigation }) => {
           />
         </View>
       </ScrollView>
-      <View 
-        style={
-          ({
-            position:'absolute', width:'100%', backgroundColor:'#fff',
-            bottom: Platform.OS === "android" ? 15 : 0,
-            marginBottom: keyboardHeight
-          })
-        }>
+      <View
+        style={{
+          position: "absolute",
+          width: "100%",
+          backgroundColor: "#fff",
+          bottom: Platform.OS === "android" ? 0 : 15,
+          marginBottom: keyboardHeight,
+        }}
+      >
         <TouchableHighlight
           underlayColor={"#333FDA"}
-          style={{ ...styles.onButton, marginBottom: 5 }}
+          style={{ ...styles.onButton }}
           onPress={handleSubmit(onSubmit)}
         >
           <Text style={styles.buttonTxt}>회원가입</Text>
         </TouchableHighlight>
-        <TouchableHighlight
+        {/* <TouchableHighlight
           style={styles.offButton}
           underlayColor={"#f5f5f5"}
           onPress={() => {
@@ -685,7 +688,7 @@ export default ({ navigation }) => {
           }}
         >
           <Text style={{ color: "#8D8E93" }}>취소</Text>
-        </TouchableHighlight>
+        </TouchableHighlight> */}
       </View>
     </KeyboardAvoidingView>
   );
@@ -745,7 +748,7 @@ const styles = StyleSheet.create({
     height: hp("7.6%"),
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 4,
+    // borderRadius: 4,
   },
   offButton: {
     backgroundColor: "#fff",

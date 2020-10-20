@@ -9,17 +9,17 @@ const defaultMenu = [
   { id: "music", title: "Music" },
   { id: "beauty", title: "Beauty" },
   { id: "fashion", title: "Fashion" },
-  { id: "motocycles", title: "Motocycles" }
+  { id: "motocycles", title: "Motocycles" },
 ];
 
 export default class Tabs extends React.Component {
   static defaultProps = {
     data: defaultMenu,
-    initialIndex: null
+    initialIndex: null,
   };
 
   state = {
-    active: null
+    active: null,
   };
 
   componentDidMount() {
@@ -34,7 +34,7 @@ export default class Tabs extends React.Component {
 
     Animated.timing(this.animatedValue, {
       toValue: 1,
-      duration: 300
+      duration: 300,
       // useNativeDriver: true, // color not supported
     }).start();
   }
@@ -44,38 +44,38 @@ export default class Tabs extends React.Component {
   onScrollToIndexFailed = () => {
     this.menuRef.current.scrollToIndex({
       index: 0,
-      viewPosition: 0.5
+      viewPosition: 0.5,
     });
   };
 
-  selectMenu = id => {
+  selectMenu = (id) => {
     this.setState({ active: id });
 
     this.menuRef.current.scrollToIndex({
-      index: this.props.data.findIndex(item => item.id === id),
-      viewPosition: 0.5
+      index: this.props.data.findIndex((item) => item.id === id),
+      viewPosition: 0.5,
     });
 
     this.animate();
     this.props.onChange && this.props.onChange(id);
   };
 
-  renderItem = item => {
+  renderItem = (item) => {
     const isActive = this.state.active === item.id;
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
       outputRange: [
         wezonTheme.COLORS.TEXT,
-        isActive ? wezonTheme.COLORS.WHITE : wezonTheme.COLORS.TEXT
+        isActive ? wezonTheme.COLORS.WHITE : wezonTheme.COLORS.TEXT,
       ],
-      extrapolate: "clamp"
+      extrapolate: "clamp",
     });
 
     const containerStyles = [
       styles.titleContainer,
       !isActive && { backgroundColor: wezonTheme.COLORS.SECONDARY },
-      isActive && styles.containerShadow
+      isActive && styles.containerShadow,
     ];
 
     return (
@@ -84,7 +84,7 @@ export default class Tabs extends React.Component {
           style={[
             styles.menuTitle,
             { color: textColor },
-            { fontFamily: "open-sans-bold" }
+            { fontFamily: "open-sans-bold" },
           ]}
           onPress={() => this.selectMenu(item.id)}
         >
@@ -104,7 +104,7 @@ export default class Tabs extends React.Component {
         horizontal={true}
         ref={this.menuRef}
         extraData={this.state}
-        keyExtractor={item => item.id}
+        keyExtractor={(item) => item.id}
         showsHorizontalScrollIndicator={false}
         onScrollToIndexFailed={this.onScrollToIndexFailed}
         renderItem={({ item }) => this.renderItem(item)}
@@ -122,19 +122,19 @@ const styles = StyleSheet.create({
   container: {
     width: width,
     backgroundColor: theme.COLORS.WHITE,
-    zIndex: 2
+    zIndex: 2,
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 8,
     shadowOpacity: 0.2,
-    elevation: 4
+    elevation: 4,
   },
   menu: {
     paddingHorizontal: theme.SIZES.BASE * 2.5,
     paddingTop: 8,
-    paddingBottom: 16
+    paddingBottom: 16,
   },
   titleContainer: {
     alignItems: "center",
@@ -142,14 +142,14 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginRight: 9,
     paddingHorizontal: 10,
-    paddingVertical: 3
+    paddingVertical: 3,
   },
   containerShadow: {
     shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     shadowOpacity: 0.1,
-    elevation: 1
+    elevation: 1,
   },
   menuTitle: {
     fontWeight: "600",
@@ -157,6 +157,6 @@ const styles = StyleSheet.create({
     // lineHeight: 28,
     paddingVertical: 8,
     paddingHorizontal: 12,
-    color: wezonTheme.COLORS.MUTED
-  }
+    color: wezonTheme.COLORS.MUTED,
+  },
 });
