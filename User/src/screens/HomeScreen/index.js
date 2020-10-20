@@ -47,12 +47,8 @@ export default ({ navigation }) => {
   });
 
   const [busData, setBusData] = useState([]);
-  //정훈
   const API_KEY =
-    // "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
-  //"4ZOCm%2Fcovikxfz2DACVic7E8i0H1%2F4gAWrUril3hljISn9xBRuoVuj2IA8a9tNVwmeKWjKcJBnjN0osWnke8Ng%3D%3D";
-
   const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY, {
     fetchPolicy: "network-only",
     variables: {
@@ -104,8 +100,8 @@ export default ({ navigation }) => {
                   data.UserBusStationList.busStations.map((rowData, index) => (
                     <MapView.Marker
 
+                      key={index}
                       image={require("../../../assets/busmarker.png")}
-                      key={`Marker-${index}`}
                       onMarkerPress={() => {
                         console.log("hihihi");
                       }}
@@ -115,7 +111,6 @@ export default ({ navigation }) => {
                       }}
                     >
                       <MapView.Callout
-                        key={`Callout-${index}`}
                         onMarkerPress={() => {
                           console.log("hihihi");
                         }}
@@ -131,13 +126,10 @@ export default ({ navigation }) => {
                           });
                         }}
                       >
-                        {/* 팝업 모달창 */}
                         <View style={styles.busModalStyle}>
-                          {/* 정류장 이름 */}
                           <Text style={{ fontSize: 15 }}>
                             {rowData.BUSSTOP_NM}
                           </Text>
-                          {/* 정류장 아이디 */}
                           <Text
                             style={{
                               fontSize: 13,
@@ -147,7 +139,6 @@ export default ({ navigation }) => {
                           >
                             {rowData.BUS_NODE_ID}
                           </Text>
-                          {/* 정류장 거리 */}
                           <Text style={{ fontSize: 13, color: "#FF4444" }}>
                             {rowData.DISTANCE * 1000}미터
                           </Text>
@@ -182,6 +173,7 @@ export default ({ navigation }) => {
                     data.UserBusStationList.busStations.map(
                       (rowData, index) => (
                         <TouchableOpacity
+                          key={index}
                           activeOpacity={0.92}
                           style={styles.busItem}
                           onPress={() => {

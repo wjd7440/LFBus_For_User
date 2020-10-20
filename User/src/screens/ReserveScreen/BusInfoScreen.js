@@ -8,6 +8,8 @@ import {
     RefreshControl,
 } from "react-native";
 import axios from "axios";
+import { useQuery } from "react-apollo-hooks";
+import { ACCOUNT_INFO_QUERY } from "../Queries";
 
 export default ({ navigation, route }) => {
     const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
@@ -20,7 +22,6 @@ export default ({ navigation, route }) => {
     const parseString = require("react-native-xml2js").parseString;
     const [loaded, setLoaded] = useState(false);
     const [data, setData] = useState([]);
-    console.log(DISTANCE)
     const dataLoader = () => {
         axios({
             url: "http://openapitraffic.daejeon.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey=8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D&busRouteId=" + ROUTE_CD,
@@ -37,6 +38,10 @@ export default ({ navigation, route }) => {
                 // console.log(err);
             });
     };
+
+    const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+        fetchPolicy: "network-only",
+    });
 
     useEffect(() => {
         dataLoader();
@@ -65,6 +70,23 @@ export default ({ navigation, route }) => {
                     <Text>버스 운행정보</Text>
                 </TouchableOpacity>
                 <Text>거리 : {DISTANCE}m</Text>
+                {DISTANCE < 500 ? <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate("ReservationScreen", {
+                            DISTANCE: DISTANCE,
+                            CAR_REG_NO: CAR_REG_NO,
+                            ROUTE_NO: ROUTE_NO,
+                            ROUTE_CD: ROUTE_CD,
+                            DESTINATION: DESTINATION,
+                            BUSSTOP_NM: BUSSTOP_NM,
+                            BUS_NODE_ID: BUS_NODE_ID,
+                            equipment: !loading && user.UserInfo.equipment,
+                            memo: !loading && user.UserInfo.memo,
+                        });
+                    }}
+                >
+                    <Text>탑승 요청</Text>
+                </TouchableOpacity> : <Text>내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.</Text>}
                 {data[0].itemList.map((rowData, index) => {
                     return (
                         <>

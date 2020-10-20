@@ -33,8 +33,7 @@ export default ({ navigation, route }) => {
 
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
-      equipment: route.params ? route.params.equipment : null,
-      memo: route.params ? route.params.memo : null,
+      equipment: route.params ? route.params.equipment : null
     },
   });
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
@@ -110,7 +109,6 @@ export default ({ navigation, route }) => {
                 departureStation: BUSSTOP_NM,
                 arrivalStation: arriveStationName,
                 equipment: data.equipment,
-                memo: data.memo,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
             });
@@ -142,7 +140,6 @@ export default ({ navigation, route }) => {
 
   useEffect(() => {
     register({ name: "equipment" }, { required: "장비를 입력해주세요." });
-    register({ name: "memo" }, { required: "메모를 입력해주세요." });
   }, [register]);
 
   useEffect(() => {
@@ -211,12 +208,6 @@ export default ({ navigation, route }) => {
         name="equipment"
         onChangeText={(text) => setValue("equipment", text, true)}
         value={watch("equipment")}
-      ></TextInput>
-      <Text>메모 :</Text>
-      <TextInput
-        name="memo"
-        onChangeText={(text) => setValue("memo", text, true)}
-        value={watch("memo")}
       ></TextInput>
       {arriveStationName ? (
         <Button title="예약하기" onPress={handleSubmit(onSubmit)} />

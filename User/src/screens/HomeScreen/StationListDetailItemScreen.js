@@ -39,10 +39,12 @@ export default ({ serviceKey, BusStopID }) => {
     let timer = setInterval(() => {
       dataLoader();
     }, 15000);
+
+    return clearInterval(timer);
   }, []);
 
   if (!loaded || !data[0]) {
-    return <Text style={{fontSize:13, color:'#8D8E93'}}>실시간 저상버스 정보를 검색중입니다.</Text>; 
+    return <Text style={{ fontSize: 13, color: '#8D8E93' }}>실시간 저상버스 정보를 검색중입니다.</Text>;
   } else {
     return (
       <>
@@ -51,9 +53,9 @@ export default ({ serviceKey, BusStopID }) => {
             <>
               {rowData.CAR_REG_NO && (
                 <StationListDetailScreen
+                  key={index}
                   busExist={busExist}
                   setBusExist={setBusExist}
-                  key={index}
                   CAR_REG_NO={rowData.CAR_REG_NO}
                   ROUTE_NO={rowData.ROUTE_NO}
                   STATUS_POS={rowData.STATUS_POS}
@@ -65,7 +67,7 @@ export default ({ serviceKey, BusStopID }) => {
             </>
           );
         })}
-        {!busExist && <Text style={{fontSize:13, color:'#8D8E93'}}>저상버스 도착정보가 없습니다.</Text>}
+        {!busExist && <Text style={{ fontSize: 13, color: '#8D8E93' }}>저상버스 도착정보가 없습니다.</Text>}
       </>
     );
   }

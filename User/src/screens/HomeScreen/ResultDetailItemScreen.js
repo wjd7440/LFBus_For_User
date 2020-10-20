@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import {
   View,
   Text,
@@ -39,21 +39,23 @@ export default ({ serviceKey, BusStopID }) => {
     let timer = setInterval(() => {
       dataLoader();
     }, 15000);
+
+    return clearInterval(timer);
   }, []);
 
   if (!loaded || !data[0]) {
     return <Text style={{ fontSize: 13, color: '#8D8E93', }}>실시간 저상버스 정보를 검색중입니다.</Text>;
   } else {
     return (
-      <>
+      <Fragment key={BusStopID}>
         {data[0].itemList.map((rowData, index) => {
           return (
             <>
               {rowData.CAR_REG_NO && (
                 <ResultDetailScreen
+                  key={index}
                   busExist={busExist}
                   setBusExist={setBusExist}
-                  key={index}
                   CAR_REG_NO={rowData.CAR_REG_NO}
                   ROUTE_NO={rowData.ROUTE_NO}
                   STATUS_POS={rowData.STATUS_POS}
@@ -66,7 +68,7 @@ export default ({ serviceKey, BusStopID }) => {
           );
         })}
         {!busExist && <Text style={{ fontSize: 13, color: '#8D8E93' }}>현재 저상버스 도착정보가 없습니다.</Text>}
-      </>
+      </Fragment>
     );
   }
 };
