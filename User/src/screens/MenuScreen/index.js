@@ -194,29 +194,7 @@ export default ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-<<<<<<< Updated upstream
   ...style,
-=======
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    paddingLeft: 20,
-    paddingRight: 20,
-  },
-  shadow: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-      },
-      android: { elevation: 5 },
-    }),
-  },
->>>>>>> Stashed changes
   chargeBox: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -287,24 +265,14 @@ const styles = StyleSheet.create({
   menuBtn: {
     height: 50,
   },
-<<<<<<< Updated upstream
-=======
-  menuBtn: {
-    height: 50,
-  },
->>>>>>> Stashed changes
   menuBox: {
     flexDirection: "row",
     alignItems: "center",
   },
   menuText: {
     fontSize: 17,
-<<<<<<< Updated upstream
     marginLeft: 12,
     color: "#333",
-=======
-    marginLeft: 8,
->>>>>>> Stashed changes
   },
   menuIcon: {
     resizeMode: "contain",

@@ -12,9 +12,10 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useQuery } from "react-apollo-hooks";
-import { ACCOUNT_INFO_QUERY } from "../Queries";
+import { ACCOUNT_INFO_QUERY, BUS_INFO_QUERY } from "../Queries";
 import { theme } from "galio-framework";
 import style from "../../../constants/style";
+import { Header } from "../../../components";
 
 export default ({ navigation, route }) => {
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
@@ -50,6 +51,13 @@ export default ({ navigation, route }) => {
     fetchPolicy: "network-only",
   });
 
+  const { data: busInfo, loading2 } = useQuery(BUS_INFO_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      CAR_REG_NO: CAR_REG_NO[0],
+    },
+  });
+
   useEffect(() => {
     dataLoader();
   }, []);
@@ -63,8 +71,50 @@ export default ({ navigation, route }) => {
   } else {
     return (
       <ScrollView>
+        <Header
+          back
+          title={ROUTE_NO[0] + "번"}
+          close
+          closeNavigate={"HomeScreen"}
+          navigation={navigation}
+        />
+        {/* 오른쪽박스 자리 여부 이미지 */}
+        <View style={styles.right}>
+          {/* 좌석1 */}
+          {busInfo.UserBusInfo.SEAT1 ?
+            <View style={styles.seatImgBox}>
+              <Image
+                style={styles.seatImg}
+                source={require("../../../assets/off_seat.png")}
+              />
+              <Text style={styles.offSeatTxt}>탑승가능</Text>
+            </View> :
+            <View style={styles.seatImgBox}>
+              <Image
+                source={require("../../../assets/on_seat.png")}
+              />
+              <Text style={styles.onSeatTxt}>탑승중</Text>
+            </View>
+          }
+          {/* 좌석2 */}
+          {busInfo.UserBusInfo.SEAT2 ?
+            <View style={styles.seatImgBox}>
+              <Image
+                style={styles.seatImg}
+                source={require("../../../assets/off_seat.png")}
+              />
+              <Text style={styles.offSeatTxt}>탑승가능</Text>
+            </View> :
+            <View style={styles.seatImgBox}>
+              <Image
+                source={require("../../../assets/on_seat.png")}
+              />
+              <Text style={styles.onSeatTxt}>탑승중</Text>
+            </View>
+          }
+        </View>
         <View>
-          <Text>현재 정류장 : {BUSSTOP_NM}</Text>
+          <Text>선택 정류장 : {BUSSTOP_NM}</Text>
           <Text>{DESTINATION} 방면</Text>
           <TouchableOpacity
             onPress={() => {
@@ -75,7 +125,10 @@ export default ({ navigation, route }) => {
           </TouchableOpacity>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("LoginScreen");
+              navigation.navigate("BusServiceInfoScreen", {
+                ROUTE_NO: ROUTE_NO,
+                ROUTE_CD: ROUTE_CD,
+              });
             }}
           >
             <Text>버스 운행정보</Text>
@@ -100,10 +153,10 @@ export default ({ navigation, route }) => {
               <Text>탑승 요청</Text>
             </TouchableOpacity>
           ) : (
-            <Text>
-              내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-            </Text>
-          )}
+              <Text>
+                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+              </Text>
+            )}
           {data[0].itemList.map((rowData, index) => {
             return (
               <View style={styles.list}>

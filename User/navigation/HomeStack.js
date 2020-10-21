@@ -4,14 +4,11 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 import HomeScreen from "../src/screens/HomeScreen";
-// import ReserveScreen from "../src/screens/HomeScreen/ReserveIndex";
-// import BusInfoScreen from "../src/screens/HomeScreen/BusInfoScreen";
-// import ReserveResultDetailScreen from "../src/screens/ReserveScreen/ReserveResultDetailScreen";
-// import ReservationScreen from "../src/screens/ReserveScreen/ReservationScreen";
 import ReserveScreen from "../src/screens/ReserveScreen";
 import ResultDetailScreen from "../src/screens/ReserveScreen/ResultDetailScreen";
 import ReservationScreen from "../src/screens/ReserveScreen/ReservationScreen";
 import BusInfoScreen from "../src/screens/ReserveScreen/BusInfoScreen";
+import BusServiceInfoScreen from "../src/screens/ReserveScreen/BusServiceInfoScreen";
 
 export default () => {
   return (
@@ -28,6 +25,7 @@ export default () => {
       <Stack.Screen name="ResultDetailScreen" component={ResultDetailScreen} />
       <Stack.Screen name="ReservationScreen" component={ReservationScreen} />
       <Stack.Screen name="BusInfoScreen" component={BusInfoScreen} />
+      <Stack.Screen name="BusServiceInfoScreen" component={BusServiceInfoScreen} />
     </Stack.Navigator>
   );
 };

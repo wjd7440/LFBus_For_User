@@ -135,6 +135,27 @@ export const BUS_ROUTE_LIST_QUERY = gql`
   }
 `;
 
+export const BUS_ROUTE_DETAIL_QUERY = gql`
+  query UserBusRouteDetail($ROUTE_CD: String!) {
+    UserBusRouteDetail(ROUTE_CD: $ROUTE_CD) {
+      START_NODE_ID
+      START_STOP_ID
+      END_NODE_ID
+      END_STOP_ID
+      ORIGIN_START
+      ORIGIN_START_SAT
+      ORIGIN_START_SUN
+      ORIGIN_END
+      ORIGIN_END_SAT
+      ORIGIN_END_SUN
+      ALLO_INTERVAL
+      ALLO_INTERVAL_SAT
+      ALLO_INTERVAL_SUN
+      ROUTE_TP
+    }
+  }
+`;
+
 // Reservation
 export const RESERVATION_WRITE_QUERY = gql`
   mutation UserReservationWrite(
