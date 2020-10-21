@@ -6605,6 +6605,11 @@ react-native-multi-selectbox@^1.4.0:
   resolved "https://registry.yarnpkg.com/react-native-multi-selectbox/-/react-native-multi-selectbox-1.4.0.tgz#b7ba26e0ebccb6ae80a95ff4bdfd954190099fb5"
   integrity sha512-1aXf5jvbVUL3XqSi5Bs5JrzBRnVRB6wOWWnCErgIZmr4g1CtsDgoNHkIk+aopl0ZW0aOl0x7eusSb32YPrH96Q==
 
+react-native-naver-font@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-naver-font/-/react-native-naver-font-1.0.0.tgz#829a49cce217a75b7e1b5e1404aad801ae24b5b9"
+  integrity sha512-SUs62FESo/MClHzpwibiRkac4ettBXx879bto6LPqjQ8Wtup5mhNqytA8XY5W4arAft4WxcnvZ4UKC21QnCsgg==
+
 react-native-nmap@0.0.52:
   version "0.0.52"
   resolved "https://registry.yarnpkg.com/react-native-nmap/-/react-native-nmap-0.0.52.tgz#d1fe0a44e79da0fc1f08a8c2aa03d93b7a5bf6b6"

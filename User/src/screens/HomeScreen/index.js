@@ -161,8 +161,8 @@ export default ({ navigation }) => {
                   fontSize: 12,
                   paddingTop: 5,
                   paddingBottom: 5,
-                  marginRight: 15,
-                  marginLeft: 15,
+                  marginRight: 20,
+                  marginLeft: 20,
                   color: "#454545",
                 }}
               >
@@ -260,8 +260,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderRadius: 7,
     marginBottom: 10,
-    marginRight: 15,
-    marginLeft: 15,
+    marginRight: 20,
+    marginLeft: 20,
 
     paddingTop: 15,
     paddingBottom: 18,
