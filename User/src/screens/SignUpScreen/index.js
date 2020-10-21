@@ -20,6 +20,7 @@ import {
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
 import { useForm } from "react-hook-form";
+import { Header } from "../../../components";
 import { useMutation } from "react-apollo-hooks";
 import { SIGNUP_QUERY, USERID_CHECK_QUERY } from "../Queries";
 import { Block, theme } from "galio-framework";
@@ -482,6 +483,13 @@ export default ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }}>
+      <Header
+        back
+        title="회원가입"
+        close
+        closeNavigate={"LoginScreen"}
+        navigation={navigation}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
