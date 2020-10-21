@@ -20,6 +20,8 @@ import {
   Button,
   Alert,
 } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { Header } from "../../../components";
 
 export default ({ navigation, route }) => {
   const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
@@ -161,7 +163,14 @@ export default ({ navigation, route }) => {
   }, [loaded]);
 
   return (
-    <View>
+    <ScrollView>
+      <Header
+        back
+        title="승차 요청"
+        close
+        closeNavigate={"HomeScreen"}
+        navigation={navigation}
+      />
       <Text>
         {ROUTE_NO}번({DESTINATION} 방면)
       </Text>
@@ -227,6 +236,6 @@ export default ({ navigation, route }) => {
           });
         }}
       />
-    </View>
+    </ScrollView>
   );
 };

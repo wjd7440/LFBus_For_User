@@ -85,7 +85,6 @@ const SearchButton = ({ isWhite, style, toggleModal }) => (
 class Header extends React.Component {
   renderLeft = () => {
     const { white, back, navigation } = this.props;
-    const { routeName } = navigation.state;
 
     if (back) {
       return (
@@ -155,8 +154,8 @@ class Header extends React.Component {
     const headerStyles = [
       transparent
         ? {
-            backgroundColor: "transparent",
-          }
+          backgroundColor: "transparent",
+        }
         : null,
     ];
 

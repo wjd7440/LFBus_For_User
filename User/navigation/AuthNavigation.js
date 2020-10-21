@@ -29,14 +29,14 @@ export default () => {
           name="LoginScreen"
           component={LoginScreen}
           options={{
-            header: () => {},
+            header: () => { },
           }}
         />
         <Stack.Screen
           name="SignUpScreen"
           component={SignUpScreen}
           options={{
-            header: () => <Header title="회원가입" />,
+            header: () => { },
           }}
         />
       </Stack.Navigator>

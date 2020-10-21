@@ -102,9 +102,6 @@ export default ({ navigation }) => {
                     <MapView.Marker
                       key={index}
                       image={require("../../../assets/busmarker.png")}
-                      onMarkerPress={() => {
-                        console.log("hihihi");
-                      }}
                       coordinate={{
                         latitude: rowData.GPS_LATI,
                         longitude: rowData.GPS_LONG,
@@ -112,12 +109,9 @@ export default ({ navigation }) => {
                     >
                       <MapView.Callout
                         key={`Callout-${index}`}
-                        onMarkerPress={() => {
-                          console.log("hihihi");
-                        }}
                         tooltip={true}
                         onPress={() => {
-                          navigation.replace("탑승 예약", {
+                          navigation.replace("홈", {
                             screen: "ReserveScreen",
                             params: {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,
@@ -177,7 +171,7 @@ export default ({ navigation }) => {
                           activeOpacity={0.92}
                           style={styles.busItem}
                           onPress={() => {
-                            navigation.replace("탑승 예약", {
+                            navigation.replace("홈", {
                               screen: "ReserveScreen",
                               params: {
                                 BUS_NODE_ID: rowData.BUS_NODE_ID,
