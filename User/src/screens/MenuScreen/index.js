@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { useFonts } from "@use-expo/font";
+import style from "../../../constants/style";
 import {
   View,
   Text,
@@ -12,12 +14,21 @@ import {
   ScrollView,
 } from "react-native";
 export default ({ navigation }) => {
+  const fonts = useFonts({
+    "NotoSansKR-Thin": require("../../../assets/fonts/NotoSansKR-Thin.otf"),
+    "NotoSansKR-Light": require("../../../assets/fonts/NotoSansKR-Light.otf"),
+    "NotoSansKR-Regular": require("../../../assets/fonts/NotoSansKR-Regular.otf"),
+    "NotoSansKR-Medium": require("../../../assets/fonts/NotoSansKR-Medium.otf"),
+    "NotoSansKR-Bold": require("../../../assets/fonts/NotoSansKR-Bold.otf"),
+    "NotoSansKR-Black": require("../../../assets/fonts/NotoSansKR-Black.otf"),
+  });
+
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
       showsHorizontalScrollIndicator={false}
     >
-      <View style={styles.container}>
+      <View style={{ ...styles.container }}>
         {/* 내 포인트 내역 */}
         <View style={[styles.shadow, styles.chargeBox]}>
           <View
@@ -114,9 +125,49 @@ export default ({ navigation }) => {
             <View style={styles.menuBox}>
               <Image
                 style={styles.menuIcon}
+                source={require("../../../assets/menu_icon01.png")}
+              />
+              <Text style={styles.menuText}>사용 및 충전 내역</Text>
+            </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
+            <View style={styles.menuBox}>
+              <Image
+                style={styles.menuIcon}
                 source={require("../../../assets/menu_icon02.png")}
               />
               <Text style={styles.menuText}>공지사항</Text>
+            </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
+            <View style={styles.menuBox}>
+              <Image
+                style={styles.menuIcon}
+                source={require("../../../assets/menu_icon03.png")}
+              />
+              <Text style={styles.menuText}>계정관리</Text>
+            </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
+            <View style={styles.menuBox}>
+              <Image
+                style={styles.menuIcon}
+                source={require("../../../assets/menu_icon04.png")}
+              />
+              <Text style={styles.menuText}>고객센터</Text>
+            </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
+            <View style={styles.menuBox}>
+              <Image
+                style={styles.menuIcon}
+                source={require("../../../assets/menu_icon05.png")}
+              />
+              <Text style={styles.menuText}>이용안내</Text>
             </View>
           </TouchableHighlight>
 
@@ -129,13 +180,13 @@ export default ({ navigation }) => {
         <Text>버스 예약 확인</Text>
       </TouchableHighlight> */}
 
-          <TouchableOpacity
+          {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate("RouteScreen");
             }}
           >
             <Text>경로 검색</Text>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </View>
       </View>
     </ScrollView>
@@ -143,29 +194,10 @@ export default ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  shadow: {
-    backgroundColor: "#fff",
-    borderRadius: 8,
-    ...Platform.select({
-      ios: {
-        shadowColor: "#000",
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
-        shadowRadius: 5,
-      },
-      android: { elevation: 5 },
-    }),
-  },
+  ...style,
   chargeBox: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 25,
   },
   cont: {
     paddingHorizontal: 8,
@@ -228,16 +260,19 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   menuListWrap: {
-    marginTop: 20,
+    marginTop: 30,
   },
-  menuBtn: {},
+  menuBtn: {
+    height: 50,
+  },
   menuBox: {
     flexDirection: "row",
     alignItems: "center",
   },
   menuText: {
-    fontSize: 18,
-    marginLeft: 8,
+    fontSize: 17,
+    marginLeft: 12,
+    color: "#333",
   },
   menuIcon: {
     resizeMode: "contain",
