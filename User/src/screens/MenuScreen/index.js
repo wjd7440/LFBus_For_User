@@ -68,7 +68,7 @@ export default ({ navigation }) => {
         {/* [예약 했을 시] 버스예약확인 */}
         <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
           <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
-            탑승할 버스를 확인해주세요.
+            탑승요청 버스 내역
           </Text>
           <View style={styles.busList}>
             <Text style={styles.busTit}>탑승버스</Text>
