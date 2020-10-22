@@ -45,6 +45,9 @@ export default ({ navigation }) => {
           <TouchableHighlight
             underlayColor={"#f5f5f5"}
             style={{ justifyContent: "center", padding: 20, width: "30%" }}
+            onPress={() => {
+              navigation.navigate("ChargeScreen");
+            }}
           >
             <View style={{ justifyContent: "center", alignItems: "center" }}>
               <Text
@@ -121,7 +124,13 @@ export default ({ navigation }) => {
         </View>
 
         <View style={styles.menuListWrap}>
-          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
+          <TouchableHighlight
+            style={styles.menuBtn}
+            underlayColor={"#f5f5f5"}
+            onPress={() => {
+              navigation.navigate("PointTransactionScreen");
+            }}
+          >
             <View style={styles.menuBox}>
               <Image
                 style={styles.menuIcon}
