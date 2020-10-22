@@ -78,6 +78,29 @@ export const BUS_STATION_LIST_QUERY = gql`
   }
 `;
 
+export const BUS_START_STATION_DETAIL_QUERY = gql`
+  query UserBusStartStationDetail($START_NODE_ID: Int!) {
+    UserBusStartStationDetail(START_NODE_ID: $START_NODE_ID) {
+      BUSSTOP_NM
+    }
+  }
+`;
+
+export const BUS_TURN_STATION_DETAIL_QUERY = gql`
+  query UserBusTurnStationDetail($TURN_NODE_ID: Int!) {
+    UserBusTurnStationDetail(TURN_NODE_ID: $TURN_NODE_ID) {
+      BUSSTOP_NM
+    }
+  }
+`;
+
+export const BUS_END_STATION_DETAIL_QUERY = gql`
+  query UserBusEndStationDetail($END_NODE_ID: Int!) {
+    UserBusEndStationDetail(END_NODE_ID: $END_NODE_ID) {
+      BUSSTOP_NM
+    }
+  }
+`;
 // BusInfo
 export const BUS_INFO_QUERY = gql`
   query UserBusInfo($CAR_REG_NO: String!) {
@@ -148,6 +171,7 @@ export const BUS_ROUTE_DETAIL_QUERY = gql`
       ORIGIN_END
       ORIGIN_END_SAT
       ORIGIN_END_SUN
+      TURN_NODE_ID
       ALLO_INTERVAL
       ALLO_INTERVAL_SAT
       ALLO_INTERVAL_SUN
