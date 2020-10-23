@@ -23,8 +23,8 @@ export default StyleSheet.create({
     ...Platform.select({
       ios: {
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.16,
         shadowRadius: 5,
       },
       android: { elevation: 5 },

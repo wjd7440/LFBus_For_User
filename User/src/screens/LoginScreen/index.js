@@ -78,68 +78,66 @@ export default ({ navigation }) => {
   }, [register]);
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
-      <ScrollView contentContainerStyle={{ flex: 1 }}>
-        <View style={{ ...styles.container, marginTop: -50 }}>
-          <View style={styles.titleArea}>
-            <Image
-              style={styles.loginLogo}
-              source={require("../../../assets/logo.png")}
-            />
-          </View>
-          <View style={styles.formArea}>
-            <TextInput
-              style={styles.textForm}
-              placeholder={"아이디(이메일)를 입력해주세요."}
-              name="userId"
-              onChangeText={(text) => {
-                var lowerCase = text.toLowerCase();
-                setValue("userId", lowerCase, true);
-              }}
-            />
-            {errors.userId && (
-              <Block>
-                <Text style={styles.errorTxt}>{errors.userId.message}</Text>
-              </Block>
-            )}
-          </View>
-          <View style={styles.formArea}>
-            <TextInput
-              secureTextEntry={true}
-              style={styles.textForm}
-              placeholder={"비밀번호를 입력해주세요."}
-              name="password"
-              onChangeText={(text) => {
-                setValue("password", text, true);
-              }}
-            />
-            {errors.password && (
-              <Block>
-                <Text style={styles.errorTxt}>{errors.password.message}</Text>
-              </Block>
-            )}
-          </View>
-          <View style={{ ...styles.buttonArea }}>
-            <TouchableHighlight
-              underlayColor={"#333FDA"}
-              style={styles.button}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.buttonTitle}>로그인</Text>
-            </TouchableHighlight>
-            <TouchableHighlight
-              underlayColor={"#333FDA"}
-              style={styles.button}
-              onPress={() => {
-                navigation.navigate("SignUpScreen");
-              }}
-            >
-              <Text style={styles.buttonTitle}>회원가입</Text>
-            </TouchableHighlight>
-          </View>
+    <ScrollView contentContainerStyle={{ flex: 1 }}>
+      <View style={{ ...styles.container, marginTop: -50 }}>
+        <View style={styles.titleArea}>
+          <Image
+            style={styles.loginLogo}
+            source={require("../../../assets/logo.png")}
+          />
         </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
+        <View style={styles.formArea}>
+          <TextInput
+            style={styles.textForm}
+            placeholder={"아이디(이메일)를 입력해주세요."}
+            name="userId"
+            onChangeText={(text) => {
+              var lowerCase = text.toLowerCase();
+              setValue("userId", lowerCase, true);
+            }}
+          />
+          {errors.userId && (
+            <Block>
+              <Text style={styles.errorTxt}>{errors.userId.message}</Text>
+            </Block>
+          )}
+        </View>
+        <View style={styles.formArea}>
+          <TextInput
+            secureTextEntry={true}
+            style={styles.textForm}
+            placeholder={"비밀번호를 입력해주세요."}
+            name="password"
+            onChangeText={(text) => {
+              setValue("password", text, true);
+            }}
+          />
+          {errors.password && (
+            <Block>
+              <Text style={styles.errorTxt}>{errors.password.message}</Text>
+            </Block>
+          )}
+        </View>
+        <View style={{ ...styles.buttonArea }}>
+          <TouchableHighlight
+            underlayColor={"#333FDA"}
+            style={styles.button}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.buttonTitle}>로그인</Text>
+          </TouchableHighlight>
+          <TouchableHighlight
+            underlayColor={"#333FDA"}
+            style={styles.button}
+            onPress={() => {
+              navigation.navigate("SignUpScreen");
+            }}
+          >
+            <Text style={styles.buttonTitle}>회원가입</Text>
+          </TouchableHighlight>
+        </View>
+      </View>
+    </ScrollView>
   );
 };
 

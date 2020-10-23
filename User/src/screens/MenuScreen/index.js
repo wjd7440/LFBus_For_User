@@ -46,7 +46,9 @@ export default ({ navigation }) => {
                 flex: 1,
               }}
             >
-              <Text style={styles.myPointTxt}>내 포인트</Text>
+              <View style={styles.myPoint}>
+                <Text style={styles.myPointTxt}>내 포인트</Text>
+              </View>
               <Text style={styles.myPointNumber}>8,850 P</Text>
             </View>
             <TouchableHighlight
@@ -133,7 +135,6 @@ export default ({ navigation }) => {
           <View style={styles.menuListWrap}>
             <TouchableHighlight
               style={styles.menuBtn}
-              underlayColor={"#f5f5f5"}
               onPress={() => {
                 navigation.navigate("PointTransactionScreen");
               }}
@@ -147,10 +148,7 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight
-              style={styles.menuBtn}
-              underlayColor={"#f5f5f5"}
-            >
+            <TouchableHighlight style={styles.menuBtn}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -160,10 +158,7 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight
-              style={styles.menuBtn}
-              underlayColor={"#f5f5f5"}
-            >
+            <TouchableHighlight style={styles.menuBtn}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -173,10 +168,7 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight
-              style={styles.menuBtn}
-              underlayColor={"#f5f5f5"}
-            >
+            <TouchableHighlight style={styles.menuBtn}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -186,10 +178,7 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight
-              style={styles.menuBtn}
-              underlayColor={"#f5f5f5"}
-            >
+            <TouchableHighlight style={styles.menuBtn}>
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -243,15 +232,18 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  myPointTxt: {
+  myPoint: {
     borderRadius: 8,
     borderTopLeftRadius: 0,
     backgroundColor: "#4B56F1",
-    color: "#fff",
-    fontSize: 14,
+
     paddingHorizontal: 8,
     paddingVertical: 4,
     width: 76,
+  },
+  myPointTxt: {
+    color: "#fff",
+    fontSize: 14,
     textAlign: "center",
   },
   myPointNumber: {
@@ -293,6 +285,7 @@ const styles = StyleSheet.create({
   },
   menuBtn: {
     height: 50,
+    justifyContent: "center",
   },
   menuBox: {
     flexDirection: "row",
