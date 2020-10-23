@@ -21,7 +21,7 @@ export default ({
   TOTAL_DIST,
   ROUTE_TP,
   navigation,
-  route
+  route,
 }) => {
   const { data, loading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
@@ -38,54 +38,62 @@ export default ({
         <View key={ROUTE_NO} style={[styles.busList, styles.row]}>
           {/* 왼쪽박스 */}
           <View style={styles.left}>
-            <Text style={{ fontSize: 21, color: '#4B56F1', fontWeight: 'bold', }}>{ROUTE_NO}</Text>
-            <Text style={{ fontSize: 16, paddingTop: 2, }}>종착지 - {DESTINATION}</Text>
+            <Text
+              style={{ fontSize: 21, color: "#4B56F1", fontWeight: "bold" }}
+            >
+              {ROUTE_NO}
+            </Text>
+            <Text style={{ fontSize: 16, paddingTop: 2 }}>
+              종착지 - {DESTINATION}
+            </Text>
 
             {STATUS_POS > 0 ? (
-              <View style={{ ...styles.row, paddingTop: 2, }}>
-                <Text style={{ fontSize: 16, color: '#FF4646' }}>{EXTIME_MIN}분후 도착</Text>
-                <Text style={{ marginLeft: 5, fontSize: 15, color: "#8D8E93", }}>({STATUS_POS}정류장 전)</Text>
+              <View style={{ ...styles.row, paddingTop: 2 }}>
+                <Text style={{ fontSize: 16, color: "#FF4646" }}>
+                  {EXTIME_MIN}분후 도착
+                </Text>
+                <Text style={{ marginLeft: 5, fontSize: 15, color: "#8D8E93" }}>
+                  ({STATUS_POS}정류장 전)
+                </Text>
               </View>
             ) : (
-                <View style={{ ...styles.row, paddingTop: 2, }}>
-                  <Text style={{ fontSize: 16, color: '#FF4646' }}>진입중</Text>
-                </View>
-              )}
+              <View style={{ ...styles.row, paddingTop: 2 }}>
+                <Text style={{ fontSize: 16, color: "#FF4646" }}>진입중</Text>
+              </View>
+            )}
           </View>
           {/* 오른쪽박스 자리 여부 이미지 */}
           <View style={styles.right}>
             {/* 좌석1 */}
-            {data.UserBusInfo.SEAT1 ?
+            {data.UserBusInfo.SEAT1 ? (
               <View style={styles.seatImgBox}>
                 <Image
                   style={styles.seatImg}
                   source={require("../../../assets/off_seat.png")}
                 />
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
-              </View> :
-              <View style={styles.seatImgBox}>
-                <Image
-                  source={require("../../../assets/on_seat.png")}
-                />
-                <Text style={styles.onSeatTxt}>탑승중</Text>
               </View>
-            }
+            ) : (
+              <View style={styles.seatImgBox}>
+                <Image source={require("../../../assets/on_seat.png")} />
+                <Text style={styles.onSeatTxt}>탑승12중</Text>
+              </View>
+            )}
             {/* 좌석2 */}
-            {data.UserBusInfo.SEAT2 ?
+            {data.UserBusInfo.SEAT2 ? (
               <View style={styles.seatImgBox}>
                 <Image
                   style={styles.seatImg}
                   source={require("../../../assets/off_seat.png")}
                 />
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
-              </View> :
+              </View>
+            ) : (
               <View style={styles.seatImgBox}>
-                <Image
-                  source={require("../../../assets/on_seat.png")}
-                />
+                <Image source={require("../../../assets/on_seat.png")} />
                 <Text style={styles.onSeatTxt}>탑승중</Text>
               </View>
-            }
+            )}
           </View>
 
           {/* <Text>CAR_REG_NO : {data.UserBusInfo.CAR_REG_NO}</Text> */}
@@ -96,7 +104,6 @@ export default ({
     }
   }
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -114,13 +121,13 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingTop: 18,
     paddingBottom: 18,
-    justifyContent: 'space-between',
+    justifyContent: "space-between",
   },
   left: {
-    maxWidth: '65%',
+    maxWidth: "65%",
   },
   right: {
-    maxWidth: '35%',
+    maxWidth: "35%",
     flexDirection: "row",
   },
   seatImgBox: {
@@ -130,7 +137,7 @@ const styles = StyleSheet.create({
   seatImg: {
     width: 48,
     height: 48,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   offSeatTxt: {
     marginTop: 5,

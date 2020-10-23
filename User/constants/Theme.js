@@ -35,5 +35,6 @@ export default {
     TWITTER: "#1DA1F2",
     FACEBOOK: "#3B5999",
     DRIBBBLE: "#EA4C89",
+    BUSCOLOR: "#4B56F1",
   },
 };

@@ -7,13 +7,13 @@ export default class RadioIconGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      radioButtons: this.validate(this.props.radioButtons)
+      radioButtons: this.validate(this.props.radioButtons),
     };
   }
 
   validate(data) {
     let selected = false; // Variable to check if "selected: true" for more than one button.
-    data.map(e => {
+    data.map((e) => {
       e.color = e.color ? e.color : "#444";
       e.disabled = e.disabled ? e.disabled : false;
       e.label = e.label ? e.label : "You forgot to give label";
@@ -36,10 +36,10 @@ export default class RadioIconGroup extends Component {
     return data;
   }
 
-  onPress = label => {
+  onPress = (label) => {
     const radioButtons = this.state.radioButtons;
-    const selectedIndex = radioButtons.findIndex(e => e.selected == true);
-    const selectIndex = radioButtons.findIndex(e => e.label == label);
+    const selectedIndex = radioButtons.findIndex((e) => e.selected == true);
+    const selectIndex = radioButtons.findIndex((e) => e.label == label);
     if (selectedIndex != selectIndex) {
       radioButtons[selectedIndex].selected = false;
       radioButtons[selectIndex].selected = true;
@@ -54,10 +54,10 @@ export default class RadioIconGroup extends Component {
         <View
           style={{
             flexDirection: this.props.flexDirection,
-            marginTop: 5
+            marginTop: 5,
           }}
         >
-          {this.state.radioButtons.map(data => (
+          {this.state.radioButtons.map((data) => (
             <RadioButton key={data.label} data={data} onPress={this.onPress} />
           ))}
         </View>
@@ -73,7 +73,7 @@ class RadioButton extends Component {
     let layout = {
       flexDirection: "row",
       height: 50,
-      paddingHorizontal: theme.SIZES.BASE / 2
+      paddingHorizontal: theme.SIZES.BASE / 2,
     };
     let margin = { marginLeft: 10 };
     if (data.layout === "column") {
@@ -86,8 +86,8 @@ class RadioButton extends Component {
           layout,
           {
             width: data.width,
-            alignItems: "center"
-          }
+            alignItems: "center",
+          },
         ]}
         onPress={() => {
           data.disabled ? null : this.props.onPress(data.label);
@@ -100,8 +100,8 @@ class RadioButton extends Component {
               backgroundColor: "#f5f5f5",
               width: data.size,
               height: data.size,
-              borderRadius: data.size / 2
-            }
+              borderRadius: data.size / 2,
+            },
           ]}
         >
           {data.selected ? (
@@ -117,9 +117,9 @@ class RadioButton extends Component {
                 alignSelf: "center",
                 fontSize: 17,
                 fontWeight: "bold",
-                color: "#333"
+                color: "#333",
               },
-              margin
+              margin,
             ]}
           >
             {data.label}
@@ -130,9 +130,9 @@ class RadioButton extends Component {
               {
                 alignSelf: "center",
                 fontSize: 17,
-                color: "#999"
+                color: "#999",
               },
-              margin
+              margin,
             ]}
           >
             {data.label}
@@ -144,13 +144,13 @@ class RadioButton extends Component {
 }
 const styles = StyleSheet.create({
   container: {
-    justifyContent: "center"
+    justifyContent: "center",
   },
   Radiobtn: {
-    width: "50%"
+    width: "50%",
   },
   border: {
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 });

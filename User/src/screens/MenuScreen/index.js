@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { useFonts } from "@use-expo/font";
 import style from "../../../constants/style";
+import { Header } from "../../../components";
 import {
   View,
   Text,
@@ -24,163 +25,177 @@ export default ({ navigation }) => {
   });
 
   return (
-    <ScrollView
-      showsVerticalScrollIndicator={false}
-      showsHorizontalScrollIndicator={false}
-    >
-      <View style={{ ...styles.container }}>
-        {/* 내 포인트 내역 */}
-        <View style={[styles.shadow, styles.chargeBox]}>
+    <>
+      <Header title="메뉴" />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+      >
+        <View style={{ ...styles.container }}>
+          {/* 내 포인트 내역 */}
+          <View style={[styles.shadow, styles.chargeBox]}>
+            <View
+              style={{
+                padding: 20,
+                borderRightWidth: 1,
+                borderColor: "#f1f1f1",
+                flex: 1,
+              }}
+            >
+              <Text style={styles.myPointTxt}>내 포인트</Text>
+              <Text style={styles.myPointNumber}>8,850 P</Text>
+            </View>
+            <TouchableHighlight
+              underlayColor={"#f5f5f5"}
+              style={{ justifyContent: "center", padding: 20, width: "30%" }}
+              onPress={() => {
+                navigation.navigate("ChargeScreen");
+              }}
+            >
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <Text
+                  style={{ fontSize: 18, color: "#4B56F1", fontWeight: "700" }}
+                >
+                  충전하기
+                </Text>
+                <Image
+                  style={{
+                    width: 36,
+                    height: 36,
+                    resizeMode: "contain",
+                    marginTop: 3,
+                  }}
+                  source={require("../../../assets/charge_icon.png")}
+                />
+              </View>
+            </TouchableHighlight>
+          </View>
+
+          {/* [예약 했을 시] 버스예약확인 */}
+          <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
+            <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
+              탑승요청 버스 내역
+            </Text>
+            <View style={styles.busList}>
+              <Text style={styles.busTit}>탑승버스</Text>
+              {/* 사용자가 선택한 버스를 넣어주세요. */}
+              <Text style={styles.busInfo}>101번</Text>
+            </View>
+            <View style={styles.busList}>
+              <Text style={styles.busTit}>승차정류장</Text>
+              {/* 승차정류장을 넣어주세요. */}
+              <Text style={styles.busInfo}>중앙로역6번출구</Text>
+            </View>
+            <View style={styles.busList}>
+              <Text style={styles.busTit}>하차정류장</Text>
+              {/* 하차정류장을 넣어주세요. */}
+              <Text style={styles.busInfo}>유성온천역7번출구</Text>
+            </View>
+            <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
+              <Text style={styles.busTit}>버스위치</Text>
+              {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
+              <Text style={styles.busInfo}>목척교{"\n"}(2분후 도착)</Text>
+            </View>
+            {/* 탑승 취소 버튼 */}
+            <TouchableHighlight
+              style={{ ...styles.onButton, marginTop: 10 }}
+              underlayColor={"#333FDA"}
+            >
+              <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
+            </TouchableHighlight>
+          </View>
+
+          {/* [예약 없을 시] 버스예약확인 */}
           <View
-            style={{
-              padding: 20,
-              borderRightWidth: 1,
-              borderColor: "#f1f1f1",
-              flex: 1,
-            }}
+            style={[
+              styles.shadow,
+              styles.contBox,
+              styles.marginTop15,
+              styles.nonebus,
+            ]}
           >
-            <Text style={styles.myPointTxt}>내 포인트</Text>
-            <Text style={styles.myPointNumber}>8,850 P</Text>
+            <Text
+              style={{
+                fontSize: 15,
+                color: "#8D8E93",
+                textAlign: "center",
+                paddingVertical: 20,
+              }}
+            >
+              탑승요청한 버스가 없습니다.
+            </Text>
           </View>
-          <TouchableHighlight
-            underlayColor={"#f5f5f5"}
-            style={{ justifyContent: "center", padding: 20, width: "30%" }}
-            onPress={() => {
-              navigation.navigate("ChargeScreen");
-            }}
-          >
-            <View style={{ justifyContent: "center", alignItems: "center" }}>
-              <Text
-                style={{ fontSize: 18, color: "#4B56F1", fontWeight: "700" }}
-              >
-                충전하기
-              </Text>
-              <Image
-                style={{
-                  width: 36,
-                  height: 36,
-                  resizeMode: "contain",
-                  marginTop: 3,
-                }}
-                source={require("../../../assets/charge_icon.png")}
-              />
-            </View>
-          </TouchableHighlight>
-        </View>
 
-        {/* [예약 했을 시] 버스예약확인 */}
-        <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
-          <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
-            탑승요청 버스 내역
-          </Text>
-          <View style={styles.busList}>
-            <Text style={styles.busTit}>탑승버스</Text>
-            {/* 사용자가 선택한 버스를 넣어주세요. */}
-            <Text style={styles.busInfo}>101번</Text>
-          </View>
-          <View style={styles.busList}>
-            <Text style={styles.busTit}>승차정류장</Text>
-            {/* 승차정류장을 넣어주세요. */}
-            <Text style={styles.busInfo}>중앙로역6번출구</Text>
-          </View>
-          <View style={styles.busList}>
-            <Text style={styles.busTit}>하차정류장</Text>
-            {/* 하차정류장을 넣어주세요. */}
-            <Text style={styles.busInfo}>유성온천역7번출구</Text>
-          </View>
-          <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
-            <Text style={styles.busTit}>버스위치</Text>
-            {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
-            <Text style={styles.busInfo}>목척교{"\n"}(2분후 도착)</Text>
-          </View>
-          {/* 탑승 취소 버튼 */}
-          <TouchableHighlight
-            style={{ ...styles.onButton, marginTop: 10 }}
-            underlayColor={"#333FDA"}
-          >
-            <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
-          </TouchableHighlight>
-        </View>
+          <View style={styles.menuListWrap}>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+              onPress={() => {
+                navigation.navigate("PointTransactionScreen");
+              }}
+            >
+              <View style={styles.menuBox}>
+                <Image
+                  style={styles.menuIcon}
+                  source={require("../../../assets/menu_icon01.png")}
+                />
+                <Text style={styles.menuText}>사용 및 충전 내역</Text>
+              </View>
+            </TouchableHighlight>
 
-        {/* [예약 없을 시] 버스예약확인 */}
-        <View
-          style={[
-            styles.shadow,
-            styles.contBox,
-            styles.marginTop15,
-            styles.nonebus,
-          ]}
-        >
-          <Text
-            style={{
-              fontSize: 15,
-              color: "#8D8E93",
-              textAlign: "center",
-              paddingVertical: 20,
-            }}
-          >
-            탑승요청한 버스가 없습니다.
-          </Text>
-        </View>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
+              <View style={styles.menuBox}>
+                <Image
+                  style={styles.menuIcon}
+                  source={require("../../../assets/menu_icon02.png")}
+                />
+                <Text style={styles.menuText}>공지사항</Text>
+              </View>
+            </TouchableHighlight>
 
-        <View style={styles.menuListWrap}>
-          <TouchableHighlight
-            style={styles.menuBtn}
-            underlayColor={"#f5f5f5"}
-            onPress={() => {
-              navigation.navigate("PointTransactionScreen");
-            }}
-          >
-            <View style={styles.menuBox}>
-              <Image
-                style={styles.menuIcon}
-                source={require("../../../assets/menu_icon01.png")}
-              />
-              <Text style={styles.menuText}>사용 및 충전 내역</Text>
-            </View>
-          </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
+              <View style={styles.menuBox}>
+                <Image
+                  style={styles.menuIcon}
+                  source={require("../../../assets/menu_icon03.png")}
+                />
+                <Text style={styles.menuText}>계정관리</Text>
+              </View>
+            </TouchableHighlight>
 
-          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
-            <View style={styles.menuBox}>
-              <Image
-                style={styles.menuIcon}
-                source={require("../../../assets/menu_icon02.png")}
-              />
-              <Text style={styles.menuText}>공지사항</Text>
-            </View>
-          </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
+              <View style={styles.menuBox}>
+                <Image
+                  style={styles.menuIcon}
+                  source={require("../../../assets/menu_icon04.png")}
+                />
+                <Text style={styles.menuText}>고객센터</Text>
+              </View>
+            </TouchableHighlight>
 
-          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
-            <View style={styles.menuBox}>
-              <Image
-                style={styles.menuIcon}
-                source={require("../../../assets/menu_icon03.png")}
-              />
-              <Text style={styles.menuText}>계정관리</Text>
-            </View>
-          </TouchableHighlight>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
+              <View style={styles.menuBox}>
+                <Image
+                  style={styles.menuIcon}
+                  source={require("../../../assets/menu_icon05.png")}
+                />
+                <Text style={styles.menuText}>이용안내</Text>
+              </View>
+            </TouchableHighlight>
 
-          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
-            <View style={styles.menuBox}>
-              <Image
-                style={styles.menuIcon}
-                source={require("../../../assets/menu_icon04.png")}
-              />
-              <Text style={styles.menuText}>고객센터</Text>
-            </View>
-          </TouchableHighlight>
-
-          <TouchableHighlight style={styles.menuBtn} underlayColor={"#f5f5f5"}>
-            <View style={styles.menuBox}>
-              <Image
-                style={styles.menuIcon}
-                source={require("../../../assets/menu_icon05.png")}
-              />
-              <Text style={styles.menuText}>이용안내</Text>
-            </View>
-          </TouchableHighlight>
-
-          {/* <TouchableHighlight
+            {/* <TouchableHighlight
         underlayColor={"#f5f5f5"}
         onPress={() => {
           navigation.navigate("ReservationCheckScreen");
@@ -189,16 +204,17 @@ export default ({ navigation }) => {
         <Text>버스 예약 확인</Text>
       </TouchableHighlight> */}
 
-          {/* <TouchableOpacity
+            {/* <TouchableOpacity
             onPress={() => {
               navigation.navigate("RouteScreen");
             }}
           >
             <Text>경로 검색</Text>
           </TouchableOpacity> */}
+          </View>
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </>
   );
 };
 

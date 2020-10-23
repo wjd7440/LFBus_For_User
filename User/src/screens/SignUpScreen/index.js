@@ -1,7 +1,6 @@
 import React, { useEffect, useState, Component } from "react";
 import { Text } from "react-native-paper";
 import RadioGroup from "../../../components/RadioGroup";
-import RadioIconGroup from "../../../components/RadioIconGroup";
 import CheckBox from "react-native-check-box";
 import RNPickerSelect from "react-native-picker-select";
 import {

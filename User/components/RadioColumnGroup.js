@@ -1,8 +1,15 @@
 import React, { Component } from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  TouchableHighlight,
+  Pressable,
+} from "react-native";
 import Icon from "react-native-fontawesome-pro";
 
-export default class RadioGroup extends Component {
+export default class RadioColumnGroup extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -49,14 +56,16 @@ export default class RadioGroup extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View
-          style={{ flexDirection: this.props.flexDirection, marginTop: 0, }}
-        >
-          {this.state.radioButtons.map((data) => (
-            <RadioButton key={data.label} data={data} onPress={this.onPress} />
-          ))}
-        </View>
+      <View
+        style={{
+          flexDirection: "row",
+          flexWrap: "wrap",
+          marginHorizontal: -4,
+        }}
+      >
+        {this.state.radioButtons.map((data) => (
+          <RadioButton key={data.label} data={data} onPress={this.onPress} />
+        ))}
       </View>
     );
   }
@@ -67,81 +76,99 @@ class RadioButton extends Component {
     const data = this.props.data;
     const opacity = data.disabled ? 0.2 : 1;
     let layout = {
-      flexDirection: "row",
       paddingVertical: 10,
       paddingHorizontal: 12,
       borderRadius: 4,
+      width: "100%",
+      flex: 1,
     };
-    let margin = { marginLeft: 0 };
-    let textMarin = { marginLeft:10, };
+
     if (data.layout === "column") {
       layout = { alignItems: "center" };
-      margin = { marginTop: 10, };
+      margin = { marginTop: 10 };
     }
     return (
-      <View>
-        <TouchableOpacity
-          style={[
-            layout,
-            margin,
-            {
-              // backgroundColor: data.backgroundBtnColor,
-              width: data.width,
-              marginTop: data.marginTop ? 10 : 0,
-            },
-          ]}
-          onPress={() => {
-            data.disabled ? null : this.props.onPress(data.label);
-          }}
-        >
-          {data.selected ? 
-            <View
-              style={[
-                styles.border,
-                {
-                  backgroundColor: "#4B56F1",
-                  width: data.size,
-                  height: data.size,
-                  borderRadius: data.size / 2,
-                },
-              ]}
+      <View
+        style={{
+          flexWrap: "wrap",
+          width: "33.33333333333%",
+          paddingHorizontal: 4,
+          paddingVertical: 4,
+          // flexBasis: "33.333333%",
+        }}
+      >
+        {data.selected ? (
+          <TouchableHighlight
+            underlayColor="#DFE1FF"
+            style={[
+              layout,
+              styles.onBtn,
+              {
+                // backgroundColor: data.backgroundBtnColor,
+                width: "100%",
+                marginTop: data.marginTop ? 10 : 0,
+              },
+            ]}
+            onPress={() => {
+              data.disabled ? null : this.props.onPress(data.label);
+            }}
+          >
+            <Text
+              style={
+                ([
+                  {
+                    alignSelf: "center",
+                    fontSize: 16,
+                  },
+                ],
+                styles.onText)
+              }
             >
-              <Icon name="check" type="regular" size={14} color={"#fff"} />
-            </View>
-            :
-            <View
-              style={[
-                styles.border,
-                {
-                  backgroundColor: "#fff",
-                  borderColor:"#4B56F1",
-                  borderWidth:1,
-                  width: data.size,
-                  height: data.size,
-                  borderRadius: data.size / 2,
-                },
-              ]}
-            >
-            </View>
-          }
-          
-          <Text style={[{ alignSelf: "center", fontSize: 16 }, textMarin]}>
-            {data.label}
-          </Text>
-        </TouchableOpacity>
+              {data.label}
+            </Text>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight
+            underlayColor="#ffffff"
+            style={[
+              layout,
+              styles.offBtn,
+              {
+                // backgroundColor: data.backgroundBtnColor,
+                width: "100%",
+                marginTop: data.marginTop ? 10 : 0,
+              },
+            ]}
+            onPress={() => {
+              data.disabled ? null : this.props.onPress(data.label);
+            }}
+          >
+            <Text style={[{ alignSelf: "center", fontSize: 16 }]}>
+              {data.label}
+            </Text>
+          </TouchableHighlight>
+        )}
       </View>
     );
   }
 }
 const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-  },
-  Radiobtn: {
-    width: "50%",
-  },
-  border: {
+  onBtn: {
+    backgroundColor: "#DFE1FF",
+    borderWidth: 1,
+    borderColor: "#4B56F1",
     justifyContent: "center",
     alignItems: "center",
+  },
+  offBtn: {
+    backgroundColor: "#f5f5f5",
+    borderWidth: 1,
+    borderColor: "#ddd",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  onText: {
+    fontSize: 16,
+    color: "#1F2AC5",
   },
 });

@@ -163,7 +163,7 @@ export default ({ navigation, route }) => {
   }, [loaded]);
 
   return (
-    <View>
+    <ScrollView>
       <Header
         back
         title="승차 요청"
@@ -236,6 +236,6 @@ export default ({ navigation, route }) => {
           });
         }}
       />
-    </View>
+    </ScrollView>
   );
 };

@@ -125,7 +125,7 @@ export default ({ navigation }) => {
           <Text style={styles.buttonTitle}>로그인</Text>
         </TouchableHighlight>
         <TouchableHighlight
-          underlayColor={'#333FDA'}
+          underlayColor={"#333FDA"}
           style={styles.button}
           onPress={() => {
             navigation.navigate("SignUpScreen");
@@ -167,6 +167,7 @@ const styles = StyleSheet.create({
     paddingLeft: 5,
     paddingRight: 5,
     marginBottom: 8,
+    fontSize: 15,
   },
   buttonArea: {
     width: "100%",

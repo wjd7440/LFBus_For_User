@@ -27,4 +27,23 @@ export default StyleSheet.create({
       android: { elevation: 5 },
     }),
   },
+  emptyLine: {
+    height: 5,
+    backgroundColor: "#f5f5f5",
+    marginHorizontal: -theme.SIZES.BASE * 1.2,
+    marginVertical: 30,
+  },
+  itemBox: {
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
+  colum3: {
+    width:
+      Dimensions.get("window").width * 0.348888888888888888 -
+      theme.SIZES.BASE * 1.2,
+    borderWidth: 1,
+  },
+  marginPull: {
+    marginHorizontal: -theme.SIZES.BASE * 1.2,
+  },
 });

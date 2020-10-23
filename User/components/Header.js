@@ -20,13 +20,14 @@ const iPhoneX = () =>
 
 const BackButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity
+    activeOpacity={0.9}
     style={[styles.button, style]}
     onPress={() => navigation.goBack(null)}
   >
     <Icon
-      name="arrow-left"
+      name="angle-left"
       type="regular"
-      size={24}
+      size={28}
       color={wezonTheme.COLORS[isWhite ? "WHITE" : "ICON"]}
     />
   </TouchableOpacity>
@@ -154,8 +155,8 @@ class Header extends React.Component {
     const headerStyles = [
       transparent
         ? {
-          backgroundColor: "transparent",
-        }
+            backgroundColor: "transparent",
+          }
         : null,
     ];
 
@@ -203,12 +204,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   title: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: "bold",
+    textAlign: "left",
   },
   navbar: {
     height: Platform.OS === "android" ? 55 : 50,
-    marginTop: Platform.OS === "android" ? 20 : 0,
+    marginTop: Platform.OS === "android" ? 25 : 5,
     alignItems: "center",
     textAlign: "justify",
     borderBottomWidth: 1,
