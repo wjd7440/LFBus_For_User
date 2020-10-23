@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { useFonts } from "@use-expo/font";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
+import { Appbar } from "react-native-paper";
 import {
   View,
   Text,
@@ -27,6 +28,9 @@ export default ({ navigation }) => {
   return (
     <>
       <Header title="메뉴" />
+      {/* <Appbar.Header style={{ backgroundColor: "#4B56F1" }}>
+        <Appbar.Content title="메뉴" titleStyle={{ fontSize: 16 }} />
+      </Appbar.Header> */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
