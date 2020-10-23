@@ -14,14 +14,17 @@ export default StyleSheet.create({
     paddingHorizontal: theme.SIZES.BASE * 1.2,
     paddingVertical: theme.SIZES.BASE,
   },
+  containerH: {
+    paddingHorizontal: theme.SIZES.BASE * 1.2,
+  },
   shadow: {
     backgroundColor: "#fff",
     borderRadius: 8,
     ...Platform.select({
       ios: {
         shadowColor: "#000",
-        shadowOffset: { width: 0, height: 3 },
-        shadowOpacity: 0.5,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.16,
         shadowRadius: 5,
       },
       android: { elevation: 5 },
@@ -45,5 +48,22 @@ export default StyleSheet.create({
   },
   marginPull: {
     marginHorizontal: -theme.SIZES.BASE * 1.2,
+  },
+  sectionTit: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+  },
+  onButton: {
+    backgroundColor: "#4B56F1",
+    justifyContent: "center",
+    textAlign: "center",
+    alignItems: "center",
+    height: 56,
+    borderRadius: 4,
+  },
+  onButtonTxt: {
+    fontSize: 16,
+    color: "#fff",
   },
 });

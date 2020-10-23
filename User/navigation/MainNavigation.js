@@ -31,7 +31,7 @@ const TabStack = () => {
           fontFamily: "open-sans-regular",
         },
         style: {
-          height: 60,
+          paddingTop: 10,
         },
         pressColor: "black",
       }}
@@ -89,21 +89,34 @@ export default () => {
         initialRouteName="TabStack"
         cardStyle={{ backgroundColor: "transparent" }}
       >
-        <Stack.Screen name="내 주변 정류장" component={TabStack} options={{
-          header: () => { },
-        }} />
+        <Stack.Screen
+          name="내 주변 정류장"
+          component={TabStack}
+          options={{
+            header: () => {},
+          }}
+        />
         <Stack.Screen
           name="홈"
           component={HomeStack}
           options={{
-            header: () => { },
-          }} />
-        <Stack.Screen name="메뉴" component={MoreMenuStack} options={{
-          header: () => { },
-        }} />
-        <Stack.Screen name="검색" component={SearchStack} options={{
-          header: () => { },
-        }} />
+            header: () => {},
+          }}
+        />
+        <Stack.Screen
+          name="메뉴"
+          component={MoreMenuStack}
+          options={{
+            header: () => {},
+          }}
+        />
+        <Stack.Screen
+          name="검색"
+          component={SearchStack}
+          options={{
+            header: () => {},
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

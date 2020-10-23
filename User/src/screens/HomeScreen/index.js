@@ -215,7 +215,10 @@ export default ({ navigation }) => {
                               {rowData.BUS_STOP_ID}
                             </Text>
                             <View style={styles.busListBox}>
-                              <Text style={styles.busLabel}>저상</Text>
+                              <View style={styles.busLabel}>
+                                <Text style={styles.busLabelTxt}>저상</Text>
+                              </View>
+
                               <View style={styles.busList}>
                                 <StationListDetailItemScreen
                                   serviceKey={API_KEY}
@@ -308,8 +311,6 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   busLabel: {
-    fontSize: 12,
-    color: "white",
     backgroundColor: "#4B56F1",
     paddingRight: 4,
     paddingLeft: 4,
@@ -317,6 +318,11 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
     borderRadius: 4,
     marginRight: 5,
+    alignItems: "center",
+  },
+  busLabelTxt: {
+    fontSize: 12,
+    color: "white",
   },
   button: {
     width: 80,
