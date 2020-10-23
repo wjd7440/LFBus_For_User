@@ -180,6 +180,35 @@ export const BUS_ROUTE_DETAIL_QUERY = gql`
   }
 `;
 
+// Rotation
+export const BUS_ROTATION_LIST_QUERY = gql`
+  query UserBusRotationList($ROUTE_CD: String,$keyword: String, $skip: Int, $first: Int) {
+    UserBusRotationList(
+      ROUTE_CD: $ROUTE_CD
+      keyword: $keyword
+      orderBy: "BUSSTOP_SEQ_ASC"
+      skip: $skip
+      first: $first
+    ) {
+      busRotations {
+        BUSSTOP_ENG_NM
+        BUSSTOP_NM
+        BUSSTOP_SEQ
+        BUSSTOP_TP
+        BUS_NODE_ID
+        BUS_STOP_ID
+        GPS_LATI
+        GPS_LONG
+        ROAD_NM
+        ROAD_NM_ADDR
+        ROUTE_CD
+        TOTAL_DIST
+      }
+      count
+    }
+  }
+`;
+
 // Reservation
 export const RESERVATION_WRITE_QUERY = gql`
   mutation UserReservationWrite(

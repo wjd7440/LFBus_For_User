@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import axios from "axios";
 import { useQuery } from "react-apollo-hooks";
-import { ACCOUNT_INFO_QUERY, BUS_INFO_QUERY } from "../Queries";
+import { ACCOUNT_INFO_QUERY, BUS_INFO_QUERY, BUS_ROTATION_LIST_QUERY } from "../Queries";
 import { theme } from "galio-framework";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
@@ -27,18 +27,18 @@ export default ({ navigation, route }) => {
   const CAR_REG_NO = route.params ? route.params.CAR_REG_NO : null;
   const parseString = require("react-native-xml2js").parseString;
   const [loaded, setLoaded] = useState(false);
-  const [data, setData] = useState([]);
+  const [liveData, setLiveData] = useState([]);
   const dataLoader = () => {
     axios({
       url:
-        "http://openapitraffic.daejeon.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey=8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D&busRouteId=" +
+        "http://openapitraffic.daejeon.go.kr/api/rest/busposinfo/getBusPosByRtid?serviceKey=8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D&busRouteId=" +
         ROUTE_CD,
       method: "get",
     })
       .then((response) => {
         parseString(response.data, (err, result) => {
           const busRouteInfoArray = result.ServiceResult.msgBody;
-          setData(busRouteInfoArray);
+          setLiveData(busRouteInfoArray);
           setLoaded(true);
         });
       })
@@ -47,11 +47,18 @@ export default ({ navigation, route }) => {
       });
   };
 
-  const { data: user, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+  const { data, loading } = useQuery(BUS_ROTATION_LIST_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      ROUTE_CD: ROUTE_CD[0],
+    },
+  });
+
+  const { data: user, userLoading } = useQuery(ACCOUNT_INFO_QUERY, {
     fetchPolicy: "network-only",
   });
 
-  const { data: busInfo, loading2 } = useQuery(BUS_INFO_QUERY, {
+  const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
     variables: {
       CAR_REG_NO: CAR_REG_NO[0],
@@ -62,7 +69,9 @@ export default ({ navigation, route }) => {
     dataLoader();
   }, []);
 
-  if (!loaded || !data[0]) {
+  console.log(liveData)
+
+  if (loading && !loaded) {
     return (
       <Text style={{ fontSize: 13, color: "#8D8E93" }}>
         저상버스 정보를 불러오는중입니다.
@@ -78,9 +87,7 @@ export default ({ navigation, route }) => {
           closeNavigate={"HomeScreen"}
           navigation={navigation}
         />
-        {/* 오른쪽박스 자리 여부 이미지 */}
         <View style={styles.right}>
-          {/* 좌석1 */}
           {busInfo.UserBusInfo.SEAT1 ?
             <View style={styles.seatImgBox}>
               <Image
@@ -96,7 +103,6 @@ export default ({ navigation, route }) => {
               <Text style={styles.onSeatTxt}>탑승중</Text>
             </View>
           }
-          {/* 좌석2 */}
           {busInfo.UserBusInfo.SEAT2 ?
             <View style={styles.seatImgBox}>
               <Image
@@ -157,7 +163,7 @@ export default ({ navigation, route }) => {
                 내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
               </Text>
             )}
-          {data[0].itemList.map((rowData, index) => {
+          {data.UserBusRotationList.busRotations.map((rowData, index) => {
             return (
               <View style={styles.list}>
                 <View style={styles.busState}>
@@ -172,7 +178,7 @@ export default ({ navigation, route }) => {
                   <View
                     style={[
                       styles.line,
-                      index === data[0].itemList.length - 1 && {
+                      index === data.UserBusRotationList.busRotations.length - 1 && {
                         height: "50%",
                       },
                     ]}
@@ -186,7 +192,7 @@ export default ({ navigation, route }) => {
                   <Text style={styles.busStationName}>
                     {rowData.BUSSTOP_NM}
                   </Text>
-                  <Text style={styles.busStationNumber}>43790</Text>
+                  <Text style={styles.busStationNumber}>{rowData.BUS_STOP_ID}</Text>
                 </View>
               </View>
             );
