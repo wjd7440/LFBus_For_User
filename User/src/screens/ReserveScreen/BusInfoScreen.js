@@ -25,6 +25,8 @@ export default ({ navigation, route }) => {
   const DESTINATION = route.params ? route.params.DESTINATION : null;
   const DISTANCE = route.params ? route.params.DISTANCE : null;
   const CAR_REG_NO = route.params ? route.params.CAR_REG_NO : null;
+  const GPS_LATI = route.params ? route.params.GPS_LATI : null;
+  const GPS_LONG = route.params ? route.params.GPS_LONG : null;
   const parseString = require("react-native-xml2js").parseString;
   const [loaded, setLoaded] = useState(false);
   const [liveData, setLiveData] = useState([]);
@@ -138,6 +140,8 @@ export default ({ navigation, route }) => {
               navigation.navigate("BusRouteMapScreen", {
                 ROUTE_NO: ROUTE_NO,
                 ROUTE_CD: ROUTE_CD,
+                GPS_LATI: GPS_LATI,
+                GPS_LONG: GPS_LONG
               });
             }}
           >
@@ -148,6 +152,8 @@ export default ({ navigation, route }) => {
               navigation.navigate("BusServiceInfoScreen", {
                 ROUTE_NO: ROUTE_NO,
                 ROUTE_CD: ROUTE_CD,
+                GPS_LATI: GPS_LATI,
+                GPS_LONG: GPS_LONG
               });
             }}
           >

@@ -26,6 +26,8 @@ export default ({ navigation, route }) => {
   const [loaded, setLoaded] = useState(false);
   const BUS_NODE_ID = route.params ? route.params.BUS_NODE_ID : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
+  const GPS_LATI = route.params ? route.params.GPS_LATI : null;
+  const GPS_LONG = route.params ? route.params.GPS_LONG : null;
   const DISTANCE = route.params ? route.params.DISTANCE : null;
   const [time, setTime] = useState({});
   const API_KEY =
@@ -108,6 +110,8 @@ export default ({ navigation, route }) => {
                             ROUTE_CD: rowData.ROUTE_CD,
                             BUSSTOP_NM: BUSSTOP_NM,
                             BUS_NODE_ID: BUS_NODE_ID,
+                            GPS_LATI: GPS_LATI,
+                            GPS_LONG: GPS_LONG,
                             equipment: !loading && user.UserInfo.equipment,
                             memo: !loading && user.UserInfo.memo,
                           });

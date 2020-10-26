@@ -21,15 +21,17 @@ const { width, height } = Dimensions.get("window");
 export default ({ navigation, route }) => {
     const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
     const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
-
+    const GPS_LATI = route.params ? route.params.GPS_LATI : null;
+    const GPS_LONG = route.params ? route.params.GPS_LONG : null;
+    console.log(GPS_LATI)
     const { data, loading } = useQuery(BUS_ROTATION_LIST_QUERY, {
         fetchPolicy: "network-only",
         variables: {
             ROUTE_CD: ROUTE_CD[0],
         },
     });
-    const [latitude, setLatitude] = useState(36.35069);
-    const [longitude, setLongitude] = useState(127.384787);
+    const [latitude, setLatitude] = useState(GPS_LATI);
+    const [longitude, setLongitude] = useState(GPS_LONG);
     const ASPECT_RATIO = width / height;
     const LATITUDE_DELTA = 0.0922;
     const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -45,7 +47,7 @@ export default ({ navigation, route }) => {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA,
     });
-    console.log(data)
+
     if (loading) {
         return (
             <Text>

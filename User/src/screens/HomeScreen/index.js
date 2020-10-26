@@ -117,6 +117,8 @@ export default ({ navigation }) => {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,
                               BUSSTOP_NM: rowData.BUSSTOP_NM,
                               DISTANCE: rowData.DISTANCE * 1000,
+                              GPS_LATI: rowData.GPS_LATI,
+                              GPS_LONG: rowData.GPS_LONG
                             },
                           });
                         }}
@@ -177,6 +179,8 @@ export default ({ navigation }) => {
                                 BUS_NODE_ID: rowData.BUS_NODE_ID,
                                 BUSSTOP_NM: rowData.BUSSTOP_NM,
                                 DISTANCE: rowData.DISTANCE * 1000,
+                                GPS_LATI: rowData.GPS_LATI,
+                                GPS_LONG: rowData.GPS_LONG
                               },
                             });
                           }}
