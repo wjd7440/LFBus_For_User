@@ -69,9 +69,20 @@ export default ({ navigation, route }) => {
     dataLoader();
   }, []);
 
-  console.log(liveData)
+  const getIndex = (value, arr, prop) => {
+    for (var i = 0; i < arr.length; i++) {
+      // console.log(arr[i][prop][0]);
+      // console.log(value);
+      if (parseInt(arr[i][prop][0]) === parseInt(value)) {
+        // console.log("잇다");
+        return true;
+      }
+    }
+    // console.log("버스지나감");
+    return false;
+  };
 
-  if (loading && !loaded) {
+  if (loading || userLoading || busInfoLoading || !loaded) {
     return (
       <Text style={{ fontSize: 13, color: "#8D8E93" }}>
         저상버스 정보를 불러오는중입니다.
@@ -124,7 +135,10 @@ export default ({ navigation, route }) => {
           <Text>{DESTINATION} 방면</Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("LoginScreen");
+              navigation.navigate("BusRouteMapScreen", {
+                ROUTE_NO: ROUTE_NO,
+                ROUTE_CD: ROUTE_CD,
+              });
             }}
           >
             <Text>버스경로</Text>
@@ -167,14 +181,13 @@ export default ({ navigation, route }) => {
             return (
               <View style={styles.list}>
                 <View style={styles.busState}>
-                  {/* 아래 이미지 버스 지나가는곳만 보이게 가능할까요?? */}
-                  <Image
+                  {getIndex(rowData.BUS_NODE_ID, liveData[0].itemList, "BUS_NODE_ID") ? <Image
                     style={[
                       styles.busIcon,
                       index % 5 !== 1 && { display: "none" },
                     ]}
                     source={require("../../../assets/busmarker.png")}
-                  />
+                  /> : <Text></Text>}
                   <View
                     style={[
                       styles.line,
@@ -192,6 +205,7 @@ export default ({ navigation, route }) => {
                   <Text style={styles.busStationName}>
                     {rowData.BUSSTOP_NM}
                   </Text>
+                  {rowData.BUS_NODE_ID === BUS_NODE_ID ? <Text>내 위치</Text> : <Text></Text>}
                   <Text style={styles.busStationNumber}>{rowData.BUS_STOP_ID}</Text>
                 </View>
               </View>
