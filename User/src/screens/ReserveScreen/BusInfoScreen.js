@@ -9,10 +9,15 @@ import {
   RefreshControl,
   ScrollView,
   Image,
+  ActivityIndicator,
 } from "react-native";
 import axios from "axios";
 import { useQuery } from "react-apollo-hooks";
-import { ACCOUNT_INFO_QUERY, BUS_INFO_QUERY, BUS_ROTATION_LIST_QUERY } from "../Queries";
+import {
+  ACCOUNT_INFO_QUERY,
+  BUS_INFO_QUERY,
+  BUS_ROTATION_LIST_QUERY,
+} from "../Queries";
 import { theme } from "galio-framework";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
@@ -84,141 +89,166 @@ export default ({ navigation, route }) => {
     return false;
   };
 
+  // 스크롤
+
+  // 스크롤 끝
+
   if (loading || userLoading || busInfoLoading || !loaded) {
     return (
-      <Text style={{ fontSize: 13, color: "#8D8E93" }}>
-        저상버스 정보를 불러오는중입니다.
-      </Text>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#4B56F1" />
+      </View>
     );
   } else {
     return (
-      <ScrollView>
+      <View style={{ flex: 1 }}>
         <Header
           back
           title={ROUTE_NO[0] + "번"}
-          close
+          // close
           closeNavigate={"HomeScreen"}
           navigation={navigation}
         />
-        <View style={styles.right}>
-          {busInfo.UserBusInfo.SEAT1 ?
-            <View style={styles.seatImgBox}>
-              <Image
-                style={styles.seatImg}
-                source={require("../../../assets/off_seat.png")}
-              />
-              <Text style={styles.offSeatTxt}>탑승가능</Text>
-            </View> :
-            <View style={styles.seatImgBox}>
-              <Image
-                source={require("../../../assets/on_seat.png")}
-              />
-              <Text style={styles.onSeatTxt}>탑승중</Text>
-            </View>
-          }
-          {busInfo.UserBusInfo.SEAT2 ?
-            <View style={styles.seatImgBox}>
-              <Image
-                style={styles.seatImg}
-                source={require("../../../assets/off_seat.png")}
-              />
-              <Text style={styles.offSeatTxt}>탑승가능</Text>
-            </View> :
-            <View style={styles.seatImgBox}>
-              <Image
-                source={require("../../../assets/on_seat.png")}
-              />
-              <Text style={styles.onSeatTxt}>탑승중</Text>
-            </View>
-          }
-        </View>
-        <View>
-          <Text>선택 정류장 : {BUSSTOP_NM}</Text>
-          <Text>{DESTINATION} 방면</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("BusRouteMapScreen", {
-                ROUTE_NO: ROUTE_NO,
-                ROUTE_CD: ROUTE_CD,
-                GPS_LATI: GPS_LATI,
-                GPS_LONG: GPS_LONG
-              });
-            }}
-          >
-            <Text>버스경로</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("BusServiceInfoScreen", {
-                ROUTE_NO: ROUTE_NO,
-                ROUTE_CD: ROUTE_CD,
-                GPS_LATI: GPS_LATI,
-                GPS_LONG: GPS_LONG
-              });
-            }}
-          >
-            <Text>버스 운행정보</Text>
-          </TouchableOpacity>
-          <Text>거리 : {DISTANCE}m</Text>
-          {DISTANCE < 500 ? (
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("ReservationScreen", {
-                  DISTANCE: DISTANCE,
-                  CAR_REG_NO: CAR_REG_NO,
-                  ROUTE_NO: ROUTE_NO,
-                  ROUTE_CD: ROUTE_CD,
-                  DESTINATION: DESTINATION,
-                  BUSSTOP_NM: BUSSTOP_NM,
-                  BUS_NODE_ID: BUS_NODE_ID,
-                  equipment: !loading && user.UserInfo.equipment,
-                  memo: !loading && user.UserInfo.memo,
-                });
-              }}
-            >
-              <Text>탑승 요청</Text>
-            </TouchableOpacity>
-          ) : (
-              <Text>
-                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-              </Text>
-            )}
-          {data.UserBusRotationList.busRotations.map((rowData, index) => {
-            return (
-              <View style={styles.list}>
-                <View style={styles.busState}>
-                  {getIndex(rowData.BUS_NODE_ID, liveData[0].itemList, "BUS_NODE_ID") ? <Image
-                    style={[
-                      styles.busIcon,
-                      index % 5 !== 1 && { display: "none" },
-                    ]}
-                    source={require("../../../assets/busmarker.png")}
-                  /> : <Text></Text>}
-                  <View
-                    style={[
-                      styles.line,
-                      index === data.UserBusRotationList.busRotations.length - 1 && {
-                        height: "50%",
-                      },
-                    ]}
-                  />
-                  <Image
-                    style={styles.busArrow}
-                    source={require("../../../assets/busflow_icon.png")}
-                  />
-                </View>
-                <View style={styles.busStationInfo}>
-                  <Text style={styles.busStationName}>
-                    {rowData.BUSSTOP_NM}
-                  </Text>
-                  {rowData.BUS_NODE_ID === BUS_NODE_ID ? <Text>내 위치</Text> : <Text></Text>}
-                  <Text style={styles.busStationNumber}>{rowData.BUS_STOP_ID}</Text>
-                </View>
+        <ScrollView>
+          {/* <View>
+            {busInfo.UserBusInfo.SEAT1 ? (
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
               </View>
-            );
-          })}
-        </View>
-      </ScrollView>
+            ) : (
+              <View style={styles.seatImgBox}>
+                <Image source={require("../../../assets/on_seat.png")} />
+              </View>
+            )}
+            {busInfo.UserBusInfo.SEAT2 ? (
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
+              </View>
+            ) : (
+              <View style={styles.seatImgBox}>
+                <Image source={require("../../../assets/on_seat.png")} />
+              </View>
+            )}
+          </View> */}
+          <View>
+            {/* //상단 버스 정보 */}
+            <View style={styles.containerH}>
+              <Text>선택 정류장 : {BUSSTOP_NM}</Text>
+              <Text>{DESTINATION} 방면</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("BusRouteMapScreen", {
+                    ROUTE_NO: ROUTE_NO,
+                    ROUTE_CD: ROUTE_CD,
+                    GPS_LATI: GPS_LATI,
+                    GPS_LONG: GPS_LONG,
+                  });
+                }}
+              >
+                <Text>버스경로</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("BusServiceInfoScreen", {
+                    ROUTE_NO: ROUTE_NO,
+                    ROUTE_CD: ROUTE_CD,
+                    GPS_LATI: GPS_LATI,
+                    GPS_LONG: GPS_LONG,
+                  });
+                }}
+              >
+                <Text>버스 운행정보</Text>
+              </TouchableOpacity>
+              <Text>거리 : {DISTANCE}m</Text>
+              {DISTANCE < 500 ? (
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("ReservationScreen", {
+                      DISTANCE: DISTANCE,
+                      CAR_REG_NO: CAR_REG_NO,
+                      ROUTE_NO: ROUTE_NO,
+                      ROUTE_CD: ROUTE_CD,
+                      DESTINATION: DESTINATION,
+                      BUSSTOP_NM: BUSSTOP_NM,
+                      BUS_NODE_ID: BUS_NODE_ID,
+                      equipment: !loading && user.UserInfo.equipment,
+                      memo: !loading && user.UserInfo.memo,
+                    });
+                  }}
+                >
+                  <Text>탑승 요청</Text>
+                </TouchableOpacity>
+              ) : (
+                <Text>
+                  내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+                </Text>
+              )}
+            </View>
+            {/* 상단 버스 정보// */}
+            {data.UserBusRotationList.busRotations.map((rowData, index) => {
+              return (
+                <View
+                  style={
+                    rowData.BUS_NODE_ID === BUS_NODE_ID
+                      ? styles.onList
+                      : styles.list
+                  }
+                >
+                  <View style={styles.busState}>
+                    {getIndex(
+                      rowData.BUS_NODE_ID,
+                      liveData[0].itemList,
+                      "BUS_NODE_ID"
+                    ) ? (
+                      <Image
+                        style={[
+                          styles.busIcon,
+                          index % 5 !== 1 && { display: "none" },
+                        ]}
+                        source={require("../../../assets/busmarker.png")}
+                      />
+                    ) : (
+                      <Text></Text>
+                    )}
+                    <View
+                      style={[
+                        styles.line,
+                        index ===
+                          data.UserBusRotationList.busRotations.length - 1 && {
+                          height: "50%",
+                        },
+                      ]}
+                    />
+                    <Image
+                      style={styles.busArrow}
+                      source={require("../../../assets/busflow_icon.png")}
+                    />
+                  </View>
+                  <View style={styles.busStationInfo}>
+                    <Text style={styles.busStationName}>
+                      {rowData.BUSSTOP_NM}
+                    </Text>
+                    {/* {rowData.BUS_NODE_ID === BUS_NODE_ID ? (
+                      <Text>내 위치</Text>
+                    ) : (
+                      <Text></Text>
+                    )} */}
+                    <Text style={styles.busStationNumber}>
+                      {rowData.BUS_STOP_ID}
+                    </Text>
+                  </View>
+                </View>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </View>
     );
   }
 };
@@ -231,6 +261,16 @@ const styles = StyleSheet.create({
     borderColor: "#e5e5e5",
     paddingHorizontal: theme.SIZES.BASE * 1.2,
     flexDirection: "row",
+    backgroundColor: "#ffffff",
+  },
+  onList: {
+    height: 60,
+    justifyContent: "center",
+    borderBottomWidth: 1,
+    borderColor: "#e5e5e5",
+    paddingHorizontal: theme.SIZES.BASE * 1.2,
+    flexDirection: "row",
+    backgroundColor: "#EAE7F2",
   },
   busState: {
     position: "relative",
