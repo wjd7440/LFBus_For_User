@@ -10,9 +10,8 @@ import {
   ScrollView,
   Image,
   ActivityIndicator,
-  StatusBar,
-  Dimensions,
   Platform,
+  StatusBar,
 } from "react-native";
 import axios from "axios";
 import { useQuery } from "react-apollo-hooks";
@@ -24,9 +23,20 @@ import {
 import { theme } from "galio-framework";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
-import Icon from "react-native-fontawesome-pro";
+import Animated from "react-native-reanimated";
+
+const HEADER_HEIGHT =
+  Platform.OS == "ios" ? 115 : 170 + StatusBar.currentHeight;
 
 export default ({ navigation, route }) => {
+  // 스크롤
+  const scrollY = new Animated.Value(0);
+  const diffClampScrollY = Animated.diffClamp(scrollY, 0, HEADER_HEIGHT);
+  const headerY = Animated.interpolate(diffClampScrollY, {
+    inputRange: [0, HEADER_HEIGHT],
+    outputRange: [0, -HEADER_HEIGHT],
+  });
+  // 스크롤 끝
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
@@ -102,91 +112,33 @@ export default ({ navigation, route }) => {
   } else {
     return (
       <View style={{ flex: 1 }}>
-        <Header
+        {/* <Header
           back
           title={ROUTE_NO[0] + "번"}
           // close
           closeNavigate={"HomeScreen"}
           navigation={navigation}
-          style={{
-            height: Platform.OS === "android" ? 55 : 50,
-            marginTop: Platform.OS === "android" ? 25 : 5,
-            alignItems: "center",
-            textAlign: "justify",
-            borderBottomWidth: 0,
-            borderColor: "#f5f5f5",
-            zIndex: 5,
-          }}
-          right={
-            <View style={[styles.seatImgCont, styles.rightAb]}>
-              {busInfo.UserBusInfo.SEAT1 ? (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/off_seat.png")}
-                  />
-                </View>
-              ) : (
-                <View style={styles.seatImgBox}>
-                  <Image source={require("../../../assets/on_seat.png")} />
-                </View>
-              )}
-              {busInfo.UserBusInfo.SEAT2 ? (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/off_seat.png")}
-                  />
-                </View>
-              ) : (
-                <View style={styles.seatImgBox}>
-                  <Image source={require("../../../assets/on_seat.png")} />
-                </View>
-              )}
-            </View>
-          }
-        />
+        /> */}
 
-        {/* //상단 버스 정보 */}
-        <View
+        <Animated.View
           style={{
-            ...styles.containerH,
-            paddingTop: 0,
-            paddingBottom: 15,
-            borderBottomWidth: 1,
-            borderColor: "#ddd",
+            position: "absolute",
+            left: 0,
+            top: 0,
+            right: 0,
+            height: HEADER_HEIGHT,
+            backgroundColor: "#fff",
+            zIndex: 1000,
+            elevation: 1000,
+            transform: [{ translateY: headerY }],
+            paddingTop: 45,
           }}
         >
-          <Text
-            style={{
-              fontSize: 20,
-              textAlign: "center",
-              color: "#4B56F1",
-              marginBottom: 4,
-            }}
-          >
-            {BUSSTOP_NM}
-          </Text>
-          <Text
-            style={{
-              fontSize: 16,
-              textAlign: "center",
-              marginBottom: 10,
-              color: "#676767",
-            }}
-          >
-            {DESTINATION} 방면
-          </Text>
-          <View
-            style={{
-              justifyContent: "center",
-              flexDirection: "row",
-              marginBottom: 15,
-            }}
-          >
+          {/* //상단 버스 정보 */}
+          <View style={styles.containerH}>
+            <Text>선택 정류장 : {BUSSTOP_NM}</Text>
+            <Text>{DESTINATION} 방면</Text>
             <TouchableOpacity
-              activeOpacity={0.7}
-              style={styles.infoBtn}
               onPress={() => {
                 navigation.navigate("BusRouteMapScreen", {
                   ROUTE_NO: ROUTE_NO,
@@ -196,17 +148,9 @@ export default ({ navigation, route }) => {
                 });
               }}
             >
-              <Icon
-                name="directions"
-                type="light"
-                size={16}
-                color={"#676767"}
-              />
-              <Text style={styles.infoBtnTxt}>버스경로</Text>
+              <Text>버스경로</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              activeOpacity={0.7}
-              style={styles.infoBtn}
               onPress={() => {
                 navigation.navigate("BusServiceInfoScreen", {
                   ROUTE_NO: ROUTE_NO,
@@ -216,45 +160,71 @@ export default ({ navigation, route }) => {
                 });
               }}
             >
-              <Icon
-                name="info-circle"
-                type="light"
-                size={16}
-                color={"#676767"}
-              />
-              <Text style={styles.infoBtnTxt}>운행정보</Text>
+              <Text>버스 운행정보</Text>
             </TouchableOpacity>
+            <Text>거리 : {DISTANCE}m</Text>
+            {DISTANCE < 500 ? (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("ReservationScreen", {
+                    DISTANCE: DISTANCE,
+                    CAR_REG_NO: CAR_REG_NO,
+                    ROUTE_NO: ROUTE_NO,
+                    ROUTE_CD: ROUTE_CD,
+                    DESTINATION: DESTINATION,
+                    BUSSTOP_NM: BUSSTOP_NM,
+                    BUS_NODE_ID: BUS_NODE_ID,
+                    equipment: !loading && user.UserInfo.equipment,
+                    memo: !loading && user.UserInfo.memo,
+                  });
+                }}
+              >
+                <Text>탑승 요청</Text>
+              </TouchableOpacity>
+            ) : (
+              <Text>
+                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+              </Text>
+            )}
           </View>
-
-          {/* <Text>거리 : {DISTANCE}m</Text> */}
-          {DISTANCE < 500 ? (
-            <TouchableHighlight
-              underlayColor={"#333FDA"}
-              style={styles.resultButton}
-              onPress={() => {
-                navigation.navigate("ReservationScreen", {
-                  DISTANCE: DISTANCE,
-                  CAR_REG_NO: CAR_REG_NO,
-                  ROUTE_NO: ROUTE_NO,
-                  ROUTE_CD: ROUTE_CD,
-                  DESTINATION: DESTINATION,
-                  BUSSTOP_NM: BUSSTOP_NM,
-                  BUS_NODE_ID: BUS_NODE_ID,
-                  equipment: !loading && user.UserInfo.equipment,
-                  memo: !loading && user.UserInfo.memo,
-                });
-              }}
-            >
-              <Text style={{ fontSize: 16, color: "#fff" }}>탑승요청</Text>
-            </TouchableHighlight>
-          ) : (
-            <Text>
-              내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-            </Text>
-          )}
-        </View>
-        {/* 상단 버스 정보// */}
-        <ScrollView bounce={true}>
+          {/* 상단 버스 정보// */}
+        </Animated.View>
+        <Animated.ScrollView
+          bounces={false}
+          style={{ paddingTop: HEADER_HEIGHT }}
+          scrollEventThrottle={16}
+          onScroll={Animated.event([
+            {
+              nativeEvent: { contentOffset: { y: scrollY } },
+            },
+          ])}
+        >
+          {/* <View>
+            {busInfo.UserBusInfo.SEAT1 ? (
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
+              </View>
+            ) : (
+              <View style={styles.seatImgBox}>
+                <Image source={require("../../../assets/on_seat.png")} />
+              </View>
+            )}
+            {busInfo.UserBusInfo.SEAT2 ? (
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/off_seat.png")}
+                />
+              </View>
+            ) : (
+              <View style={styles.seatImgBox}>
+                <Image source={require("../../../assets/on_seat.png")} />
+              </View>
+            )}
+          </View> */}
           <View>
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
               return (
@@ -312,12 +282,7 @@ export default ({ navigation, route }) => {
               );
             })}
           </View>
-          <View style={[styles.bottomCont, styles.container]}>
-            <Text style={{ fontSize: 12, color: "#8D8E93", paddingBottom: 30 }}>
-              버스 도착정보는 대전시 공공데이터포털에서 제공받고있습니다.
-            </Text>
-          </View>
-        </ScrollView>
+        </Animated.ScrollView>
       </View>
     );
   }
@@ -348,11 +313,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   line: {
-    height: 64,
+    height: 60,
     width: 3,
     backgroundColor: "#4B56F1",
     position: "absolute",
-    top: -1,
+    top: 0,
     right: 10,
   },
   busIcon: {
@@ -362,10 +327,10 @@ const styles = StyleSheet.create({
   },
   busArrow: {
     resizeMode: "contain",
-    width: 15,
-    height: 15,
+    width: 14,
+    height: 14,
     position: "absolute",
-    right: 4,
+    right: 5,
     top: "50%",
     marginTop: -7,
   },
@@ -380,54 +345,5 @@ const styles = StyleSheet.create({
   busStationNumber: {
     fontSize: 14,
     color: "#8D8E93",
-  },
-  infoBtn: {
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 99,
-    marginHorizontal: 4,
-    backgroundColor: "#f5f5f5",
-    flexDirection: "row",
-    alignItems: "center",
-    ...Platform.select({
-      ios: {
-        paddingVertical: 8,
-        paddingHorizontal: 14,
-      },
-      andriod: {
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-      },
-      default: {
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-      },
-    }),
-  },
-  infoBtnTxt: {
-    marginLeft: 3,
-    color: "#676767",
-    fontSize: 14,
-  },
-  resultButton: {
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 4,
-    backgroundColor: "#4B56F1",
-    height: 50,
-  },
-  seatImgCont: {
-    flexDirection: "row",
-  },
-  seatImgBox: {
-    marginHorizontal: 2,
-  },
-  seatImg: {
-    width: 28,
-    height: 28,
-    resizeMode: "contain",
-  },
-  bottomCont: {
-    backgroundColor: "#F2F4F8",
   },
 });

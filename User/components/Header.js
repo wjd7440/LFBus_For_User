@@ -215,16 +215,18 @@ const styles = StyleSheet.create({
     position: "relative",
     textAlign: "center",
     // backgroundColor: "red",
-    width: 32,
-    height: 32,
+    width: 60,
+    height: 60,
     alignItems: "center",
     justifyContent: "center",
   },
   buttonRight: {
-    paddingRight: theme.SIZES.BASE * 1.2,
+    // paddingRight: theme.SIZES.BASE * 1.2,
+    paddingLeft: 5,
   },
   buttonLeft: {
-    paddingLeft: theme.SIZES.BASE * 1.2,
+    // paddingLeft: theme.SIZES.BASE * 1.2,
+    paddingRight: 10,
   },
   title: {
     fontSize: 20,

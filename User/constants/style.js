@@ -17,6 +17,12 @@ export default StyleSheet.create({
   containerH: {
     paddingHorizontal: theme.SIZES.BASE * 1.2,
   },
+  leftAb: {
+    left: theme.SIZES.BASE * 1.2,
+  },
+  rightAb: {
+    right: theme.SIZES.BASE * 1.2,
+  },
   shadow: {
     backgroundColor: "#fff",
     borderRadius: 8,
