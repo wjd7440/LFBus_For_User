@@ -31,7 +31,7 @@ const TabStack = () => {
           fontFamily: "open-sans-regular",
         },
         style: {
-          paddingTop: 10,
+          height: Platform.OS === "ios" ? 90 : 60,
         },
         pressColor: "black",
       }}

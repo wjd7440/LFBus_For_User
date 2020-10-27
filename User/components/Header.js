@@ -13,6 +13,7 @@ import { Button, Block, NavBar, Text, theme } from "galio-framework";
 
 import Icon from "react-native-fontawesome-pro";
 import wezonTheme from "../constants/Theme";
+import style from "../constants/style";
 
 const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
@@ -22,13 +23,13 @@ const iPhoneX = () =>
 const BackButton = ({ isWhite, style, navigation }) => (
   <TouchableOpacity
     activeOpacity={0.9}
-    style={[styles.button, style]}
+    style={[styles.button, style, styles.buttonLeft]}
     onPress={() => navigation.goBack(null)}
   >
     <Icon
       name="angle-left"
-      type="regular"
-      size={28}
+      type="light"
+      size={36}
       color={wezonTheme.COLORS[isWhite ? "WHITE" : "ICON"]}
     />
   </TouchableOpacity>
@@ -36,7 +37,8 @@ const BackButton = ({ isWhite, style, navigation }) => (
 
 const CloseButton = ({ isWhite, style, navigation, closeNavigate }) => (
   <TouchableOpacity
-    style={[styles.button, style]}
+    activeOpacity={0.9}
+    style={[styles.button, style, styles.buttonRight]}
     onPress={() => {
       closeNavigate
         ? navigation.navigate(closeNavigate)
@@ -45,7 +47,7 @@ const CloseButton = ({ isWhite, style, navigation, closeNavigate }) => (
   >
     <Icon
       name="times"
-      type="regular"
+      type="light"
       size={24}
       color={wezonTheme.COLORS[isWhite ? "WHITE" : "ICON"]}
     />
@@ -187,10 +189,18 @@ class Header extends React.Component {
           back={back}
           left={this.renderLeft()}
           leftStyle={{
-            paddingVertical: 12,
+            marginLeft: 0,
+            justifyContent: "center",
+            alignItems: "flex-start",
+            // backgroundColor: "blue",
           }}
           right={this.renderRight()}
-          rightStyle={{}}
+          rightStyle={{
+            marginRight: 0,
+            justifyContent: "center",
+            alignItems: "flex-end",
+            // backgroundColor: "blue",
+          }}
           transparent={transparent}
           {...props}
         />
@@ -200,13 +210,25 @@ class Header extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  ...style,
   button: {
     position: "relative",
     textAlign: "center",
+    // backgroundColor: "red",
+    width: 32,
+    height: 32,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonRight: {
+    paddingRight: theme.SIZES.BASE * 1.2,
+  },
+  buttonLeft: {
+    paddingLeft: theme.SIZES.BASE * 1.2,
   },
   title: {
     fontSize: 20,
-    fontWeight: "bold",
+    fontWeight: "500",
     textAlign: "left",
   },
   navbar: {
@@ -217,6 +239,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#f5f5f5",
     zIndex: 5,
+    // marginHorizontal: -10,
   },
   header: {
     backgroundColor: "transparent",

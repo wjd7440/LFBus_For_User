@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import SearchableDropdown from "react-native-searchable-dropdown";
+import style from "../../../constants/style";
 import {
   ACCOUNT_INFO_QUERY,
   RESERVATION_WRITE_QUERY,
@@ -35,7 +36,7 @@ export default ({ navigation, route }) => {
 
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
-      equipment: route.params ? route.params.equipment : null
+      equipment: route.params ? route.params.equipment : null,
     },
   });
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
@@ -163,10 +164,10 @@ export default ({ navigation, route }) => {
   }, [loaded]);
 
   return (
-    <ScrollView>
+    <View>
       <Header
         back
-        title="승차 요청"
+        title="탑승요청"
         close
         closeNavigate={"HomeScreen"}
         navigation={navigation}
@@ -221,12 +222,12 @@ export default ({ navigation, route }) => {
       {arriveStationName ? (
         <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
       ) : (
-          <Button
-            disabled={true}
-            title="예약하기"
-            onPress={handleSubmit(onSubmit)}
-          />
-        )}
+        <Button
+          disabled={true}
+          title="예약하기"
+          onPress={handleSubmit(onSubmit)}
+        />
+      )}
 
       <Button
         title="취소하기"
@@ -236,6 +237,10 @@ export default ({ navigation, route }) => {
           });
         }}
       />
-    </ScrollView>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  ...style,
+});

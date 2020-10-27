@@ -76,7 +76,7 @@ export default ({
             ) : (
               <View style={styles.seatImgBox}>
                 <Image source={require("../../../assets/on_seat.png")} />
-                <Text style={styles.onSeatTxt}>탑승12중</Text>
+                <Text style={styles.onSeatTxt}>탑승중</Text>
               </View>
             )}
             {/* 좌석2 */}
