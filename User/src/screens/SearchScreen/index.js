@@ -10,24 +10,38 @@ import {
 import { ScrollView } from "react-native-gesture-handler";
 import { BUS_ROUTE_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
+import { Header } from "../../../components";
 
 export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(BUS_ROUTE_LIST_QUERY, {
     fetchPolicy: "network-only",
   });
-  if(loading){
+  if (loading) {
     return (
       <ScrollView>
         <Text>Loading...</Text>
       </ScrollView>
     );
-  }else{
+  } else {
     return (
       <ScrollView>
-        {data.UserBusRouteList.busRoutes.map((rowData, index) => {          
-          return(
-            <Text>버스 번호 : {rowData.ROUTE_NO}</Text>          
-          )        
+        <Header
+          title="검색"
+          close
+          closeNavigate={"HomeScreen"}
+          navigation={navigation}
+        />
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("BusRouteMapScreen");
+          }}
+        >
+          <Text>정류장 검색</Text>
+        </TouchableOpacity>
+        {data.UserBusRouteList.busRoutes.map((rowData, index) => {
+          return (
+            <Text>버스 번호 : {rowData.ROUTE_NO}</Text>
+          )
         })}
         <Text></Text>
       </ScrollView>
