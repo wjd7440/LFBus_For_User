@@ -178,17 +178,17 @@ export default ({ navigation, route }) => {
                       BUSSTOP_NM: BUSSTOP_NM,
                       BUS_NODE_ID: BUS_NODE_ID,
                       equipment: !loading && user.UserInfo.equipment,
-                      memo: !loading && user.UserInfo.memo,
+                      needHelp: !loading && user.UserInfo.needHelp,
                     });
                   }}
                 >
                   <Text>탑승 요청</Text>
                 </TouchableOpacity>
               ) : (
-                <Text>
-                  내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-                </Text>
-              )}
+                  <Text>
+                    내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+                  </Text>
+                )}
             </View>
             {/* 상단 버스 정보// */}
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
@@ -206,21 +206,21 @@ export default ({ navigation, route }) => {
                       liveData[0].itemList,
                       "BUS_NODE_ID"
                     ) ? (
-                      <Image
-                        style={[
-                          styles.busIcon,
-                          index % 5 !== 1 && { display: "none" },
-                        ]}
-                        source={require("../../../assets/busmarker.png")}
-                      />
-                    ) : (
-                      <Text></Text>
-                    )}
+                        <Image
+                          style={[
+                            styles.busIcon,
+                            index % 5 !== 1 && { display: "none" },
+                          ]}
+                          source={require("../../../assets/busmarker.png")}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
                     <View
                       style={[
                         styles.line,
                         index ===
-                          data.UserBusRotationList.busRotations.length - 1 && {
+                        data.UserBusRotationList.busRotations.length - 1 && {
                           height: "50%",
                         },
                       ]}

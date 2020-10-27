@@ -6,6 +6,7 @@ import {
   ACCOUNT_INFO_QUERY,
   RESERVATION_WRITE_QUERY,
   BUS_INFO_QUERY,
+  BUS_ROTATION_LIST_QUERY
 } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
@@ -26,7 +27,7 @@ import { Header } from "../../../components";
 
 export default ({ navigation, route }) => {
   const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
   const [existBus, setExistBus] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [existBusLoaded, setExistBusLoaded] = useState(false);
@@ -37,6 +38,7 @@ export default ({ navigation, route }) => {
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
       equipment: route.params ? route.params.equipment : null,
+      needHelp: route.params ? route.params.needHelp : null,
     },
   });
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
@@ -45,30 +47,37 @@ export default ({ navigation, route }) => {
   const BUS_NODE_ID = route.params ? route.params.BUS_NODE_ID : null;
   const DESTINATION = route.params ? route.params.DESTINATION : null;
   const CAR_REG_NO = route.params ? route.params.CAR_REG_NO : null;
+  const parseString = require("react-native-xml2js").parseString;
+  const { data, loading } = useQuery(BUS_ROTATION_LIST_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      ROUTE_CD: ROUTE_CD[0],
+    },
+  });
 
-  const { data: busInfo, loading } = useQuery(BUS_INFO_QUERY, {
+  const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
     variables: {
       CAR_REG_NO: CAR_REG_NO[0],
     },
   });
 
-  const API_KEY =
-    "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
-  const parseString = require("react-native-xml2js").parseString;
+  // const API_KEY =
+  //   "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
 
-  const dataLoader = () => {
-    axios({
-      url: `http://openapitraffic.daejeon.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey=${API_KEY}&busRouteId=${ROUTE_CD}`,
-      method: "get",
-    }).then((response) => {
-      parseString(response.data, function (err, result) {
-        const busRouteInfoArray = result.ServiceResult.msgBody;
-        setData(busRouteInfoArray);
-        setLoaded(true);
-      });
-    });
-  };
+
+  // const dataLoader = () => {
+  //   axios({
+  //     url: `http://openapitraffic.daejeon.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey=${API_KEY}&busRouteId=${ROUTE_CD}`,
+  //     method: "get",
+  //   }).then((response) => {
+  //     parseString(response.data, function (err, result) {
+  //       const busRouteInfoArray = result.ServiceResult.msgBody;
+  //       setData(busRouteInfoArray);
+  //       setLoaded(true);
+  //     });
+  //   });
+  // };
 
   const API_KEY2 =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
@@ -94,7 +103,7 @@ export default ({ navigation, route }) => {
       }).then((response) => {
         parseString(response.data, async (err, result) => {
           const busArriveInfoArray = result.ServiceResult.msgBody;
-
+          // console.log(busArriveInfoArray[0].itemList)
           if (
             getIndex(
               CAR_REG_NO[0],
@@ -111,6 +120,7 @@ export default ({ navigation, route }) => {
                 BUS_NODE_ID,
                 departureStation: BUSSTOP_NM,
                 arrivalStation: arriveStationName,
+                memo: data.needHelp,
                 equipment: data.equipment,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
@@ -145,23 +155,30 @@ export default ({ navigation, route }) => {
     register({ name: "equipment" }, { required: "장비를 입력해주세요." });
   }, [register]);
 
-  useEffect(() => {
-    dataLoader();
-  }, []);
+  // useEffect(() => {
+  //   dataLoader();
+  // }, []);
 
   useEffect(() => {
-    if (loaded) {
+    if (!loading) {
       let tempItems = [];
+      data.UserBusRotationList.busRotations.map((rowData, index) => {
+        if (BUS_NODE_ID === rowData.BUS_NODE_ID) {
+          tempItems.push({
+            id: rowData.BUS_NODE_ID,
+            name: "(현재 내 위치) " + rowData.BUSSTOP_NM,
+          });
+        } else {
+          tempItems.push({
+            id: rowData.BUS_NODE_ID,
+            name: rowData.BUSSTOP_NM,
+          });
+        }
 
-      data[0].itemList.map((rowData, index) => {
-        tempItems.push({
-          id: rowData.BUS_NODE_ID[0],
-          name: rowData.BUSSTOP_NM[0],
-        });
       });
       setItemsArray(tempItems);
     }
-  }, [loaded]);
+  }, [loading]);
 
   return (
     <View>
@@ -219,15 +236,21 @@ export default ({ navigation, route }) => {
         onChangeText={(text) => setValue("equipment", text, true)}
         value={watch("equipment")}
       ></TextInput>
+      <Text>필요한 도움 (선택) :</Text>
+      <TextInput
+        name="needHelp"
+        onChangeText={(text) => setValue("needHelp", text, true)}
+        value={watch("needHelp")}
+      ></TextInput>
       {arriveStationName ? (
         <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
       ) : (
-        <Button
-          disabled={true}
-          title="예약하기"
-          onPress={handleSubmit(onSubmit)}
-        />
-      )}
+          <Button
+            disabled={true}
+            title="예약하기"
+            onPress={handleSubmit(onSubmit)}
+          />
+        )}
 
       <Button
         title="취소하기"

@@ -15,6 +15,9 @@ import {
   RefreshControl,
   ScrollView,
 } from "react-native";
+import { useQuery } from "react-apollo-hooks";
+import { USER_MAILEAGE_LIST_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
+import NumberFormat from "react-number-format";
 export default ({ navigation }) => {
   const fonts = useFonts({
     "NotoSansKR-Thin": require("../../../assets/fonts/NotoSansKR-Thin.otf"),
@@ -24,6 +27,19 @@ export default ({ navigation }) => {
     "NotoSansKR-Bold": require("../../../assets/fonts/NotoSansKR-Bold.otf"),
     "NotoSansKR-Black": require("../../../assets/fonts/NotoSansKR-Black.otf"),
   });
+
+  const { data, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+    fetchPolicy: "network-only",
+  });
+
+  const maileage = !loading && data.UserInfo.maileage;
+
+  // const { data: maileage, maileageLoading } = useQuery(USER_MAILEAGE_LIST_QUERY, {
+  //   fetchPolicy: "network-only",
+  //   variables: {
+  //     userId: userId
+  //   },
+  // });
 
   return (
     <>
@@ -49,13 +65,26 @@ export default ({ navigation }) => {
               <View style={styles.myPoint}>
                 <Text style={styles.myPointTxt}>내 포인트</Text>
               </View>
-              <Text style={styles.myPointNumber}>8,850 P</Text>
+              <NumberFormat
+                value={maileage}
+                displayType={"text"}
+                thousandSeparator={true}
+                renderText={(maileage) => (
+                  <Text
+                    size={26}
+                    color={"#333"}
+                    style={styles.myPointNumber}
+                  >
+                    {maileage} P
+                  </Text>
+                )}
+              />
             </View>
             <TouchableHighlight
               underlayColor={"#f5f5f5"}
               style={{ justifyContent: "center", padding: 20, width: "30%" }}
               onPress={() => {
-                navigation.navigate("ChargeScreen");
+                navigation.navigate("ChargeScreen", { maileage: maileage });
               }}
             >
               <View style={{ justifyContent: "center", alignItems: "center" }}>
