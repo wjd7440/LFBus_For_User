@@ -93,6 +93,10 @@ export default ({ navigation, route }) => {
     return false;
   };
 
+  // 스크롤
+
+  // 스크롤 끝
+
   if (loading || userLoading || busInfoLoading || !loaded) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -146,7 +150,6 @@ export default ({ navigation, route }) => {
             </View>
           }
         />
-
         {/* //상단 버스 정보 */}
         <View
           style={{
@@ -241,7 +244,7 @@ export default ({ navigation, route }) => {
                   BUSSTOP_NM: BUSSTOP_NM,
                   BUS_NODE_ID: BUS_NODE_ID,
                   equipment: !loading && user.UserInfo.equipment,
-                  memo: !loading && user.UserInfo.memo,
+                  needHelp: !loading && user.UserInfo.needHelp,
                 });
               }}
             >
@@ -254,7 +257,7 @@ export default ({ navigation, route }) => {
           )}
         </View>
         {/* 상단 버스 정보// */}
-        <ScrollView bounce={true}>
+        <ScrollView>
           <View>
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
               return (

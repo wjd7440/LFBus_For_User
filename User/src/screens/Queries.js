@@ -3,10 +3,32 @@ import { gql } from "apollo-boost";
 export const ACCOUNT_INFO_QUERY = gql`
   query {
     UserInfo {
+      id
+      maileage
       userId
       needHelp
       equipment
       createdAt
+    }
+  }
+`;
+
+export const USER_MAILEAGE_LIST_QUERY = gql`
+  query UserMailegeList($userId: String) {
+    UserMailegeList(
+      userId: $userId
+      keyword: $keyword
+      orderBy: "createdAt"
+      skip: $skip
+      first: $first
+    ) {
+      maileages {
+        id
+        userId
+        account
+        createdAt
+      }
+      count
     }
   }
 `;

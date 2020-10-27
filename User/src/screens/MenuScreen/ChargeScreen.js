@@ -1,7 +1,8 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import style from "../../../constants/style";
 import RadioColumnGroup from "../../../components/RadioColumnGroup";
 import { Dimensions } from "react-native";
+import NumberFormat from "react-number-format";
 import {
   View,
   Text,
@@ -18,38 +19,40 @@ import { Header } from "../../../components";
 const chargeArray = [
   {
     label: "1천원",
-    value: "1000",
+    value: 1000,
     selected: false,
   },
   {
     label: "5천원",
-    value: "5000",
+    value: 5000,
     selected: false,
   },
   {
     label: "1만원",
-    value: "10000",
+    value: 10000,
     selected: false,
   },
   {
     label: "3만원",
-    value: "30000",
+    value: 30000,
     selected: false,
   },
   {
     label: "5만원",
-    value: "50000",
+    value: 50000,
     selected: false,
   },
   {
     label: "10만원",
-    value: "100000",
+    value: 100000,
     selected: false,
   },
 ];
 
-export default ({ navigation }) => {
-  const [value, setValue] = React.useState("first");
+export default ({ navigation, route }) => {
+  const maileage = route.params ? route.params.maileage : null;
+  const [value, setValue] = useState(1000);
+  const [payment, setPayment] = useState("신용카드");
   const _goBack = () => console.log("Went back");
   return (
     <>
@@ -65,7 +68,20 @@ export default ({ navigation }) => {
             >
               보유포인트
             </Text>
-            <Text style={{ ...styles.pointTxt, fontSize: 18 }}>8,850P</Text>
+            <NumberFormat
+              value={maileage}
+              displayType={"text"}
+              thousandSeparator={true}
+              renderText={(maileage) => (
+                <Text
+                  size={26}
+                  color={"#333"}
+                  style={{ ...styles.pointTxt, fontSize: 18 }}
+                >
+                  {maileage} P
+                </Text>
+              )}
+            />
           </View>
 
           <View style={styles.chargeView}>
@@ -73,7 +89,14 @@ export default ({ navigation }) => {
               충전금액을 선택해주세요.
             </Text>
             {/* 충전 default 시 offNumber */}
-            <Text style={styles.offNumber}>0P</Text>
+            <NumberFormat
+              value={value}
+              displayType={"text"}
+              thousandSeparator={true}
+              renderText={(value) => (
+                <Text style={styles.onNumber}>{value}P</Text>
+              )}
+            />
             {/* 충전 버튼 선택 되었을 시 onNumber*/}
             {/* <Text style={styles.onNumber}>50,000P</Text> */}
           </View>
@@ -86,7 +109,7 @@ export default ({ navigation }) => {
                     return charge;
                   }
                 });
-                setValue("charge", item.value, true);
+                setValue(item.value, true);
               }}
               flexDirection="row"
             />
@@ -95,13 +118,13 @@ export default ({ navigation }) => {
           <Text style={styles.sectionTit}>결제수단</Text>
           <View style={[styles.marginPull]}>
             <RadioButton.Group
-              onValueChange={(value) => setValue(value)}
-              value={value}
+              onValueChange={(payment) => setPayment(payment)}
+              value={payment}
             >
               <RadioButton.Item
                 color={"#4B56F1"}
                 label="신용카드"
-                value="card"
+                value="신용카드"
                 style={{
                   paddingHorizontal: 20,
                 }}
@@ -110,7 +133,7 @@ export default ({ navigation }) => {
               />
               <RadioButton.Item
                 label="휴대폰"
-                value="phone"
+                value="휴대폰"
                 color={"#4B56F1"}
                 style={{
                   paddingHorizontal: 20,
@@ -125,7 +148,14 @@ export default ({ navigation }) => {
               <Text style={{ fontSize: 14, color: "#676767" }}>
                 총 충전금액
               </Text>
-              <Text style={{ fontSize: 28, fontWeight: "bold" }}>50,000원</Text>
+              <NumberFormat
+                value={value}
+                displayType={"text"}
+                thousandSeparator={true}
+                renderText={(value) => (
+                  <Text style={{ fontSize: 28, fontWeight: "bold" }}>{value}P</Text>
+                )}
+              />
             </View>
             <TouchableHighlight
               underlayColor={"#333FDA"}
