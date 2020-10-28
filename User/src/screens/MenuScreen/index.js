@@ -16,7 +16,7 @@ import {
   ScrollView,
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
-import { USER_MAILEAGE_LIST_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
+import { RESERVATION_LIST_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
 import NumberFormat from "react-number-format";
 export default ({ navigation }) => {
   const fonts = useFonts({
@@ -32,14 +32,18 @@ export default ({ navigation }) => {
     fetchPolicy: "network-only",
   });
 
-  const maileage = !loading && data.UserInfo.maileage;
+  const { data: reservation, reservationloading } = useQuery(RESERVATION_LIST_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      first: 1,
+    },
+  });
 
-  // const { data: maileage, maileageLoading } = useQuery(USER_MAILEAGE_LIST_QUERY, {
-  //   fetchPolicy: "network-only",
-  //   variables: {
-  //     userId: userId
-  //   },
-  // });
+  const maileage = !loading && data.UserInfo.maileage;
+  const count = !reservationloading && reservation && reservation.UserReservationList && reservation.UserReservationList.count;
+  const ROUTE_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].ROUTE_NO;
+  const departureStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].departureStation;
+  const arrivalStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].arrivalStation;
 
   return (
     <>
@@ -107,24 +111,25 @@ export default ({ navigation }) => {
           </View>
 
           {/* [예약 했을 시] 버스예약확인 */}
-          <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
+          {count > 0 ? <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
+            {}
             <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
               탑승요청 버스 내역
             </Text>
             <View style={styles.busList}>
               <Text style={styles.busTit}>탑승버스</Text>
               {/* 사용자가 선택한 버스를 넣어주세요. */}
-              <Text style={styles.busInfo}>101번</Text>
+              <Text style={styles.busInfo}>{ROUTE_NO}번</Text>
             </View>
             <View style={styles.busList}>
               <Text style={styles.busTit}>승차정류장</Text>
               {/* 승차정류장을 넣어주세요. */}
-              <Text style={styles.busInfo}>중앙로역6번출구</Text>
+              <Text style={styles.busInfo}>{departureStation}</Text>
             </View>
             <View style={styles.busList}>
               <Text style={styles.busTit}>하차정류장</Text>
               {/* 하차정류장을 넣어주세요. */}
-              <Text style={styles.busInfo}>유성온천역7번출구</Text>
+              <Text style={styles.busInfo}>{arrivalStation}</Text>
             </View>
             <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
               <Text style={styles.busTit}>버스위치</Text>
@@ -138,10 +143,7 @@ export default ({ navigation }) => {
             >
               <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
             </TouchableHighlight>
-          </View>
-
-          {/* [예약 없을 시] 버스예약확인 */}
-          <View
+          </View> : <View
             style={[
               styles.shadow,
               styles.contBox,
@@ -149,17 +151,21 @@ export default ({ navigation }) => {
               styles.nonebus,
             ]}
           >
-            <Text
-              style={{
-                fontSize: 15,
-                color: "#8D8E93",
-                textAlign: "center",
-                paddingVertical: 20,
-              }}
-            >
-              탑승요청한 버스가 없습니다.
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#8D8E93",
+                  textAlign: "center",
+                  paddingVertical: 20,
+                }}
+              >
+                탑승요청한 버스가 없습니다.
             </Text>
-          </View>
+            </View>}
+
+
+          {/* [예약 없을 시] 버스예약확인 */}
+
 
           <View style={styles.menuListWrap}>
             <TouchableHighlight

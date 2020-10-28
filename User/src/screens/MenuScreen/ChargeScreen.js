@@ -1,4 +1,10 @@
 import React, { Component, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useMutation } from "react-apollo-hooks";
+import {
+  USER_MAILEAGE_WRITE_QUERY,
+  ACCOUNT_INFO_QUERY
+} from "../Queries";
 import style from "../../../constants/style";
 import RadioColumnGroup from "../../../components/RadioColumnGroup";
 import { Dimensions } from "react-native";
@@ -11,6 +17,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   RefreshControl,
+  Alert
 } from "react-native";
 import { RadioButton, Appbar } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
@@ -50,10 +57,37 @@ const chargeArray = [
 ];
 
 export default ({ navigation, route }) => {
+  // const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const maileage = route.params ? route.params.maileage : null;
   const [value, setValue] = useState(1000);
   const [payment, setPayment] = useState("신용카드");
-  const _goBack = () => console.log("Went back");
+  const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY, {
+    refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }]
+  });
+  const { handleSubmit, errors, watch } = useForm();
+  const onSubmit = async () => {
+    try {
+      const {
+        data: { UserMaileageWrite },
+      } = await maileageWriteMutation({
+        variables: {
+          maileage: value,
+        },
+      });
+
+      if (UserMaileageWrite) {
+        Alert.alert("충전이 완료되었습니다. 감사합니다.");
+        navigation.replace("MenuScreen");
+      } else {
+        Alert.alert("충전에 실패했습니다. 다시 시도해주세요.");
+        navigation.replace("ChargeScreen");
+      }
+    } catch (e) {
+      console.log(e);
+      Alert.alert("충전에 실패했습니다. 다시 시도해주세요.");
+      navigation.navigate("ChargeScreen");
+    }
+  };
   return (
     <>
       <Header back title="포인트 충전" navigation={navigation} />
@@ -160,9 +194,7 @@ export default ({ navigation, route }) => {
             <TouchableHighlight
               underlayColor={"#333FDA"}
               style={{ ...styles.onButton }}
-              onPress={() => {
-                navigation.navigate("ChargeCompleteScreen");
-              }}
+              onPress={handleSubmit(onSubmit)}
             >
               <Text style={styles.onButtonTxt}>충전하기</Text>
             </TouchableHighlight>

@@ -33,6 +33,16 @@ export const USER_MAILEAGE_LIST_QUERY = gql`
   }
 `;
 
+export const USER_MAILEAGE_WRITE_QUERY = gql`
+  mutation UserMaileageWrite(
+    $maileage: Int!
+  ) {
+    UserMaileageWrite(
+      maileage: $maileage
+    )
+  }
+`;
+
 //Login
 export const LOGIN_QUERY = gql`
   mutation UserSignIn($userId: String!, $password: String!) {
