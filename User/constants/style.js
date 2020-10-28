@@ -58,7 +58,7 @@ export default StyleSheet.create({
   sectionTit: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#868686",
+    color: "#767676",
   },
   onButton: {
     backgroundColor: "#4B56F1",
@@ -86,6 +86,8 @@ export default StyleSheet.create({
     height: 54,
     justifyContent: "center",
     borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
   defalutFormTxt: {
     fontSize: 16,

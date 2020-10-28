@@ -21,6 +21,9 @@ import {
   TextInput,
   Button,
   Alert,
+  Keyboard,
+  KeyboardAvoidingView,
+  KeyboardAwareScrollView,
 } from "react-native";
 import {
   ScrollView,
@@ -39,6 +42,7 @@ export default ({ navigation, route }) => {
   const [items, setItemsArray] = useState([]);
   const [arriveStationNo, setArriveStationNo] = useState(null);
   const [arriveStationName, setArriveStationName] = useState(null);
+  const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
@@ -183,8 +187,34 @@ export default ({ navigation, route }) => {
     }
   }, [loading]);
 
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      (event) => {
+        const keyboardHeight =
+          event.endCoordinates.height > 100
+            ? Platform.OS == "ios"
+              ? event.endCoordinates.height
+              : 0
+            : 0;
+
+        setKeyboardHeight(keyboardHeight);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      (event) => {
+        setKeyboardHeight(0);
+      }
+    );
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, []);
+
   return (
-    <View>
+    <KeyboardAvoidingView style={{ flex: 1 }}>
       <Header
         back
         title="탑승요청"
@@ -231,92 +261,232 @@ export default ({ navigation, route }) => {
             >
               하차 정류장
             </Text>
-            <SearchableDropdown
-              multi={true}
-              containerStyle={{
-                padding: 0,
-              }}
-              onItemSelect={(item) => {
-                setArriveStationNo(item.id);
-                setArriveStationName(item.name);
-              }}
-              itemStyle={{
-                paddingLeft: 15,
-                paddingVertical: 12,
-                marginTop: 2,
-                backgroundColor: "#f5f5f5",
-                borderColor: "#ddd",
-                borderWidth: 1,
-                borderRadius: 4,
-              }}
-              itemTextStyle={{ color: "#222", fontSize: 16 }}
-              itemsContainerStyle={{
-                maxHeight: 242,
-                backgroundColor: "#f5f5f5",
-                borderRadius: 4,
-                borderBottomWidth: 1,
-                borderColor: "#ddd",
-              }}
-              items={items}
-              defaultIndex={0}
-              chip={true}
-              resetValue={false}
-              placeholderTextColor={"#8D8E93"}
-              textInputProps={{
-                placeholder: "하차 정류장 검색 및 선택",
-                underlineColorAndroid: "transparent",
-                style: {
-                  height: 54,
-                  paddingHorizontal: 15,
-                  borderWidth: 1,
+            <View style={styles.selectCont}>
+              <View style={styles.selectIcon} pointerEvents="none">
+                <Icon
+                  name="map-marker-alt"
+                  type="light"
+                  size={16}
+                  color={"#727272"}
+                />
+              </View>
+              <SearchableDropdown
+                multi={true}
+                containerStyle={{
+                  padding: 0,
+                }}
+                onItemSelect={(item) => {
+                  setArriveStationNo(item.id);
+                  setArriveStationName(item.name);
+                }}
+                itemStyle={{
+                  paddingLeft: 15,
+                  paddingVertical: 12,
+                  marginTop: 2,
+                  backgroundColor: "#f5f5f5",
                   borderColor: "#ddd",
-                  borderRadius: 5,
-                  backgroundColor: "#fff",
-                  fontSize: 16,
-                },
-              }}
-              listProps={{
-                nestedScrollEnabled: true,
-              }}
-            />
+                  borderWidth: 1,
+                  borderRadius: 4,
+                }}
+                itemTextStyle={{ color: "#222", fontSize: 16 }}
+                itemsContainerStyle={{
+                  maxHeight: 208,
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: 4,
+                  borderBottomWidth: 1,
+                  borderColor: "#ddd",
+                }}
+                items={items}
+                defaultIndex={0}
+                chip={true}
+                resetValue={false}
+                placeholderTextColor={"#8D8E93"}
+                textInputProps={{
+                  placeholder: "하차사실 정류장을 선택해주세요.",
+                  underlineColorAndroid: "transparent",
+                  style: {
+                    height: 54,
+                    paddingLeft: 36,
+                    paddingRight: 15,
+                    borderWidth: 1,
+                    borderColor: "#ddd",
+                    borderRadius: 5,
+                    backgroundColor: "#fff",
+                    fontSize: 16,
+                  },
+                }}
+                listProps={{
+                  nestedScrollEnabled: true,
+                }}
+              />
+              <View style={styles.selectArrow} pointerEvents="none">
+                <Icon
+                  name="angle-right"
+                  type="light"
+                  size={16}
+                  color={"#727272"}
+                />
+              </View>
+            </View>
           </View>
 
-          <Text>보조기구 종류 :</Text>
-          <TextInput
-            name="equipment"
-            onChangeText={(text) => setValue("equipment", text, true)}
-            value={watch("equipment")}
-          ></TextInput>
-          <Text>필요한 도움 (선택) :</Text>
-          <TextInput
-            name="needHelp"
-            onChangeText={(text) => setValue("needHelp", text, true)}
-            value={watch("needHelp")}
-          ></TextInput>
+          <View style={styles.formControl}>
+            <Text
+              style={{
+                ...styles.formControlTit,
+              }}
+            >
+              보조기구 선택
+            </Text>
+            <View style={styles.selectCont}>
+              <View style={styles.selectIcon} pointerEvents="none">
+                <Icon
+                  name="wheelchair"
+                  type="light"
+                  size={16}
+                  color={"#727272"}
+                />
+              </View>
+              <SearchableDropdown
+                multi={true}
+                containerStyle={{
+                  padding: 0,
+                }}
+                onItemSelect={(item) => {
+                  setArriveStationNo(item.id);
+                  setArriveStationName(item.name);
+                }}
+                itemStyle={{
+                  paddingLeft: 15,
+                  paddingVertical: 12,
+                  marginTop: 2,
+                  backgroundColor: "#f5f5f5",
+                  borderColor: "#ddd",
+                  borderWidth: 1,
+                  borderRadius: 4,
+                }}
+                itemTextStyle={{ color: "#222", fontSize: 16 }}
+                itemsContainerStyle={{
+                  maxHeight: 208,
+                  backgroundColor: "#f5f5f5",
+                  borderRadius: 4,
+                  borderBottomWidth: 1,
+                  borderColor: "#ddd",
+                }}
+                items={items}
+                defaultIndex={0}
+                chip={true}
+                resetValue={false}
+                placeholderTextColor={"#8D8E93"}
+                textInputProps={{
+                  placeholder: "보조기구를 선택해주세요.",
+                  underlineColorAndroid: "transparent",
+                  style: {
+                    height: 54,
+                    paddingLeft: 36,
+                    paddingRight: 15,
+                    borderWidth: 1,
+                    borderColor: "#ddd",
+                    borderRadius: 5,
+                    backgroundColor: "#fff",
+                    fontSize: 16,
+                  },
+                }}
+                listProps={{
+                  nestedScrollEnabled: true,
+                }}
+              />
+              <View style={styles.selectArrow} pointerEvents="none">
+                <Icon
+                  name="angle-right"
+                  type="light"
+                  size={16}
+                  color={"#727272"}
+                />
+              </View>
+            </View>
+
+            {/* [일단 주석] 보조기구 선택 주석 */}
+            {/* <TextInput
+              name="equipment"
+              onChangeText={(text) => setValue("equipment", text, true)}
+              value={watch("equipment")}
+            ></TextInput> */}
+
+            {/* [일단 주석] 필요한 도움 주석*/}
+            {/* <Text>필요한 도움 (선택) :</Text>
+              <TextInput
+                name="needHelp"
+                onChangeText={(text) => setValue("needHelp", text, true)}
+                value={watch("needHelp")}
+              ></TextInput> */}
+          </View>
+
+          <View style={styles.emptyLine} />
+
+          <Text style={styles.sectionTit}>결제</Text>
+
+          <View style={[styles.shadow, styles.point]}>
+            <Text
+              style={{
+                ...styles.pointTxt,
+                opacity: 0.97,
+              }}
+            >
+              보유포인트
+            </Text>
+
+            <Text style={{ ...styles.pointTxt, fontSize: 18 }}>8,850P</Text>
+          </View>
           {arriveStationName ? (
-            <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
+            <Button title="탑승요청" onPress={handleSubmit(onSubmit)} />
           ) : (
             <Button
               disabled={true}
-              title="예약하기"
+              title="탑승요청"
               onPress={handleSubmit(onSubmit)}
             />
           )}
 
-          <Button
+          {/* <Button
             title="취소하기"
             onPress={() => {
               navigation.replace("내 주변 정류장", {
                 screen: "HomeScreen",
               });
             }}
-          />
+          /> */}
         </View>
       </ScrollView>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   ...style,
+  selectIcon: {
+    position: "absolute",
+    left: 15,
+    top: 19,
+    zIndex: 99,
+  },
+  selectArrow: {
+    position: "absolute",
+    right: 15,
+    top: 20,
+    // marginTop: -7,
+  },
+  point: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "#fff",
+    height: 54,
+    alignItems: "center",
+    paddingHorizontal: 15,
+  },
+  pointTxt: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#111",
+  },
 });
