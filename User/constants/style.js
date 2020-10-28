@@ -56,9 +56,9 @@ export default StyleSheet.create({
     marginHorizontal: -theme.SIZES.BASE * 1.2,
   },
   sectionTit: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
-    marginBottom: 5,
+    color: "#868686",
   },
   onButton: {
     backgroundColor: "#4B56F1",
@@ -71,5 +71,24 @@ export default StyleSheet.create({
   onButtonTxt: {
     fontSize: 16,
     color: "#fff",
+  },
+  formControl: {
+    paddingVertical: 15,
+  },
+  formControlTit: {
+    fontSize: 16,
+    marginBottom: 7,
+    fontWeight: "bold",
+  },
+  defalutForm: {
+    backgroundColor: "#efefef",
+    paddingLeft: 15,
+    height: 54,
+    justifyContent: "center",
+    borderRadius: 4,
+  },
+  defalutFormTxt: {
+    fontSize: 16,
+    color: "#565656",
   },
 });

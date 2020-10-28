@@ -6,7 +6,7 @@ import {
   ACCOUNT_INFO_QUERY,
   RESERVATION_WRITE_QUERY,
   BUS_INFO_QUERY,
-  BUS_ROTATION_LIST_QUERY
+  BUS_ROTATION_LIST_QUERY,
 } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
@@ -22,8 +22,13 @@ import {
   Button,
   Alert,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
+import {
+  ScrollView,
+  TouchableNativeFeedback,
+  TouchableWithoutFeedback,
+} from "react-native-gesture-handler";
 import { Header } from "../../../components";
+import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation, route }) => {
   const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
@@ -64,7 +69,6 @@ export default ({ navigation, route }) => {
 
   // const API_KEY =
   //   "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
-
 
   // const dataLoader = () => {
   //   axios({
@@ -174,7 +178,6 @@ export default ({ navigation, route }) => {
             name: rowData.BUSSTOP_NM,
           });
         }
-
       });
       setItemsArray(tempItems);
     }
@@ -189,77 +192,127 @@ export default ({ navigation, route }) => {
         closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
-      <Text>
-        {ROUTE_NO}번({DESTINATION} 방면)
-      </Text>
-      <Text>승차 정류장 : {BUSSTOP_NM}</Text>
-      <Text>하차 정류장 : </Text>
-      <SearchableDropdown
-        multi={true}
-        containerStyle={{ padding: 15 }}
-        onItemSelect={(item) => {
-          setArriveStationNo(item.id);
-          setArriveStationName(item.name);
-        }}
-        itemStyle={{
-          padding: 10,
-          marginTop: 2,
-          backgroundColor: "#ddd",
-          borderColor: "#bbb",
-          borderWidth: 1,
-          borderRadius: 5,
-        }}
-        itemTextStyle={{ color: "#222", fontSize: 16 }}
-        itemsContainerStyle={{ maxHeight: 216 }}
-        items={items}
-        defaultIndex={0}
-        chip={true}
-        resetValue={false}
-        textInputProps={{
-          placeholder: "하차하실 정류장을 검색/선택 해주세요.",
-          underlineColorAndroid: "transparent",
-          style: {
-            padding: 12,
-            borderWidth: 1,
-            borderColor: "#ccc",
-            borderRadius: 5,
-            backgroundColor: "#fff",
-          },
-        }}
-        listProps={{
-          nestedScrollEnabled: true,
-        }}
-      />
-      <Text>보조기구 종류 :</Text>
-      <TextInput
-        name="equipment"
-        onChangeText={(text) => setValue("equipment", text, true)}
-        value={watch("equipment")}
-      ></TextInput>
-      <Text>필요한 도움 (선택) :</Text>
-      <TextInput
-        name="needHelp"
-        onChangeText={(text) => setValue("needHelp", text, true)}
-        value={watch("needHelp")}
-      ></TextInput>
-      {arriveStationName ? (
-        <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
-      ) : (
-          <Button
-            disabled={true}
-            title="예약하기"
-            onPress={handleSubmit(onSubmit)}
-          />
-        )}
+      <ScrollView keyboardShouldPersistTaps="always">
+        <View style={styles.container}>
+          <Text style={styles.sectionTit}>정류장 선택</Text>
+          <View style={styles.formControl}>
+            <Text
+              style={{
+                ...styles.formControlTit,
+              }}
+            >
+              선택한 버스
+            </Text>
+            <View style={styles.defalutForm}>
+              <Text style={styles.defalutFormTxt}>
+                {ROUTE_NO}번({DESTINATION} 방면)
+              </Text>
+            </View>
+          </View>
 
-      <Button
-        title="취소하기"
-        onPress={() => {
-          navigation.replace("내 주변 정류장", {
-            screen: "HomeScreen",
-          });
-        }}
-      />
+          <View style={styles.formControl}>
+            <Text
+              style={{
+                ...styles.formControlTit,
+              }}
+            >
+              승차정류장
+            </Text>
+            <View style={styles.defalutForm}>
+              <Text style={styles.defalutFormTxt}>{BUSSTOP_NM}</Text>
+            </View>
+          </View>
+
+          <View style={styles.formControl}>
+            <Text
+              style={{
+                ...styles.formControlTit,
+              }}
+            >
+              하차 정류장
+            </Text>
+            <SearchableDropdown
+              multi={true}
+              containerStyle={{
+                padding: 0,
+              }}
+              onItemSelect={(item) => {
+                setArriveStationNo(item.id);
+                setArriveStationName(item.name);
+              }}
+              itemStyle={{
+                paddingLeft: 15,
+                paddingVertical: 12,
+                marginTop: 2,
+                backgroundColor: "#f5f5f5",
+                borderColor: "#ddd",
+                borderWidth: 1,
+                borderRadius: 4,
+              }}
+              itemTextStyle={{ color: "#222", fontSize: 16 }}
+              itemsContainerStyle={{
+                maxHeight: 242,
+                backgroundColor: "#f5f5f5",
+                borderRadius: 4,
+                borderBottomWidth: 1,
+                borderColor: "#ddd",
+              }}
+              items={items}
+              defaultIndex={0}
+              chip={true}
+              resetValue={false}
+              placeholderTextColor={"#8D8E93"}
+              textInputProps={{
+                placeholder: "하차 정류장 검색 및 선택",
+                underlineColorAndroid: "transparent",
+                style: {
+                  height: 54,
+                  paddingHorizontal: 15,
+                  borderWidth: 1,
+                  borderColor: "#ddd",
+                  borderRadius: 5,
+                  backgroundColor: "#fff",
+                  fontSize: 16,
+                },
+              }}
+              listProps={{
+                nestedScrollEnabled: true,
+              }}
+            />
+          </View>
+
+          <Text>보조기구 종류 :</Text>
+          <TextInput
+            name="equipment"
+            onChangeText={(text) => setValue("equipment", text, true)}
+            value={watch("equipment")}
+          ></TextInput>
+          <Text>필요한 도움 (선택) :</Text>
+          <TextInput
+            name="needHelp"
+            onChangeText={(text) => setValue("needHelp", text, true)}
+            value={watch("needHelp")}
+          ></TextInput>
+          {arriveStationName ? (
+            <Button title="예약하기" onPress={handleSubmit(onSubmit)} />
+          ) : (
+            <Button
+              disabled={true}
+              title="예약하기"
+              onPress={handleSubmit(onSubmit)}
+            />
+          )}
+
+          <Button
+            title="취소하기"
+            onPress={() => {
+              navigation.replace("내 주변 정류장", {
+                screen: "HomeScreen",
+              });
+            }}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 };

@@ -23,12 +23,6 @@ export default ({ navigation }) => {
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text style={{ fontSize: 18 }}>충전이 완료되었습니다.</Text>
       </View>
-      <View style={styles.container}>
-        <Text style={styles.sectionTit}>예약선택</Text>
-        <View style={styles.formBox}>
-          <Text style={styles.formTit}>선택한 탑승요청 버스</Text>
-        </View>
-      </View>
     </ScrollView>
   );
 };

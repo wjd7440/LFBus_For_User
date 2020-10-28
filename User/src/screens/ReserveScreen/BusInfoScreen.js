@@ -109,6 +109,7 @@ export default ({ navigation, route }) => {
         <Header
           back
           title={ROUTE_NO[0] + "번"}
+          titleStyle={{ fontSize: 21, fontWeight: "500", color: "#111" }}
           // close
           closeNavigate={"HomeScreen"}
           navigation={navigation}
@@ -188,7 +189,7 @@ export default ({ navigation, route }) => {
             }}
           >
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={1}
               style={styles.infoBtn}
               onPress={() => {
                 navigation.navigate("BusRouteMapScreen", {
@@ -203,12 +204,12 @@ export default ({ navigation, route }) => {
                 name="directions"
                 type="light"
                 size={16}
-                color={"#676767"}
+                color={"#565656"}
               />
               <Text style={styles.infoBtnTxt}>버스경로</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              activeOpacity={0.7}
+              activeOpacity={1}
               style={styles.infoBtn}
               onPress={() => {
                 navigation.navigate("BusServiceInfoScreen", {
@@ -223,7 +224,7 @@ export default ({ navigation, route }) => {
                 name="info-circle"
                 type="light"
                 size={16}
-                color={"#676767"}
+                color={"#565656"}
               />
               <Text style={styles.infoBtnTxt}>운행정보</Text>
             </TouchableOpacity>
@@ -409,7 +410,7 @@ const styles = StyleSheet.create({
   },
   infoBtnTxt: {
     marginLeft: 3,
-    color: "#676767",
+    color: "#565656",
     fontSize: 14,
   },
   resultButton: {
