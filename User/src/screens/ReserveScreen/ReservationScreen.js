@@ -15,11 +15,11 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
   StyleSheet,
   StatusBar,
   Image,
   TextInput,
-  Button,
   Alert,
   Keyboard,
   KeyboardAvoidingView,
@@ -32,6 +32,7 @@ import {
 } from "react-native-gesture-handler";
 import { Header } from "../../../components";
 import Icon from "react-native-fontawesome-pro";
+import { Button, Checkbox } from "galio-framework";
 
 export default ({ navigation, route }) => {
   const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
@@ -424,9 +425,10 @@ export default ({ navigation, route }) => {
 
           <View style={styles.emptyLine} />
 
-          <Text style={styles.sectionTit}>결제</Text>
+          <Text style={{ ...styles.sectionTit, marginBottom: 15 }}>결제</Text>
 
-          <View style={[styles.shadow, styles.point]}>
+          {/* //보유중인 포인트 내역 */}
+          <View style={[styles.point]}>
             <Text
               style={{
                 ...styles.pointTxt,
@@ -435,17 +437,46 @@ export default ({ navigation, route }) => {
             >
               보유포인트
             </Text>
-
             <Text style={{ ...styles.pointTxt, fontSize: 18 }}>8,850P</Text>
           </View>
-          {arriveStationName ? (
-            <Button title="탑승요청" onPress={handleSubmit(onSubmit)} />
-          ) : (
-            <Button
-              disabled={true}
-              title="탑승요청"
-              onPress={handleSubmit(onSubmit)}
+          {/* 보유중인 포인트 내역 끝 // */}
+          <View style={{ marginBottom: 30 }}>
+            <Checkbox
+              checkboxStyle={{ borderWidth: 1 }}
+              color="#4B56F1"
+              label="탑승 전 결제하겠습니다."
+              labelStyle={{ fontSize: 16 }}
+              // flexDirection="row-reverse"
+              style={{
+                width: "100%",
+                justifyContent: "center",
+                height: 50,
+                borderRadius: 4,
+                borderWidth: 1,
+                borderColor: "#4b56f1",
+                // alignItems: "flex-start",
+              }}
             />
+            <Text style={{ fontSize: 14, color: "#767676", marginTop: 5 }}>
+              위 버튼을 선택하시면 승차 시 결제를 하지 않으셔도 됩니다.
+            </Text>
+          </View>
+
+          {arriveStationName ? (
+            <TouchableHighlight
+              style={styles.onButton}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.onButtonTxt}>탑승요청</Text>
+            </TouchableHighlight>
+          ) : (
+            <TouchableHighlight
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableHighlight>
           )}
 
           {/* <Button
@@ -480,13 +511,35 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#fff",
-    height: 54,
     alignItems: "center",
-    paddingHorizontal: 15,
+    // paddingHorizontal: 15,
+    marginBottom: 20,
   },
   pointTxt: {
     fontSize: 16,
     fontWeight: "bold",
     color: "#111",
+  },
+  onButton: {
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#4B56F1",
+    borderRadius: 4,
+  },
+  onButtonTxt: {
+    fontSize: 16,
+    color: "#fff",
+  },
+  offButton: {
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DCDDDF",
+    borderRadius: 4,
+  },
+  offButtonTxt: {
+    fontSize: 16,
+    color: "#A3A4A9",
   },
 });
