@@ -171,7 +171,7 @@ export default ({ navigation }) => {
             <TouchableHighlight
               style={styles.menuBtn}
               onPress={() => {
-                navigation.navigate("PointTransactionScreen");
+                navigation.navigate("ChargeListScreen");
               }}
             >
               <View style={styles.menuBox}>

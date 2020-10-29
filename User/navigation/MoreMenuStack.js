@@ -7,8 +7,7 @@ import MenuScreen from "../src/screens/MenuScreen/index";
 import ReservationCheckScreen from "../src/screens/MenuScreen/ReservationCheckScreen";
 import RouteScreen from "../src/screens/MenuScreen/RouteScreen";
 import ChargeScreen from "../src/screens/MenuScreen/ChargeScreen";
-import ChargeCompleteScreen from "../src/screens/MenuScreen/ChargeCompleteScreen";
-import PointTransactionScreen from "../src/screens/MenuScreen/PointTransactionScreen";
+import ChargeListScreen from "../src/screens/MenuScreen/ChargeListScreen";
 
 export default () => {
   return (
@@ -27,8 +26,7 @@ export default () => {
       />
       <Stack.Screen name="RouteScreen" component={RouteScreen} />
       <Stack.Screen name="ChargeScreen" component={ChargeScreen} />
-      <Stack.Screen name="ChargeCompleteScreen" component={ChargeCompleteScreen} />
-      <Stack.Screen name="PointTransactionScreen" component={PointTransactionScreen} />
+      <Stack.Screen name="ChargeListScreen" component={ChargeListScreen} />
     </Stack.Navigator>
   );
 };
