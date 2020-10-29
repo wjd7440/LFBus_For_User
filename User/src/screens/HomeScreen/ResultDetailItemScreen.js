@@ -38,9 +38,9 @@ export default ({ serviceKey, BusStopID }) => {
     dataLoader();
     let timer = setInterval(() => {
       dataLoader();
-    }, 15000);
+    }, 10000);
 
-    return clearInterval(timer);
+    return () => clearInterval(timer);
   }, []);
 
   if (!loaded || !data[0]) {
