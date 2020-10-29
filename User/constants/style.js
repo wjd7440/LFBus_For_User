@@ -72,6 +72,17 @@ export default StyleSheet.create({
     fontSize: 16,
     color: "#fff",
   },
+  offButton: {
+    height: 56,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#DCDDDF",
+    borderRadius: 4,
+  },
+  offButtonTxt: {
+    fontSize: 16,
+    color: "#A3A4A9",
+  },
   formControl: {
     paddingVertical: 15,
   },
