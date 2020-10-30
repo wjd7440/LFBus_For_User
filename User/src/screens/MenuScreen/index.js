@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import { useFonts } from "@use-expo/font";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
@@ -18,7 +18,10 @@ import {
 import { useQuery } from "react-apollo-hooks";
 import { RESERVATION_LIST_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
 import NumberFormat from "react-number-format";
+import axios from "axios";
+
 export default ({ navigation }) => {
+  const parseString = require("react-native-xml2js").parseString;
   const fonts = useFonts({
     "NotoSansKR-Thin": require("../../../assets/fonts/NotoSansKR-Thin.otf"),
     "NotoSansKR-Light": require("../../../assets/fonts/NotoSansKR-Light.otf"),
@@ -39,11 +42,67 @@ export default ({ navigation }) => {
     },
   });
 
+  const [loaded, setLoaded] = useState(false);
+  const [statusPos, setStatusPos] = useState();
+  const [extimeMin, setExtimeMin] = useState();
+  const [busExist, setBusExist] = useState(false);
   const maileage = !loading && data.UserInfo.maileage;
   const count = !reservationloading && reservation && reservation.UserReservationList && reservation.UserReservationList.count;
   const ROUTE_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].ROUTE_NO;
+  const BUS_NODE_ID = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].BUS_NODE_ID;
+  const CAR_REG_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].CAR_REG_NO;
   const departureStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].departureStation;
   const arrivalStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].arrivalStation;
+  const API_KEY =
+    "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
+
+  const getIndex = (value, arr, prop) => {
+    for (var i = 0; i < arr.length; i++) {
+      // console.log(arr[i][prop][0]);
+      // console.log(value);
+      if (arr[i][prop][0] === value) {
+        setStatusPos(arr[i]["STATUS_POS"]);
+        setExtimeMin(arr[i]["EXTIME_MIN"]);
+        setBusData
+        return true;
+      } else {
+        setStatusPos("-");
+        setExtimeMin("-");
+      }
+    }
+    // console.log("버스지나감");
+    return false;
+  };
+
+  const dataLoader = () => {
+    axios({
+      url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${BUS_NODE_ID}`,
+      method: "get",
+    })
+      .then((response) => {
+        parseString(response.data, (err, result) => {
+          const busArriveInfoArray = result.ServiceResult.msgBody;
+          getIndex(
+            CAR_REG_NO,
+            busArriveInfoArray[0].itemList,
+            "CAR_REG_NO"
+          )
+          setLoaded(true);
+        });
+      })
+      .catch(function (err) {
+        // console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    dataLoader();
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 15000);
+
+    return () => clearInterval(timer);
+  }, [BUS_NODE_ID]);
 
   return (
     <>
@@ -134,7 +193,7 @@ export default ({ navigation }) => {
             <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
               <Text style={styles.busTit}>버스위치</Text>
               {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
-              <Text style={styles.busInfo}>목척교{"\n"}(2분후 도착)</Text>
+              <Text style={styles.busInfo}>{statusPos}정류장 전 ({extimeMin}분)</Text>
             </View>
             {/* 탑승 취소 버튼 */}
             <TouchableHighlight

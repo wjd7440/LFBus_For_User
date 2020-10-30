@@ -35,6 +35,7 @@ export default ({ navigation, route }) => {
   const parseString = require("react-native-xml2js").parseString;
 
   const dataLoader = () => {
+    console.log("3")
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${BUS_NODE_ID}`,
       method: "get",
@@ -56,7 +57,7 @@ export default ({ navigation, route }) => {
     let timer = setInterval(() => {
       dataLoader();
     }, 15000);
-    return clearInterval(timer);
+    return () => clearInterval(timer);
   }, [BUS_NODE_ID]);
 
   useEffect(() => {
@@ -91,60 +92,60 @@ export default ({ navigation, route }) => {
           </View>
         </View>
       ) : (
-        <View>
-          <Header
-            title="버스 도착 정보"
-            back
-            close
-            closeNavigate={"HomeScreen"}
-            navigation={navigation}
-          />
-          <ScrollView>
-            {data[0].itemList.map((rowData, index) => {
-              return (
-                <Fragment key={index}>
-                  {rowData.CAR_REG_NO && (
-                    <TouchableHighlight
-                      underlayColor={"#f6f6f6"}
-                      onPress={() => {
-                        // navigation.navigate("ReservationScreen", {
-                        navigation.navigate("BusInfoScreen", {
-                          DISTANCE: DISTANCE,
-                          CAR_REG_NO: rowData.CAR_REG_NO,
-                          ROUTE_NO: rowData.ROUTE_NO,
-                          STATUS_POS: rowData.STATUS_POS,
-                          EXTIME_MIN: rowData.EXTIME_MIN,
-                          DESTINATION: rowData.DESTINATION,
-                          ROUTE_TP: rowData.ROUTE_TP,
-                          ROUTE_CD: rowData.ROUTE_CD,
-                          BUSSTOP_NM: BUSSTOP_NM,
-                          BUS_NODE_ID: BUS_NODE_ID,
-                          GPS_LATI: GPS_LATI,
-                          GPS_LONG: GPS_LONG,
-                          equipment: !loading && user.UserInfo.equipment,
-                          memo: !loading && user.UserInfo.memo,
-                        });
-                      }}
-                    >
-                      <ResultDetailScreen
-                        DISTANCE={DISTANCE}
-                        CAR_REG_NO={rowData.CAR_REG_NO}
-                        ROUTE_NO={rowData.ROUTE_NO}
-                        STATUS_POS={rowData.STATUS_POS}
-                        EXTIME_MIN={rowData.EXTIME_MIN}
-                        DESTINATION={rowData.DESTINATION}
-                        ROUTE_TP={rowData.ROUTE_TP}
-                        ROUTE_CD={rowData.ROUTE_CD}
-                        BUSSTOP_NM={BUSSTOP_NM}
-                      />
-                    </TouchableHighlight>
-                  )}
-                </Fragment>
-              );
-            })}
-          </ScrollView>
-        </View>
-      )}
+          <View>
+            <Header
+              title="버스 도착 정보"
+              // back
+              close
+              closeNavigate={"HomeScreen"}
+              navigation={navigation}
+            />
+            <ScrollView>
+              {data[0].itemList.map((rowData, index) => {
+                return (
+                  <Fragment key={index}>
+                    {rowData.CAR_REG_NO && (
+                      <TouchableHighlight
+                        underlayColor={"#f6f6f6"}
+                        onPress={() => {
+                          // navigation.navigate("ReservationScreen", {
+                          navigation.navigate("BusInfoScreen", {
+                            DISTANCE: DISTANCE,
+                            CAR_REG_NO: rowData.CAR_REG_NO,
+                            ROUTE_NO: rowData.ROUTE_NO,
+                            STATUS_POS: rowData.STATUS_POS,
+                            EXTIME_MIN: rowData.EXTIME_MIN,
+                            DESTINATION: rowData.DESTINATION,
+                            ROUTE_TP: rowData.ROUTE_TP,
+                            ROUTE_CD: rowData.ROUTE_CD,
+                            BUSSTOP_NM: BUSSTOP_NM,
+                            BUS_NODE_ID: BUS_NODE_ID,
+                            GPS_LATI: GPS_LATI,
+                            GPS_LONG: GPS_LONG,
+                            equipment: !loading && user.UserInfo.equipment,
+                            memo: !loading && user.UserInfo.memo,
+                          });
+                        }}
+                      >
+                        <ResultDetailScreen
+                          DISTANCE={DISTANCE}
+                          CAR_REG_NO={rowData.CAR_REG_NO}
+                          ROUTE_NO={rowData.ROUTE_NO}
+                          STATUS_POS={rowData.STATUS_POS}
+                          EXTIME_MIN={rowData.EXTIME_MIN}
+                          DESTINATION={rowData.DESTINATION}
+                          ROUTE_TP={rowData.ROUTE_TP}
+                          ROUTE_CD={rowData.ROUTE_CD}
+                          BUSSTOP_NM={BUSSTOP_NM}
+                        />
+                      </TouchableHighlight>
+                    )}
+                  </Fragment>
+                );
+              })}
+            </ScrollView>
+          </View>
+        )}
     </View>
   );
 };

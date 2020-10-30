@@ -14,15 +14,11 @@ export const ACCOUNT_INFO_QUERY = gql`
 `;
 
 export const USER_MAILEAGE_LIST_QUERY = gql`
-  query UserMailegeList($userId: String) {
-    UserMailegeList(
-      keyword: $keyword
-      orderBy: "createdAt"
-      skip: $skip
-      first: $first
+  query UserMaileageList {
+    UserMaileageList(
+      orderBy: "createdAt_DESC"
     ) {
       maileages {
-        id
         userId
         account
         createdAt
