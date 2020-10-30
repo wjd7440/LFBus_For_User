@@ -3,6 +3,7 @@ import { useFonts } from "@use-expo/font";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
 import { Appbar } from "react-native-paper";
+import { theme } from "galio-framework";
 import {
   View,
   Text,
@@ -35,24 +36,56 @@ export default ({ navigation }) => {
     fetchPolicy: "network-only",
   });
 
-  const { data: reservation, reservationloading } = useQuery(RESERVATION_LIST_QUERY, {
-    fetchPolicy: "network-only",
-    variables: {
-      first: 1,
-    },
-  });
+  const { data: reservation, reservationloading } = useQuery(
+    RESERVATION_LIST_QUERY,
+    {
+      fetchPolicy: "network-only",
+      variables: {
+        first: 1,
+      },
+    }
+  );
 
   const [loaded, setLoaded] = useState(false);
   const [statusPos, setStatusPos] = useState();
   const [extimeMin, setExtimeMin] = useState();
   const [busExist, setBusExist] = useState(false);
   const maileage = !loading && data.UserInfo.maileage;
-  const count = !reservationloading && reservation && reservation.UserReservationList && reservation.UserReservationList.count;
-  const ROUTE_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].ROUTE_NO;
-  const BUS_NODE_ID = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].BUS_NODE_ID;
-  const CAR_REG_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].CAR_REG_NO;
-  const departureStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].departureStation;
-  const arrivalStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].arrivalStation;
+  const count =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    reservation.UserReservationList.count;
+  const ROUTE_NO =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].ROUTE_NO;
+  const BUS_NODE_ID =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].BUS_NODE_ID;
+  const CAR_REG_NO =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].CAR_REG_NO;
+  const departureStation =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].departureStation;
+  const arrivalStation =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].arrivalStation;
   const API_KEY =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
 
@@ -63,7 +96,7 @@ export default ({ navigation }) => {
       if (arr[i][prop][0] === value) {
         setStatusPos(arr[i]["STATUS_POS"]);
         setExtimeMin(arr[i]["EXTIME_MIN"]);
-        setBusData
+        setBusData;
         return true;
       } else {
         setStatusPos("-");
@@ -82,11 +115,7 @@ export default ({ navigation }) => {
       .then((response) => {
         parseString(response.data, (err, result) => {
           const busArriveInfoArray = result.ServiceResult.msgBody;
-          getIndex(
-            CAR_REG_NO,
-            busArriveInfoArray[0].itemList,
-            "CAR_REG_NO"
-          )
+          getIndex(CAR_REG_NO, busArriveInfoArray[0].itemList, "CAR_REG_NO");
           setLoaded(true);
         });
       })
@@ -133,11 +162,7 @@ export default ({ navigation }) => {
                 displayType={"text"}
                 thousandSeparator={true}
                 renderText={(maileage) => (
-                  <Text
-                    size={26}
-                    color={"#333"}
-                    style={styles.myPointNumber}
-                  >
+                  <Text size={26} color={"#333"} style={styles.myPointNumber}>
                     {maileage} P
                   </Text>
                 )}
@@ -170,46 +195,51 @@ export default ({ navigation }) => {
           </View>
 
           {/* [예약 했을 시] 버스예약확인 */}
-          {count > 0 ? <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
-            {}
-            <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
-              탑승요청 버스 내역
-            </Text>
-            <View style={styles.busList}>
-              <Text style={styles.busTit}>탑승버스</Text>
-              {/* 사용자가 선택한 버스를 넣어주세요. */}
-              <Text style={styles.busInfo}>{ROUTE_NO}번</Text>
+          {count > 0 ? (
+            <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
+              {}
+              <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
+                탑승요청 버스 내역
+              </Text>
+              <View style={styles.busList}>
+                <Text style={styles.busTit}>탑승버스</Text>
+                {/* 사용자가 선택한 버스를 넣어주세요. */}
+                <Text style={styles.busInfo}>{ROUTE_NO}번</Text>
+              </View>
+              <View style={styles.busList}>
+                <Text style={styles.busTit}>승차정류장</Text>
+                {/* 승차정류장을 넣어주세요. */}
+                <Text style={styles.busInfo}>{departureStation}</Text>
+              </View>
+              <View style={styles.busList}>
+                <Text style={styles.busTit}>하차정류장</Text>
+                {/* 하차정류장을 넣어주세요. */}
+                <Text style={styles.busInfo}>{arrivalStation}</Text>
+              </View>
+              <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
+                <Text style={styles.busTit}>버스위치</Text>
+                {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
+                <Text style={styles.busInfo}>
+                  {statusPos}정류장 전 ({extimeMin}분)
+                </Text>
+              </View>
+              {/* 탑승 취소 버튼 */}
+              <TouchableHighlight
+                style={{ ...styles.onButton, marginTop: 10 }}
+                underlayColor={"#333FDA"}
+              >
+                <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
+              </TouchableHighlight>
             </View>
-            <View style={styles.busList}>
-              <Text style={styles.busTit}>승차정류장</Text>
-              {/* 승차정류장을 넣어주세요. */}
-              <Text style={styles.busInfo}>{departureStation}</Text>
-            </View>
-            <View style={styles.busList}>
-              <Text style={styles.busTit}>하차정류장</Text>
-              {/* 하차정류장을 넣어주세요. */}
-              <Text style={styles.busInfo}>{arrivalStation}</Text>
-            </View>
-            <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
-              <Text style={styles.busTit}>버스위치</Text>
-              {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
-              <Text style={styles.busInfo}>{statusPos}정류장 전 ({extimeMin}분)</Text>
-            </View>
-            {/* 탑승 취소 버튼 */}
-            <TouchableHighlight
-              style={{ ...styles.onButton, marginTop: 10 }}
-              underlayColor={"#333FDA"}
+          ) : (
+            <View
+              style={[
+                styles.shadow,
+                styles.contBox,
+                styles.marginTop15,
+                styles.nonebus,
+              ]}
             >
-              <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
-            </TouchableHighlight>
-          </View> : <View
-            style={[
-              styles.shadow,
-              styles.contBox,
-              styles.marginTop15,
-              styles.nonebus,
-            ]}
-          >
               <Text
                 style={{
                   fontSize: 15,
@@ -219,15 +249,15 @@ export default ({ navigation }) => {
                 }}
               >
                 탑승요청한 버스가 없습니다.
-            </Text>
-            </View>}
-
+              </Text>
+            </View>
+          )}
 
           {/* [예약 없을 시] 버스예약확인 */}
 
-
-          <View style={styles.menuListWrap}>
+          <View style={[styles.menuListWrap, styles.marginPull]}>
             <TouchableHighlight
+              underlayColor={"#f5f5f5"}
               style={styles.menuBtn}
               onPress={() => {
                 navigation.navigate("ChargeListScreen");
@@ -242,7 +272,10 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.menuBtn}>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -252,7 +285,10 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.menuBtn}>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -262,7 +298,10 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.menuBtn}>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -272,7 +311,10 @@ export default ({ navigation }) => {
               </View>
             </TouchableHighlight>
 
-            <TouchableHighlight style={styles.menuBtn}>
+            <TouchableHighlight
+              style={styles.menuBtn}
+              underlayColor={"#f5f5f5"}
+            >
               <View style={styles.menuBox}>
                 <Image
                   style={styles.menuIcon}
@@ -380,6 +422,8 @@ const styles = StyleSheet.create({
   menuBtn: {
     height: 50,
     justifyContent: "center",
+    paddingLeft: theme.SIZES.BASE * 1.2,
+    paddingRight: theme.SIZES.BASE * 1.2,
   },
   menuBox: {
     flexDirection: "row",

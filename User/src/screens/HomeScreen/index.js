@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   busLeft: {
-    width: 90,
+    width: 74,
     paddingLeft: 15,
     paddingRight: 15,
     justifyContent: "center",

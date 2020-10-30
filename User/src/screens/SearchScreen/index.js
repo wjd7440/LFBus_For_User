@@ -38,9 +38,7 @@ export default ({ navigation }) => {
           <Text>정류장 검색</Text>
         </TouchableOpacity>
         {data.UserBusRouteList.busRoutes.map((rowData, index) => {
-          return (
-            <Text>버스 번호 : {rowData.ROUTE_NO}</Text>
-          )
+          return <Text>버스 번호 : {rowData.ROUTE_NO}</Text>;
         })}
         <Text></Text>
       </ScrollView>
