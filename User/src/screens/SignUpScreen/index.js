@@ -481,19 +481,19 @@ export default ({ navigation }) => {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView
+      // behavior={Platform.OS == "ios" ? "padding" : "height"}
+      style={{ flex: 1 }}
+    >
       <Header
-        back
+        // back
         title="회원가입"
         close
         closeNavigate={"LoginScreen"}
         navigation={navigation}
       />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      >
-        <View style={{ ...styles.container, paddingBottom: hp("8%") }}>
+      <ScrollView>
+        <View style={{ ...styles.container }}>
           <View style={styles.formArea}>
             <Text style={styles.signTit}>평등한 사회로{"\n"}한걸음</Text>
             <View style={styles.formControl}>
@@ -670,33 +670,16 @@ export default ({ navigation }) => {
             toggleModal={provision1ToggleModal}
           />
         </View>
+        <View>
+          <TouchableHighlight
+            underlayColor={"#333FDA"}
+            style={{ ...styles.onButton }}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.buttonTxt}>회원가입</Text>
+          </TouchableHighlight>
+        </View>
       </ScrollView>
-      <View
-        style={{
-          position: "absolute",
-          width: "100%",
-          backgroundColor: "#fff",
-          bottom: Platform.OS === "android" ? 0 : 15,
-          marginBottom: keyboardHeight,
-        }}
-      >
-        <TouchableHighlight
-          underlayColor={"#333FDA"}
-          style={{ ...styles.onButton }}
-          onPress={handleSubmit(onSubmit)}
-        >
-          <Text style={styles.buttonTxt}>회원가입</Text>
-        </TouchableHighlight>
-        {/* <TouchableHighlight
-          style={styles.offButton}
-          underlayColor={"#f5f5f5"}
-          onPress={() => {
-            navigation.navigate("LoginScreen");
-          }}
-        >
-          <Text style={{ color: "#8D8E93" }}>취소</Text>
-        </TouchableHighlight> */}
-      </View>
     </KeyboardAvoidingView>
   );
 };

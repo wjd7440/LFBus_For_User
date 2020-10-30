@@ -118,7 +118,7 @@ export default ({ navigation }) => {
                               BUSSTOP_NM: rowData.BUSSTOP_NM,
                               DISTANCE: rowData.DISTANCE * 1000,
                               GPS_LATI: rowData.GPS_LATI,
-                              GPS_LONG: rowData.GPS_LONG
+                              GPS_LONG: rowData.GPS_LONG,
                             },
                           });
                         }}
@@ -162,7 +162,7 @@ export default ({ navigation }) => {
                   color: "#454545",
                 }}
               >
-                내 주변정류장
+                내 주변정류장 - 500m 이내
               </Text>
               <ScrollView>
                 <View style={styles.busListTitBox}>
@@ -180,7 +180,7 @@ export default ({ navigation }) => {
                                 BUSSTOP_NM: rowData.BUSSTOP_NM,
                                 DISTANCE: rowData.DISTANCE * 1000,
                                 GPS_LATI: rowData.GPS_LATI,
-                                GPS_LONG: rowData.GPS_LONG
+                                GPS_LONG: rowData.GPS_LONG,
                               },
                             });
                           }}

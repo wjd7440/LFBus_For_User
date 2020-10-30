@@ -6666,6 +6666,11 @@ react-native-screens@~2.9.0:
   resolved "https://registry.yarnpkg.com/react-native-screens/-/react-native-screens-2.9.0.tgz#ead2843107ba00fee259aa377582e457c74f1f3b"
   integrity sha512-5MaiUD6HA3nzY3JbVI8l3V7pKedtxQF3d8qktTVI0WmWXTI4QzqOU8r8fPVvfKo3MhOXwhWBjr+kQ7DZaIQQeg==
 
+react-native-scroll-up@^0.1.6:
+  version "0.1.6"
+  resolved "https://registry.yarnpkg.com/react-native-scroll-up/-/react-native-scroll-up-0.1.6.tgz#beee8fe1377399760056fd95d729f0c33acc7a13"
+  integrity sha512-mSDZHEbM8r/CMBK7nRhnKezdkckKhSkzXvW/oITvJc7np3TkAwrkda1tddyGFjnndIYqD/VqkzjRPzpPEk3WBg==
+
 react-native-searchable-dropdown@1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/react-native-searchable-dropdown/-/react-native-searchable-dropdown-1.1.1.tgz#73d2cdd71b82af1299b2fe280ce4b7102797e826"

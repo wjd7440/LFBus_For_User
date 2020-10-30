@@ -56,6 +56,7 @@
     "react-native-responsive-screen": "1.4.1",
     "react-native-safe-area-context": "~3.0.7",
     "react-native-screens": "~2.9.0",
+    "react-native-scroll-up": "^0.1.6",
     "react-native-searchable-dropdown": "1.1.1",
     "react-native-svg": "12.1.0",
     "react-native-web": "~0.11.7",

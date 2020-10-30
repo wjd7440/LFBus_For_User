@@ -215,7 +215,7 @@ export default ({ navigation, route }) => {
   }, []);
 
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }}>
+    <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
       <Header
         back
         title="탑승요청"
@@ -457,27 +457,19 @@ export default ({ navigation, route }) => {
                 // alignItems: "flex-start",
               }}
             />
-            <Text style={{ fontSize: 14, color: "#767676", marginTop: 5 }}>
-              위 버튼을 선택하시면 승차 시 결제를 하지 않으셔도 됩니다.
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#767676",
+                marginTop: 6,
+                textAlign: "center",
+              }}
+            >
+              탑승요금{" "}
+              <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
+              가 차감됩니다.
             </Text>
           </View>
-
-          {arriveStationName ? (
-            <TouchableHighlight
-              style={styles.onButton}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.onButtonTxt}>탑승요청</Text>
-            </TouchableHighlight>
-          ) : (
-            <TouchableHighlight
-              style={styles.offButton}
-              disabled={true}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.offButtonTxt}>탑승요청</Text>
-            </TouchableHighlight>
-          )}
 
           {/* <Button
             title="취소하기"
@@ -488,6 +480,22 @@ export default ({ navigation, route }) => {
             }}
           /> */}
         </View>
+        {arriveStationName ? (
+          <TouchableHighlight
+            style={styles.onButton}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.onButtonTxt}>탑승요청</Text>
+          </TouchableHighlight>
+        ) : (
+          <TouchableHighlight
+            style={styles.offButton}
+            disabled={true}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.offButtonTxt}>탑승요청</Text>
+          </TouchableHighlight>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -525,7 +533,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#4B56F1",
-    borderRadius: 4,
+    borderRadius: 0,
   },
   onButtonTxt: {
     fontSize: 16,
@@ -536,7 +544,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#DCDDDF",
-    borderRadius: 4,
+    borderRadius: 0,
   },
   offButtonTxt: {
     fontSize: 16,

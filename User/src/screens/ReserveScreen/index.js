@@ -75,11 +75,20 @@ export default ({ navigation, route }) => {
   return (
     <View style={styles.container}>
       {!loaded || !data[0] ? (
-        <View style={styles.loadingWrap}>
-          {/* <Text style={{ fontSize: 16, marginBottom: 15 }}>
-            실시간 저상버스 정보를 검색중입니다.
-          </Text> */}
-          <ActivityIndicator size="large" color="#4B56F1" />
+        <View style={{ flex: 1 }}>
+          <Header
+            title="버스 도착 정보"
+            back
+            close
+            closeNavigate={"HomeScreen"}
+            navigation={navigation}
+          />
+          <View style={styles.loadingWrap}>
+            <Text style={{ fontSize: 16, marginBottom: 15 }}>
+              실시간 저상버스 정보를 검색중입니다.
+            </Text>
+            <ActivityIndicator size="large" color="#4B56F1" />
+          </View>
         </View>
       ) : (
         <View>
