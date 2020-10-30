@@ -52,13 +52,21 @@ export default ({ navigation, route }) => {
     fetchPolicy: "network-only",
   });
 
+  // useEffect(() => {
+  //   dataLoader();
+  //   let timer = setInterval(() => {
+  //     dataLoader();
+  //   }, 15000);
+  //   return () => clearInterval(timer);
+  // }, [BUS_NODE_ID]);
+
   useEffect(() => {
     dataLoader();
-    let timer = setInterval(() => {
-      dataLoader();
-    }, 15000);
-    return () => clearInterval(timer);
-  }, [BUS_NODE_ID]);
+    // let timer = setInterval(() => {
+    //   dataLoader();
+    // }, 15000);
+    // return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     // let timer = setInterval(() => {

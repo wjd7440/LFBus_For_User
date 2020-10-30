@@ -36,11 +36,11 @@ export default ({ serviceKey, BusStopID }) => {
 
   useEffect(() => {
     dataLoader();
-    let timer = setInterval(() => {
-      dataLoader();
-    }, 10000);
+    // let timer = setInterval(() => {
+    //   dataLoader();
+    // }, 10000);
 
-    return () => clearInterval(timer);
+    // return () => clearInterval(timer);
   }, []);
 
   if (!loaded || !data[0]) {

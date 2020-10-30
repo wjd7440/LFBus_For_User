@@ -61,9 +61,7 @@ export default ({ navigation, route }) => {
   const maileage = route.params ? route.params.maileage : null;
   const [value, setValue] = useState(1000);
   const [payment, setPayment] = useState("신용카드");
-  const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY, {
-    refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }]
-  });
+  const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const { handleSubmit, errors, watch } = useForm();
   const onSubmit = async () => {
     try {

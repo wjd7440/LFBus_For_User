@@ -7,10 +7,12 @@ import {
   RESERVATION_WRITE_QUERY,
   BUS_INFO_QUERY,
   BUS_ROTATION_LIST_QUERY,
+  RESERVATION_LIST_QUERY
 } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
 import axios from "axios";
+import NumberFormat from "react-number-format";
 import {
   View,
   Text,
@@ -43,6 +45,8 @@ export default ({ navigation, route }) => {
   const [items, setItemsArray] = useState([]);
   const [arriveStationNo, setArriveStationNo] = useState(null);
   const [arriveStationName, setArriveStationName] = useState(null);
+  const [equipmentId, setEquipmentId] = useState(null);
+  const [equipmentName, setEquipmentName] = useState(null);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
 
   const { register, setValue, handleSubmit, errors, watch } = useForm({
@@ -51,6 +55,7 @@ export default ({ navigation, route }) => {
       needHelp: route.params ? route.params.needHelp : null,
     },
   });
+  const maileage = route.params ? route.params.maileage : null;
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
@@ -72,24 +77,38 @@ export default ({ navigation, route }) => {
     },
   });
 
-  // const API_KEY =
-  //   "8Ob9wZKBcsyHDD1I%2FlSyl%2B6gkCiD5d%2ByEGpViOo9efKiifmfRRN%2BeZg3WGMxDPVm11UXBGhpJolfP1Zj8BpqDw%3D%3D";
+  const { data: reservationList, reservationListLoading } = useQuery(RESERVATION_LIST_QUERY, {
+    fetchPolicy: "network-only",
+  });
+  const count = !reservationListLoading && reservationList && reservationList.UserReservationList && reservationList.UserReservationList.count;
 
-  // const dataLoader = () => {
-  //   axios({
-  //     url: `http://openapitraffic.daejeon.go.kr/api/rest/busRouteInfo/getStaionByRoute?serviceKey=${API_KEY}&busRouteId=${ROUTE_CD}`,
-  //     method: "get",
-  //   }).then((response) => {
-  //     parseString(response.data, function (err, result) {
-  //       const busRouteInfoArray = result.ServiceResult.msgBody;
-  //       setData(busRouteInfoArray);
-  //       setLoaded(true);
-  //     });
-  //   });
-  // };
+
 
   const API_KEY2 =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
+
+  const equipmentArray = [
+    {
+      id: 1,
+      name: "수동휠체어"
+    },
+    {
+      id: 2,
+      name: "전동휠체어"
+    },
+    {
+      id: 3,
+      name: "전동스쿠터"
+    },
+    {
+      id: 4,
+      name: "유모차"
+    },
+    {
+      id: 5,
+      name: "없음"
+    }
+  ];
 
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -120,6 +139,10 @@ export default ({ navigation, route }) => {
               "CAR_REG_NO"
             )
           ) {
+            if (count > 0) {
+              Alert.alert("탑승요청은 한번만 신청 가능합니다. 메뉴에서 취소 요청 / 하차 완료 버튼을 눌러주세요.");
+              return false;
+            }
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({
@@ -130,7 +153,7 @@ export default ({ navigation, route }) => {
                 departureStation: BUSSTOP_NM,
                 arrivalStation: arriveStationName,
                 memo: data.needHelp,
-                equipment: data.equipment,
+                equipment: equipmentName,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
             });
@@ -159,14 +182,6 @@ export default ({ navigation, route }) => {
       navigation.navigate("HomeScreen");
     }
   };
-
-  useEffect(() => {
-    register({ name: "equipment" }, { required: "장비를 입력해주세요." });
-  }, [register]);
-
-  // useEffect(() => {
-  //   dataLoader();
-  // }, []);
 
   useEffect(() => {
     if (!loading) {
@@ -354,8 +369,8 @@ export default ({ navigation, route }) => {
                   padding: 0,
                 }}
                 onItemSelect={(item) => {
-                  setArriveStationNo(item.id);
-                  setArriveStationName(item.name);
+                  setEquipmentId(item.id);
+                  setEquipmentName(item.name);
                 }}
                 itemStyle={{
                   paddingLeft: 15,
@@ -374,7 +389,7 @@ export default ({ navigation, route }) => {
                   borderBottomWidth: 1,
                   borderColor: "#ddd",
                 }}
-                items={items}
+                items={equipmentArray}
                 defaultIndex={0}
                 chip={true}
                 resetValue={false}
@@ -437,15 +452,24 @@ export default ({ navigation, route }) => {
             >
               보유포인트
             </Text>
-            <Text style={{ ...styles.pointTxt, fontSize: 18 }}>8,850P</Text>
+
+            <NumberFormat
+              value={maileage}
+              displayType={"text"}
+              thousandSeparator={true}
+              renderText={(maileage) => (
+                <Text style={{ ...styles.pointTxt, fontSize: 18 }}>{maileage}P</Text>
+              )}
+            />
           </View>
           {/* 보유중인 포인트 내역 끝 // */}
-          <View style={{ marginBottom: 30 }}>
+          <TouchableOpacity style={{ marginBottom: 30 }}>
             <Checkbox
               checkboxStyle={{ borderWidth: 1 }}
               color="#4B56F1"
               label="탑승 전 결제하겠습니다."
               labelStyle={{ fontSize: 16 }}
+              onChange={() => console.log("check")}
               // flexDirection="row-reverse"
               style={{
                 width: "100%",
@@ -469,7 +493,7 @@ export default ({ navigation, route }) => {
               <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
               가 차감됩니다.
             </Text>
-          </View>
+          </TouchableOpacity>
 
           {/* <Button
             title="취소하기"
@@ -480,7 +504,7 @@ export default ({ navigation, route }) => {
             }}
           /> */}
         </View>
-        {arriveStationName ? (
+        {arriveStationName && equipmentName ? (
           <TouchableHighlight
             style={styles.onButton}
             onPress={handleSubmit(onSubmit)}
@@ -488,14 +512,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight
-            style={styles.offButton}
-            disabled={true}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.offButtonTxt}>탑승요청</Text>
-          </TouchableHighlight>
-        )}
+            <TouchableHighlight
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableHighlight>
+          )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
