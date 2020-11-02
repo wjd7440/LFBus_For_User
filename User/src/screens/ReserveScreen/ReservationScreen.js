@@ -48,6 +48,7 @@ export default ({ navigation, route }) => {
   const [equipmentId, setEquipmentId] = useState(null);
   const [equipmentName, setEquipmentName] = useState(null);
   const [keyboardHeight, setKeyboardHeight] = useState(0);
+  const [pay, setPay] = useState(false);
 
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
@@ -69,7 +70,7 @@ export default ({ navigation, route }) => {
       ROUTE_CD: ROUTE_CD[0],
     },
   });
-
+  console.log(pay)
   const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
     variables: {
@@ -478,7 +479,7 @@ export default ({ navigation, route }) => {
               color="#4B56F1"
               label="탑승 전 결제하겠습니다."
               labelStyle={{ fontSize: 16 }}
-              onChange={() => console.log("check")}
+              onChange={() => setPay(true)}
               // flexDirection="row-reverse"
               style={{
                 width: "100%",
