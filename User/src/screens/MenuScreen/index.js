@@ -227,8 +227,9 @@ export default ({ navigation }) => {
               <TouchableHighlight
                 style={{ ...styles.onButton, marginTop: 10 }}
                 underlayColor={"#333FDA"}
+                onPress={handleSubmit(onSubmit)}
               >
-                <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
+                <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소 / 하차 완료</Text>
               </TouchableHighlight>
             </View>
           ) : (
@@ -240,14 +241,7 @@ export default ({ navigation }) => {
                   styles.nonebus,
                 ]}
               >
-
-                <TouchableHighlight
-                  style={{ ...styles.onButton, marginTop: 10 }}
-                  underlayColor={"#333FDA"}
-                  onPress={handleSubmit(onSubmit)}
-                >
-                  <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소 / 하차 완료</Text>
-                </TouchableHighlight>              <Text
+                <Text
                   style={{
                     fontSize: 15,
                     color: "#8D8E93",
@@ -256,7 +250,7 @@ export default ({ navigation }) => {
                   }}
                 >
                   탑승요청한 버스가 없습니다.
-              </Text>
+                </Text>
               </View>
             )}
 
