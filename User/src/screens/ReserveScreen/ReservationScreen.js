@@ -7,7 +7,8 @@ import {
   RESERVATION_WRITE_QUERY,
   BUS_INFO_QUERY,
   BUS_ROTATION_LIST_QUERY,
-  RESERVATION_LIST_QUERY
+  RESERVATION_LIST_QUERY,
+  USER_MAILEAGE_WRITE_QUERY
 } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
@@ -110,7 +111,7 @@ export default ({ navigation, route }) => {
       name: "없음"
     }
   ];
-
+  const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
       // console.log(arr[i][prop][0]);
@@ -143,6 +144,15 @@ export default ({ navigation, route }) => {
             if (count > 0) {
               Alert.alert("탑승요청은 한번만 신청 가능합니다. 메뉴에서 취소 요청 / 하차 완료 버튼을 눌러주세요.");
               return false;
+            }
+            if (pay) {
+              const {
+                data: { UserMaileageWrite },
+              } = await maileageWriteMutation({
+                variables: {
+                  maileage: -1250,
+                },
+              });
             }
             const {
               data: { UserReservationWrite },
@@ -470,7 +480,7 @@ export default ({ navigation, route }) => {
               color="#4B56F1"
               label="탑승 전 결제하겠습니다."
               labelStyle={{ fontSize: 16 }}
-              onChange={() => setPay(true)}
+              onChange={() => setPay(!pay)}
               // flexDirection="row-reverse"
               style={{
                 width: "100%",
