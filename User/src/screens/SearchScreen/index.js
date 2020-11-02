@@ -38,9 +38,44 @@ export default ({ navigation }) => {
           <Text>정류장 검색</Text>
         </TouchableOpacity>
         {data.UserBusRouteList.busRoutes.map((rowData, index) => {
-          return <Text>버스 번호 : {rowData.ROUTE_NO}</Text>;
+          if (rowData.ROUTE_TP === 1) {
+            return (
+              <>
+                <Text>급행 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          } else if (rowData.ROUTE_TP === 2) {
+            return (
+              <>
+                <Text>간선 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          } else if (rowData.ROUTE_TP === 3) {
+            return (
+              <>
+                <Text>지선 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          } else if (rowData.ROUTE_TP === 4) {
+            return (
+              <>
+                <Text>외곽 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          } else if (rowData.ROUTE_TP === 5) {
+            return (
+              <>
+                <Text>마을 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          } else if (rowData.ROUTE_TP === 6) {
+            return (
+              <>
+                <Text>첨단 {rowData.ROUTE_NO}번</Text>
+              </>
+            )
+          }
         })}
-        <Text></Text>
       </ScrollView>
     );
   }

@@ -269,35 +269,27 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-            <View
-              style={[
-                styles.shadow,
-                styles.contBox,
-                styles.marginTop15,
-                styles.nonebus,
-              ]}
-            >
-              <TouchableHighlight
-                style={{ ...styles.onButton, marginTop: 10 }}
-                underlayColor={"#333FDA"}
-                onPress={handleSubmit(onSubmit)}
+              <View
+                style={[
+                  styles.shadow,
+                  styles.contBox,
+                  styles.marginTop15,
+                  styles.nonebus,
+                ]}
               >
-                <Text style={{ fontSize: 16, color: "#fff" }}>
-                  탑승 취소 / 하차 완료
-                </Text>
-              </TouchableHighlight>{" "}
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#8D8E93",
-                  textAlign: "center",
-                  paddingVertical: 20,
-                }}
-              >
-                탑승요청한 버스가 없습니다.
+
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#8D8E93",
+                    textAlign: "center",
+                    paddingVertical: 20,
+                  }}
+                >
+                  탑승요청한 버스가 없습니다.
               </Text>
-            </View>
-          )}
+              </View>
+            )}
 
           {/* [예약 없을 시] 버스예약확인 */}
 
