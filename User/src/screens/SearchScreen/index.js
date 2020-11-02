@@ -32,7 +32,7 @@ export default ({ navigation }) => {
         />
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("BusRouteMapScreen");
+            navigation.navigate("BusStationSearchScreen");
           }}
         >
           <Text>정류장 검색</Text>

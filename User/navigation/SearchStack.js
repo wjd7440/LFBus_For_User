@@ -5,6 +5,7 @@ const Stack = createStackNavigator();
 
 import SearchScreen from "../src/screens/SearchScreen";
 import BusRouteInfoScreen from "../src/screens/SearchScreen/BusRouteInfoScreen";
+import BusStationSearchScreen from "../src/screens/SearchScreen/BusStationSearchScreen";
 
 export default () => {
   return (
@@ -18,6 +19,7 @@ export default () => {
     >
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="BusRouteInfoScreen" component={BusRouteInfoScreen} />
+      <Stack.Screen name="BusStationSearchScreen" component={BusStationSearchScreen} />
     </Stack.Navigator>
   );
 };
