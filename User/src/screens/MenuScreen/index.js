@@ -20,16 +20,18 @@ import {
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
-import { RESERVATION_LIST_QUERY, ACCOUNT_INFO_QUERY, RESERVATION_DELETE_QUERY } from "../Queries";
+import {
+  RESERVATION_LIST_QUERY,
+  ACCOUNT_INFO_QUERY,
+  RESERVATION_DELETE_QUERY,
+} from "../Queries";
 import NumberFormat from "react-number-format";
 import axios from "axios";
 
 export default ({ navigation }) => {
-  const [reservationDeleteMutation] = useMutation(
-    RESERVATION_DELETE_QUERY, {
-    refetchQueries: () => [{ query: RESERVATION_LIST_QUERY }]
-  }
-  );
+  const [reservationDeleteMutation] = useMutation(RESERVATION_DELETE_QUERY, {
+    refetchQueries: () => [{ query: RESERVATION_LIST_QUERY }],
+  });
   const parseString = require("react-native-xml2js").parseString;
   const fonts = useFonts({
     "NotoSansKR-Thin": require("../../../assets/fonts/NotoSansKR-Thin.otf"),
@@ -59,17 +61,50 @@ export default ({ navigation }) => {
   const [extimeMin, setExtimeMin] = useState();
   const [busExist, setBusExist] = useState(false);
   const maileage = !loading && data.UserInfo.maileage;
-  const count = !reservationloading && reservation && reservation.UserReservationList && reservation.UserReservationList.count;
-  const id = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].id;
-  const ROUTE_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].ROUTE_NO;
-  const BUS_NODE_ID = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].BUS_NODE_ID;
-  const CAR_REG_NO = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].CAR_REG_NO;
-  const departureStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].departureStation;
-  const arrivalStation = !reservationloading && reservation && reservation.UserReservationList && count > 0 && reservation.UserReservationList.reservations[0].arrivalStation;
+  const count =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    reservation.UserReservationList.count;
+  const id =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].id;
+  const ROUTE_NO =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].ROUTE_NO;
+  const BUS_NODE_ID =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].BUS_NODE_ID;
+  const CAR_REG_NO =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].CAR_REG_NO;
+  const departureStation =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].departureStation;
+  const arrivalStation =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].arrivalStation;
   const API_KEY =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
   const { handleSubmit } = useForm();
-
 
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -119,13 +154,12 @@ export default ({ navigation }) => {
     try {
       reservationDeleteMutation({
         variables: {
-          id: id
-        }
+          id: id,
+        },
       });
 
       Alert.alert("탑승요청이 정상적으로 취소되었습니다.");
       navigation.replace("MenuScreen");
-
     } catch (e) {
       console.log(e);
       Alert.alert("탑승요청 취소에 실패했습니다. 다시 시도해주세요.");
@@ -232,33 +266,35 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-              <View
-                style={[
-                  styles.shadow,
-                  styles.contBox,
-                  styles.marginTop15,
-                  styles.nonebus,
-                ]}
+            <View
+              style={[
+                styles.shadow,
+                styles.contBox,
+                styles.marginTop15,
+                styles.nonebus,
+              ]}
+            >
+              <TouchableHighlight
+                style={{ ...styles.onButton, marginTop: 10 }}
+                underlayColor={"#333FDA"}
+                onPress={handleSubmit(onSubmit)}
               >
-
-                <TouchableHighlight
-                  style={{ ...styles.onButton, marginTop: 10 }}
-                  underlayColor={"#333FDA"}
-                  onPress={handleSubmit(onSubmit)}
-                >
-                  <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소 / 하차 완료</Text>
-                </TouchableHighlight>              <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#8D8E93",
-                    textAlign: "center",
-                    paddingVertical: 20,
-                  }}
-                >
-                  탑승요청한 버스가 없습니다.
+                <Text style={{ fontSize: 16, color: "#fff" }}>
+                  탑승 취소 / 하차 완료
+                </Text>
+              </TouchableHighlight>{" "}
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#8D8E93",
+                  textAlign: "center",
+                  paddingVertical: 20,
+                }}
+              >
+                탑승요청한 버스가 없습니다.
               </Text>
-              </View>
-            )}
+            </View>
+          )}
 
           {/* [예약 없을 시] 버스예약확인 */}
 
