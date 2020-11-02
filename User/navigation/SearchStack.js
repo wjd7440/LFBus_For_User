@@ -4,6 +4,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 const Stack = createStackNavigator();
 
 import SearchScreen from "../src/screens/SearchScreen";
+import BusRouteInfoScreen from "../src/screens/SearchScreen/BusRouteInfoScreen";
 
 export default () => {
   return (
@@ -16,6 +17,7 @@ export default () => {
       }}
     >
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
+      <Stack.Screen name="BusRouteInfoScreen" component={BusRouteInfoScreen} />
     </Stack.Navigator>
   );
 };

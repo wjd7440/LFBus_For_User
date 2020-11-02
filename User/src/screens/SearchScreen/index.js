@@ -41,37 +41,169 @@ export default ({ navigation }) => {
           if (rowData.ROUTE_TP === 1) {
             return (
               <>
-                <Text>급행 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>급행 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           } else if (rowData.ROUTE_TP === 2) {
             return (
               <>
-                <Text>간선 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>간선 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           } else if (rowData.ROUTE_TP === 3) {
             return (
               <>
-                <Text>지선 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>지선 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}~{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           } else if (rowData.ROUTE_TP === 4) {
             return (
               <>
-                <Text>외곽 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>외곽 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )}{" "}~{" "}{rowData.ORIGIN_END.toString().replace(
+                    /\B(?=(\d{2})+(?!\d))/g,
+                    ":"
+                  )} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           } else if (rowData.ROUTE_TP === 5) {
             return (
               <>
-                <Text>마을 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>마을 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           } else if (rowData.ROUTE_TP === 6) {
             return (
               <>
-                <Text>첨단 {rowData.ROUTE_NO}번</Text>
+                <TouchableOpacity
+                  onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                      ROUTE_CD: rowData.ROUTE_CD,
+                      ROUTE_NO: rowData.ROUTE_NO
+                    });
+                  }}
+                >
+                  <Text>첨단 {rowData.ROUTE_NO}번</Text>
+                  <Text>평일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL}분</Text>
+                  <Text>토요일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SAT}분</Text>
+                  <Text>공휴일 : {rowData.ORIGIN_START}~{rowData.ORIGIN_END} / 배차 간격 : {rowData.ALLO_INTERVAL_SUN}분</Text>
+                </TouchableOpacity>
               </>
             )
           }
