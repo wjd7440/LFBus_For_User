@@ -79,12 +79,17 @@ export default ({ navigation, route }) => {
     },
   });
 
-  const { data: reservationList, reservationListLoading } = useQuery(RESERVATION_LIST_QUERY, {
-    fetchPolicy: "network-only",
-  });
-  const count = !reservationListLoading && reservationList && reservationList.UserReservationList && reservationList.UserReservationList.count;
-
-
+  const { data: reservationList, reservationListLoading } = useQuery(
+    RESERVATION_LIST_QUERY,
+    {
+      fetchPolicy: "network-only",
+    }
+  );
+  const count =
+    !reservationListLoading &&
+    reservationList &&
+    reservationList.UserReservationList &&
+    reservationList.UserReservationList.count;
 
   const API_KEY2 =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
@@ -92,24 +97,24 @@ export default ({ navigation, route }) => {
   const equipmentArray = [
     {
       id: 1,
-      name: "수동휠체어"
+      name: "수동휠체어",
     },
     {
       id: 2,
-      name: "전동휠체어"
+      name: "전동휠체어",
     },
     {
       id: 3,
-      name: "전동스쿠터"
+      name: "전동스쿠터",
     },
     {
       id: 4,
-      name: "유모차"
+      name: "유모차",
     },
     {
       id: 5,
-      name: "없음"
-    }
+      name: "없음",
+    },
   ];
   const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const getIndex = (value, arr, prop) => {
@@ -142,7 +147,9 @@ export default ({ navigation, route }) => {
             )
           ) {
             if (count > 0) {
-              Alert.alert("탑승요청은 한번만 신청 가능합니다. 메뉴에서 취소 요청 / 하차 완료 버튼을 눌러주세요.");
+              Alert.alert(
+                "탑승요청은 한번만 신청 가능합니다. 메뉴에서 취소 요청 / 하차 완료 버튼을 눌러주세요."
+              );
               return false;
             }
             if (pay) {
@@ -469,7 +476,9 @@ export default ({ navigation, route }) => {
               displayType={"text"}
               thousandSeparator={true}
               renderText={(maileage) => (
-                <Text style={{ ...styles.pointTxt, fontSize: 18 }}>{maileage}P</Text>
+                <Text style={{ ...styles.pointTxt, fontSize: 18 }}>
+                  {maileage}P
+                </Text>
               )}
             />
           </View>
@@ -523,14 +532,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableHighlight>
         ) : (
-            <TouchableHighlight
-              style={styles.offButton}
-              disabled={true}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.offButtonTxt}>탑승요청</Text>
-            </TouchableHighlight>
-          )}
+          <TouchableHighlight
+            style={styles.offButton}
+            disabled={true}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.offButtonTxt}>탑승요청</Text>
+          </TouchableHighlight>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
