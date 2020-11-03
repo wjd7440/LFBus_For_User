@@ -59,6 +59,7 @@
     "react-native-screens": "~2.9.0",
     "react-native-scroll-up": "^0.1.6",
     "react-native-searchable-dropdown": "1.1.1",
+    "react-native-searchbar": "^1.16.0",
     "react-native-svg": "12.1.0",
     "react-native-tab-view": "^2.15.2",
     "react-native-web": "~0.11.7",

@@ -26,7 +26,7 @@ export default ({ navigation }) => {
     return (
       <ScrollView>
         <Header
-          title="검색"
+          title="노선 검색"
           closeNavigate={"HomeScreen"}
           navigation={navigation}
         />

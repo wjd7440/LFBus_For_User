@@ -103,7 +103,7 @@ export default ({ navigation, route }) => {
           <View>
             <Header
               title="버스 도착 정보"
-              // back
+              back
               close
               closeNavigate={"HomeScreen"}
               navigation={navigation}

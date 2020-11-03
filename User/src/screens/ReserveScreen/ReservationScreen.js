@@ -532,14 +532,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight
-            style={styles.offButton}
-            disabled={true}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.offButtonTxt}>탑승요청</Text>
-          </TouchableHighlight>
-        )}
+            <TouchableHighlight
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableHighlight>
+          )}
       </ScrollView>
     </KeyboardAvoidingView>
   );

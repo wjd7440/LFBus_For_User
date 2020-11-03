@@ -105,6 +105,18 @@ export const BUS_STATION_LIST_QUERY = gql`
   }
 `;
 
+export const BUS_STATION_SEARCH_LIST_QUERY = gql`
+  query UserBusStationSearchList {
+    UserBusStationSearchList {
+      busStations {
+        BUS_NODE_ID
+        BUSSTOP_NM
+      }
+      count
+    }
+  }
+`;
+
 export const BUS_START_STATION_DETAIL_QUERY = gql`
   query UserBusStartStationDetail($START_NODE_ID: Int!) {
     UserBusStartStationDetail(START_NODE_ID: $START_NODE_ID) {
