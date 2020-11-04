@@ -326,6 +326,13 @@ export default ({ navigation }) => {
             <TouchableHighlight
               style={styles.menuBtn}
               underlayColor={"#f5f5f5"}
+              onPress={() => {
+                navigation.navigate("AccountInfoScreen", {
+                  userId: data.UserInfo.userId,
+                  needHelp: data.UserInfo.needHelp,
+                  equipment: data.UserInfo.equipment
+                });
+              }}
             >
               <View style={styles.menuBox}>
                 <Image

@@ -57,6 +57,8 @@ export default ({ navigation, route }) => {
       needHelp: route.params ? route.params.needHelp : null,
     },
   });
+  const needHelp = route.params ? route.params.needHelp : null;
+  const equipment = route.params ? route.params.equipment : null;
   const maileage = route.params ? route.params.maileage : null;
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
@@ -71,7 +73,7 @@ export default ({ navigation, route }) => {
       ROUTE_CD: ROUTE_CD[0],
     },
   });
-  console.log(pay)
+
   const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
     variables: {
@@ -171,7 +173,7 @@ export default ({ navigation, route }) => {
                 departureStation: BUSSTOP_NM,
                 arrivalStation: arriveStationName,
                 memo: data.needHelp,
-                equipment: equipmentName,
+                equipment: equipment,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
             });
@@ -331,7 +333,6 @@ export default ({ navigation, route }) => {
                   borderColor: "#ddd",
                 }}
                 items={items}
-                defaultIndex={0}
                 chip={true}
                 resetValue={false}
                 placeholderTextColor={"#8D8E93"}
@@ -408,7 +409,7 @@ export default ({ navigation, route }) => {
                   borderColor: "#ddd",
                 }}
                 items={equipmentArray}
-                defaultIndex={0}
+                defaultIndex={equipment - 1}
                 chip={true}
                 resetValue={false}
                 placeholderTextColor={"#8D8E93"}
@@ -524,7 +525,7 @@ export default ({ navigation, route }) => {
             }}
           /> */}
         </View>
-        {arriveStationName && equipmentName ? (
+        {arriveStationName ? (
           <TouchableHighlight
             style={styles.onButton}
             onPress={handleSubmit(onSubmit)}

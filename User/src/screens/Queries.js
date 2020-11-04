@@ -13,6 +13,24 @@ export const ACCOUNT_INFO_QUERY = gql`
   }
 `;
 
+export const ACCOUNT_EDIT_PASSWORD_CHECKER_QUERY = gql`
+  mutation UserAccountPasswordChecker($password: String!) {
+    UserAccountPasswordChecker(password: $password)
+  }
+`;
+
+export const ACCOUNT_EDIT_PASSWORD_QUERY = gql`
+  mutation UserAccountEditPassword(
+    $password: String!
+    $newPassword: String!
+  ) {
+    UserAccountEditPassword(
+      password: $password
+      newPassword: $newPassword
+    )
+  }
+`;
+
 export const USER_MAILEAGE_LIST_QUERY = gql`
   query UserMaileageList {
     UserMaileageList(
