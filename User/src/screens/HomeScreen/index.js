@@ -18,7 +18,6 @@ import Loader from "../../../components/Loader";
 import ResultDetailItemScreen from "./ResultDetailItemScreen";
 import StationListDetailItemScreen from "./StationListDetailItemScreen";
 import { ScrollView } from "react-native-gesture-handler";
-import * as Font from "expo-font";
 
 const { width, height } = Dimensions.get("window");
 

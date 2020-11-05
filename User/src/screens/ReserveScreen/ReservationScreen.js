@@ -8,7 +8,7 @@ import {
   BUS_INFO_QUERY,
   BUS_ROTATION_LIST_QUERY,
   RESERVATION_LIST_QUERY,
-  USER_MAILEAGE_WRITE_QUERY
+  USER_MAILEAGE_WRITE_QUERY,
 } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
@@ -164,7 +164,7 @@ export default ({ navigation, route }) => {
                 },
               });
             }
-            console.log(pay)
+            console.log(pay);
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({
@@ -343,7 +343,7 @@ export default ({ navigation, route }) => {
                 resetValue={false}
                 placeholderTextColor={"#8D8E93"}
                 textInputProps={{
-                  placeholder: "하차사실 정류장을 선택해주세요.",
+                  placeholder: "하차 정류장을 선택해주세요.",
                   underlineColorAndroid: "transparent",
                   style: {
                     height: 54,
@@ -446,21 +446,26 @@ export default ({ navigation, route }) => {
                 />
               </View>
             </View>
+          </View>
 
-            {/* [일단 주석] 보조기구 선택 주석 */}
-            {/* <TextInput
-              name="equipment"
-              onChangeText={(text) => setValue("equipment", text, true)}
-              value={watch("equipment")}
-            ></TextInput> */}
+          {/* [일단 주석] 필요한 도움 주석*/}
+          <View style={styles.formControl}>
+            <Text
+              style={{
+                ...styles.formControlTit,
+              }}
+            >
+              필요한 도움{" "}
+              <Text style={{ fontSize: 14, color: "#676767" }}>(선택사항)</Text>
+            </Text>
 
-            {/* [일단 주석] 필요한 도움 주석*/}
-            {/* <Text>필요한 도움 (선택) :</Text>
-              <TextInput
-                name="needHelp"
-                onChangeText={(text) => setValue("needHelp", text, true)}
-                value={watch("needHelp")}
-              ></TextInput> */}
+            <TextInput
+              name="needHelp"
+              placeholder="필요하신 도움을 입력해주세요."
+              style={styles.needInput}
+              onChangeText={(text) => setValue("needHelp", text, true)}
+              value={watch("needHelp")}
+            ></TextInput>
           </View>
 
           <View style={styles.emptyLine} />
@@ -490,37 +495,42 @@ export default ({ navigation, route }) => {
             />
           </View>
           {/* 보유중인 포인트 내역 끝 // */}
-          {maileage > 0 ? <TouchableOpacity style={{ marginBottom: 30 }}>
-            <Checkbox
-              checkboxStyle={{ borderWidth: 1 }}
-              color="#4B56F1"
-              label="탑승 전 결제하겠습니다."
-              labelStyle={{ fontSize: 16 }}
-              onChange={() => setPay(!pay)}
-              // flexDirection="row-reverse"
-              style={{
-                width: "100%",
-                justifyContent: "center",
-                height: 50,
-                borderRadius: 4,
-                borderWidth: 1,
-                borderColor: "#4b56f1",
-                // alignItems: "flex-start",
-              }}
-            />
-            <Text
-              style={{
-                fontSize: 14,
-                color: "#767676",
-                marginTop: 6,
-                textAlign: "center",
-              }}
-            >
-              탑승요금{" "}
-              <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
-              가 차감됩니다.
-            </Text>
-          </TouchableOpacity> : <TouchableOpacity style={{ marginBottom: 30 }}>
+          {maileage > 0 ? (
+            <TouchableOpacity style={{ marginBottom: 30 }}>
+              <Checkbox
+                checkboxStyle={{ borderWidth: 1 }}
+                color="#4B56F1"
+                label="탑승 전 결제하겠습니다."
+                labelStyle={{ fontSize: 16 }}
+                onChange={() => setPay(!pay)}
+                // flexDirection="row-reverse"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  height: 50,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: "#4b56f1",
+                  // alignItems: "flex-start",
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "#767676",
+                  marginTop: 6,
+                  textAlign: "center",
+                }}
+              >
+                탑승요금{" "}
+                <Text style={{ fontWeight: "bold", color: "#111" }}>
+                  1,250P
+                </Text>
+                가 차감됩니다.
+              </Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={{ marginBottom: 30 }}>
               <Checkbox
                 disabled={true}
                 checkboxStyle={{ borderWidth: 1 }}
@@ -548,11 +558,13 @@ export default ({ navigation, route }) => {
                 }}
               >
                 탑승요금{" "}
-                <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
-              가 차감됩니다.
-            </Text>
-            </TouchableOpacity>}
-
+                <Text style={{ fontWeight: "bold", color: "#111" }}>
+                  1,250P
+                </Text>
+                가 차감됩니다.
+              </Text>
+            </TouchableOpacity>
+          )}
 
           {/* <Button
             title="취소하기"
@@ -571,14 +583,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableHighlight>
         ) : (
-            <TouchableHighlight
-              style={styles.offButton}
-              disabled={true}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.offButtonTxt}>탑승요청</Text>
-            </TouchableHighlight>
-          )}
+          <TouchableHighlight
+            style={styles.offButton}
+            disabled={true}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.offButtonTxt}>탑승요청</Text>
+          </TouchableHighlight>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
@@ -632,5 +644,14 @@ const styles = StyleSheet.create({
   offButtonTxt: {
     fontSize: 16,
     color: "#A3A4A9",
+  },
+  needInput: {
+    backgroundColor: "#fff",
+    paddingLeft: 15,
+    height: 54,
+    justifyContent: "center",
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "#ddd",
   },
 });

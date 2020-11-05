@@ -132,10 +132,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                  <View style={styles.seatImgBox}>
-                    <Image style={styles.seatImg} source={require("../../../assets/on_seat.png")} />
-                  </View>
-                )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                </View>
+              )}
               {busInfo.UserBusInfo.SEAT2 ? (
                 <View style={styles.seatImgBox}>
                   <Image
@@ -144,10 +147,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                  <View style={styles.seatImgBox}>
-                    <Image style={styles.seatImg} source={require("../../../assets/on_seat.png")} />
-                  </View>
-                )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                </View>
+              )}
             </View>
           }
         />
@@ -254,10 +260,10 @@ export default ({ navigation, route }) => {
               <Text style={{ fontSize: 16, color: "#fff" }}>탑승요청</Text>
             </TouchableHighlight>
           ) : (
-              <Text>
-                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-              </Text>
-            )}
+            <Text>
+              내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+            </Text>
+          )}
         </View>
         {/* 상단 버스 정보// */}
         <ScrollView>
@@ -277,21 +283,21 @@ export default ({ navigation, route }) => {
                       liveData[0].itemList,
                       "BUS_NODE_ID"
                     ) ? (
-                        <Image
-                          style={[
-                            styles.busIcon,
-                            index % 5 !== 1 && { display: "none" },
-                          ]}
-                          source={require("../../../assets/busmarker.png")}
-                        />
-                      ) : (
-                        <Text></Text>
-                      )}
+                      <Image
+                        style={[
+                          styles.busIcon,
+                          index % 5 !== 1 && { display: "none" },
+                        ]}
+                        source={require("../../../assets/busmarker.png")}
+                      />
+                    ) : (
+                      <Text></Text>
+                    )}
                     <View
                       style={[
                         styles.line,
                         index ===
-                        data.UserBusRotationList.busRotations.length - 1 && {
+                          data.UserBusRotationList.busRotations.length - 1 && {
                           height: "50%",
                         },
                       ]}

@@ -269,27 +269,26 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-              <View
-                style={[
-                  styles.shadow,
-                  styles.contBox,
-                  styles.marginTop15,
-                  styles.nonebus,
-                ]}
+            <View
+              style={[
+                styles.shadow,
+                styles.contBox,
+                styles.marginTop15,
+                styles.nonebus,
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#8D8E93",
+                  textAlign: "center",
+                  paddingVertical: 20,
+                }}
               >
-
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#8D8E93",
-                    textAlign: "center",
-                    paddingVertical: 20,
-                  }}
-                >
-                  탑승요청한 버스가 없습니다.
+                탑승요청한 버스가 없습니다.
               </Text>
-              </View>
-            )}
+            </View>
+          )}
 
           {/* [예약 없을 시] 버스예약확인 */}
 
@@ -330,7 +329,7 @@ export default ({ navigation }) => {
                 navigation.navigate("AccountInfoScreen", {
                   userId: data.UserInfo.userId,
                   needHelp: data.UserInfo.needHelp,
-                  equipment: data.UserInfo.equipment
+                  equipment: data.UserInfo.equipment,
                 });
               }}
             >
@@ -470,14 +469,16 @@ const styles = StyleSheet.create({
     paddingLeft: theme.SIZES.BASE * 1.2,
     paddingRight: theme.SIZES.BASE * 1.2,
   },
+  menuBtn: {
+    height: 50,
+  },
   menuBox: {
     flexDirection: "row",
     alignItems: "center",
   },
   menuText: {
     fontSize: 17,
-    marginLeft: 12,
-    color: "#333",
+    marginLeft: 8,
   },
   menuIcon: {
     resizeMode: "contain",

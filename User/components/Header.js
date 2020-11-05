@@ -234,7 +234,7 @@ const styles = StyleSheet.create({
   },
   navbar: {
     height: Platform.OS === "android" ? 55 : 50,
-    marginTop: Platform.OS === "android" ? 25 : 5,
+    marginTop: Platform.OS === "android" ? 25 : 0,
     alignItems: "center",
     textAlign: "justify",
     borderBottomWidth: 1,
