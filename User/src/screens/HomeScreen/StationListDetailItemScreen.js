@@ -6,7 +6,7 @@ import {
   StyleSheet,
   StatusBar,
   Image,
-  ActivityIndicator
+  ActivityIndicator,
 } from "react-native";
 import StationListDetailScreen from "./StationListDetailScreen";
 import axios from "axios";
@@ -44,7 +44,11 @@ export default ({ serviceKey, BusStopID }) => {
   }, []);
 
   if (!loaded || !data[0]) {
-    return <Text style={{ fontSize: 13, color: '#8D8E93' }}>실시간 저상버스 정보를 검색중입니다.</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#4B56F1" />
+      </View>
+    );
   } else {
     return (
       <Fragment key={BusStopID}>
@@ -67,7 +71,11 @@ export default ({ serviceKey, BusStopID }) => {
             </>
           );
         })}
-        {!busExist && <Text style={{ fontSize: 13, color: '#8D8E93' }}>저상버스 도착정보가 없습니다.</Text>}
+        {!busExist && (
+          <Text style={{ fontSize: 13, color: "#8D8E93" }}>
+            저상버스 도착정보가 없습니다.
+          </Text>
+        )}
       </Fragment>
     );
   }

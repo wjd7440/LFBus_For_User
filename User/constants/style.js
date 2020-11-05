@@ -55,6 +55,9 @@ export default StyleSheet.create({
   marginPull: {
     marginHorizontal: -theme.SIZES.BASE * 1.2,
   },
+  marginTopPull: {
+    marginTop: -theme.SIZES.BASE * 1.2,
+  },
   sectionTit: {
     fontSize: 14,
     fontWeight: "bold",
