@@ -300,7 +300,7 @@ const sexArray = [
     backgroundIconColor: "#FDB62B",
     label: "남성",
     value: "남성",
-    selected: false,
+    selected: true,
   },
   {
     backgroundBtnColor: "#FFF6E3",
@@ -314,42 +314,43 @@ const equipmentArray = [
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
-    label: 1,
-    value: "수동휠체어",
+    label: "수동휠체어",
+    value: "1",
+    selected: true,
+  },
+  {
+    backgroundBtnColor: "#FFF6E3",
+    backgroundIconColor: "#FDB62B",
+    label: "전동휠체어",
+    value: "2",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
-    label: 2,
-    value: "전동휠체어",
+    label: "전동스쿠터",
+    value: "3",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
-    label: 3,
-    value: "전동스쿠터",
+    label: "유모차",
+    value: "4",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
-    label: 4,
-    value: "유모차",
-    selected: false,
-  },
-  {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
-    label: 5,
-    value: "없음",
+    label: "없음",
+    value: "5",
     selected: false,
   },
 ];
 
 export default ({ navigation }) => {
   const [gu, setGu] = useState(0);
+  const [equipmentName, setEquipmentName] = useState();
   const [allProvision, setAllProvision] = useState(false);
   const [provision1IsVisible, setProvision1IsVisible] = useState(false);
   const [signupMutation] = useMutation(SIGNUP_QUERY);
@@ -382,6 +383,7 @@ export default ({ navigation }) => {
             sex: data.sex,
             // gu: gu,
             equipment: data.equipment,
+            equipmentName: equipmentName,
             needHelp: data.needHelp,
           },
         });
@@ -474,6 +476,9 @@ export default ({ navigation }) => {
         setKeyboardHeight(0);
       }
     );
+    setValue("sex", "남성");
+    setValue("equipment", "1");
+    setEquipmentName("수동휠체어");
     return () => {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
@@ -576,6 +581,7 @@ export default ({ navigation }) => {
             <View style={styles.formControl}>
               <Text style={styles.question}>사용하는 보조기구</Text>
               <RadioGroup
+
                 radioButtons={equipmentArray}
                 onPress={(data) => {
                   const item = data.find((equipment) => {
@@ -584,6 +590,8 @@ export default ({ navigation }) => {
                     }
                   });
                   setValue("equipment", item.value, true);
+                  setEquipmentName(item.label);
+                  console.log(equipmentName)
                 }}
                 flexDirection="column"
               />

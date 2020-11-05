@@ -133,7 +133,7 @@ export default ({ navigation, route }) => {
                 </View>
               ) : (
                   <View style={styles.seatImgBox}>
-                    <Image source={require("../../../assets/on_seat.png")} />
+                    <Image style={styles.seatImg} source={require("../../../assets/on_seat.png")} />
                   </View>
                 )}
               {busInfo.UserBusInfo.SEAT2 ? (
@@ -145,7 +145,7 @@ export default ({ navigation, route }) => {
                 </View>
               ) : (
                   <View style={styles.seatImgBox}>
-                    <Image source={require("../../../assets/on_seat.png")} />
+                    <Image style={styles.seatImg} source={require("../../../assets/on_seat.png")} />
                   </View>
                 )}
             </View>
@@ -246,6 +246,7 @@ export default ({ navigation, route }) => {
                   BUS_NODE_ID: BUS_NODE_ID,
                   maileage: !loading && user.UserInfo.maileage,
                   equipment: !loading && user.UserInfo.equipment,
+                  equipmentNa: !loading && user.UserInfo.equipmentName,
                   needHelp: !loading && user.UserInfo.needHelp,
                 });
               }}

@@ -46,8 +46,8 @@ export default ({ navigation, route }) => {
   const [items, setItemsArray] = useState([]);
   const [arriveStationNo, setArriveStationNo] = useState(null);
   const [arriveStationName, setArriveStationName] = useState(null);
-  const [equipmentId, setEquipmentId] = useState(null);
-  const [equipmentName, setEquipmentName] = useState(null);
+  const [equipmentId, setEquipmentId] = useState();
+  const [equipmentName, setEquipmentName] = useState();
   const [keyboardHeight, setKeyboardHeight] = useState(0);
   const [pay, setPay] = useState(false);
 
@@ -59,6 +59,7 @@ export default ({ navigation, route }) => {
   });
   const needHelp = route.params ? route.params.needHelp : null;
   const equipment = route.params ? route.params.equipment : null;
+  const equipmentNa = route.params ? route.params.equipmentNa : null;
   const maileage = route.params ? route.params.maileage : null;
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
@@ -98,23 +99,23 @@ export default ({ navigation, route }) => {
 
   const equipmentArray = [
     {
-      id: 1,
+      id: "1",
       name: "수동휠체어",
     },
     {
-      id: 2,
+      id: "2",
       name: "전동휠체어",
     },
     {
-      id: 3,
+      id: "3",
       name: "전동스쿠터",
     },
     {
-      id: 4,
+      id: "4",
       name: "유모차",
     },
     {
-      id: 5,
+      id: "5",
       name: "없음",
     },
   ];
@@ -140,7 +141,7 @@ export default ({ navigation, route }) => {
       }).then((response) => {
         parseString(response.data, async (err, result) => {
           const busArriveInfoArray = result.ServiceResult.msgBody;
-          // console.log(busArriveInfoArray[0].itemList)
+
           if (
             getIndex(
               CAR_REG_NO[0],
@@ -163,6 +164,7 @@ export default ({ navigation, route }) => {
                 },
               });
             }
+            console.log(pay)
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({
@@ -172,8 +174,9 @@ export default ({ navigation, route }) => {
                 BUS_NODE_ID,
                 departureStation: BUSSTOP_NM,
                 arrivalStation: arriveStationName,
-                memo: data.needHelp,
-                equipment: equipment,
+                equipment: equipmentId,
+                equipmentName: equipmentName,
+                pay: pay,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
             });
@@ -243,6 +246,9 @@ export default ({ navigation, route }) => {
         setKeyboardHeight(0);
       }
     );
+    setPay(false);
+    setEquipmentName(equipmentNa);
+    setEquipmentId(equipment);
     return () => {
       keyboardDidHideListener.remove();
       keyboardDidShowListener.remove();
@@ -484,7 +490,7 @@ export default ({ navigation, route }) => {
             />
           </View>
           {/* 보유중인 포인트 내역 끝 // */}
-          <TouchableOpacity style={{ marginBottom: 30 }}>
+          {maileage > 0 ? <TouchableOpacity style={{ marginBottom: 30 }}>
             <Checkbox
               checkboxStyle={{ borderWidth: 1 }}
               color="#4B56F1"
@@ -514,7 +520,39 @@ export default ({ navigation, route }) => {
               <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
               가 차감됩니다.
             </Text>
-          </TouchableOpacity>
+          </TouchableOpacity> : <TouchableOpacity style={{ marginBottom: 30 }}>
+              <Checkbox
+                disabled={true}
+                checkboxStyle={{ borderWidth: 1 }}
+                color="#4B56F1"
+                label="탑승 전 결제하겠습니다."
+                labelStyle={{ fontSize: 16 }}
+                onChange={() => setPay(!pay)}
+                // flexDirection="row-reverse"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  height: 50,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: "#4b56f1",
+                  // alignItems: "flex-start",
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "#767676",
+                  marginTop: 6,
+                  textAlign: "center",
+                }}
+              >
+                탑승요금{" "}
+                <Text style={{ fontWeight: "bold", color: "#111" }}>1,250P</Text>
+              가 차감됩니다.
+            </Text>
+            </TouchableOpacity>}
+
 
           {/* <Button
             title="취소하기"

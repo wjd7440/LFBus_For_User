@@ -8,6 +8,7 @@ export const ACCOUNT_INFO_QUERY = gql`
       userId
       needHelp
       equipment
+      equipmentName
       createdAt
     }
   }
@@ -91,6 +92,7 @@ export const SIGNUP_QUERY = gql`
     $sex: String!
     $needHelp: String
     $equipment: String!
+    $equipmentName: String!
   ) {
     UserSignUp(
       userId: $userId
@@ -98,6 +100,7 @@ export const SIGNUP_QUERY = gql`
       sex: $sex
       needHelp: $needHelp
       equipment: $equipment
+      equipmentName: $equipmentName
     )
   }
 `;
@@ -275,6 +278,8 @@ export const RESERVATION_WRITE_QUERY = gql`
     $departureStation: String!
     $arrivalStation: String!
     $equipment: String
+    $equipmentName: String
+    $pay: Boolean
     $memo: String
     $deviceToken: String
   ) {
@@ -285,6 +290,8 @@ export const RESERVATION_WRITE_QUERY = gql`
       departureStation: $departureStation
       arrivalStation: $arrivalStation
       equipment: $equipment
+      equipmentName: $equipmentName
+      pay: $pay
       memo: $memo
       deviceToken: $deviceToken
     )

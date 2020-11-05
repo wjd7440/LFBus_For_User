@@ -53,7 +53,7 @@ export default ({ navigation, route }) => {
 
                         <View style={styles.formControl}>
                             <Text style={styles.question}>사용하는 보조기구</Text>
-                            <Text style={styles.textForm}>{!loading && data.UserInfo.equipment}</Text>
+                            <Text style={styles.textForm}>{!loading && data.UserInfo.equipmentName}</Text>
                         </View>
                         <View style={styles.formControl}>
                             <Text style={styles.question}>
