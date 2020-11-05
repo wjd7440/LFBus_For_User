@@ -264,7 +264,7 @@ export default ({ navigation, route }) => {
         closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
-      <ScrollView keyboardShouldPersistTaps="always">
+      <ScrollView keyboardShouldPersistTaps="always" nestedScrollEnabled={true}>
         <View style={styles.container}>
           <Text style={styles.sectionTit}>정류장 선택</Text>
           <View style={styles.formControl}>

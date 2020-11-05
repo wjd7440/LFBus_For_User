@@ -295,7 +295,7 @@ export default ({ navigation }) => {
           <View style={[styles.menuListWrap, styles.marginPull]}>
             <TouchableHighlight
               underlayColor={"#f5f5f5"}
-              style={styles.menuBtn}
+              style={{ ...styles.menuBtn, justifyContent: "center" }}
               onPress={() => {
                 navigation.navigate("ChargeListScreen");
               }}
@@ -464,13 +464,10 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   menuBtn: {
-    height: 50,
+    height: 56,
     justifyContent: "center",
     paddingLeft: theme.SIZES.BASE * 1.2,
     paddingRight: theme.SIZES.BASE * 1.2,
-  },
-  menuBtn: {
-    height: 50,
   },
   menuBox: {
     flexDirection: "row",
