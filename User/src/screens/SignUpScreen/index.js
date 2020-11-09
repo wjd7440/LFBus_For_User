@@ -315,35 +315,35 @@ const equipmentArray = [
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
     label: "수동휠체어",
-    value: "1",
+    value: "0",
     selected: true,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
     label: "전동휠체어",
-    value: "2",
+    value: "1",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
     label: "전동스쿠터",
-    value: "3",
+    value: "2",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
     label: "유모차",
-    value: "4",
+    value: "3",
     selected: false,
   },
   {
     backgroundBtnColor: "#FFF6E3",
     backgroundIconColor: "#FDB62B",
     label: "없음",
-    value: "5",
+    value: "4",
     selected: false,
   },
 ];
@@ -477,7 +477,7 @@ export default ({ navigation }) => {
       }
     );
     setValue("sex", "남성");
-    setValue("equipment", "1");
+    setValue("equipment", "0");
     setEquipmentName("수동휠체어");
     return () => {
       keyboardDidHideListener.remove();
