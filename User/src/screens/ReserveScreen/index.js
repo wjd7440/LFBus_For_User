@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
+import { TouchableRipple } from "react-native-paper";
 
 import {
   widthPercentageToDP as wp,
@@ -122,8 +123,9 @@ export default ({ navigation, route }) => {
               return (
                 <Fragment key={index}>
                   {rowData.CAR_REG_NO && (
-                    <TouchableHighlight
-                      underlayColor={"#f6f6f6"}
+                    <TouchableRipple
+                      rippleColor="rgba(0, 0, 0, .06)"
+                      underlayColor={"#f5f5f5"}
                       onPress={() => {
                         // navigation.navigate("ReservationScreen", {
                         navigation.navigate("BusInfoScreen", {
@@ -155,7 +157,7 @@ export default ({ navigation, route }) => {
                         ROUTE_CD={rowData.ROUTE_CD}
                         BUSSTOP_NM={BUSSTOP_NM}
                       />
-                    </TouchableHighlight>
+                    </TouchableRipple>
                   )}
                 </Fragment>
               );

@@ -25,6 +25,7 @@ import {
 import { theme } from "galio-framework";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
+import { TouchableRipple } from "react-native-paper";
 import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation, route }) => {
@@ -107,10 +108,6 @@ export default ({ navigation, route }) => {
     // console.log("버스지나감");
     return false;
   };
-
-  // 스크롤
-
-  // 스크롤 끝
 
   if (loading || userLoading || busInfoLoading || !loaded) {
     return (
@@ -253,8 +250,9 @@ export default ({ navigation, route }) => {
 
           {/* <Text>거리 : {DISTANCE}m</Text> */}
           {DISTANCE < 500 ? (
-            <TouchableHighlight
+            <TouchableRipple
               underlayColor={"#333FDA"}
+              rippleColor="rgba(51,63, 218, .8)"
               style={styles.resultButton}
               onPress={() => {
                 navigation.navigate("ReservationScreen", {
@@ -273,7 +271,7 @@ export default ({ navigation, route }) => {
               }}
             >
               <Text style={{ fontSize: 16, color: "#fff" }}>탑승요청</Text>
-            </TouchableHighlight>
+            </TouchableRipple>
           ) : (
             <Text>
               내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.

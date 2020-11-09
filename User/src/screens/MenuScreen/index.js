@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useFonts } from "@use-expo/font";
 import style from "../../../constants/style";
 import { Header } from "../../../components";
-import { Appbar } from "react-native-paper";
+import { Appbar, TouchableRipple } from "react-native-paper";
 import { theme } from "galio-framework";
 import {
   View,
@@ -202,7 +202,8 @@ export default ({ navigation }) => {
                 )}
               />
             </View>
-            <TouchableHighlight
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
               style={{ justifyContent: "center", padding: 20, width: "30%" }}
               onPress={() => {
@@ -225,7 +226,7 @@ export default ({ navigation }) => {
                   source={require("../../../assets/charge_icon.png")}
                 />
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
           </View>
 
           {/* [예약 했을 시] 버스예약확인 */}
@@ -296,7 +297,8 @@ export default ({ navigation }) => {
           ></View> */}
 
           <View style={[styles.menuListWrap, styles.marginPull]}>
-            <TouchableHighlight
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
               style={{ ...styles.menuBtn, justifyContent: "center" }}
               onPress={() => {
@@ -310,11 +312,12 @@ export default ({ navigation }) => {
                 />
                 <Text style={styles.menuText}>사용 및 충전 내역</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
 
-            <TouchableHighlight
-              style={styles.menuBtn}
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
+              style={styles.menuBtn}
             >
               <View style={styles.menuBox}>
                 <Image
@@ -323,10 +326,11 @@ export default ({ navigation }) => {
                 />
                 <Text style={styles.menuText}>공지사항</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
 
-            <TouchableHighlight
+            <TouchableRipple
               style={styles.menuBtn}
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
               onPress={() => {
                 navigation.navigate("AccountInfoScreen", {
@@ -343,10 +347,11 @@ export default ({ navigation }) => {
                 />
                 <Text style={styles.menuText}>계정관리</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
 
-            <TouchableHighlight
+            <TouchableRipple
               style={styles.menuBtn}
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
             >
               <View style={styles.menuBox}>
@@ -356,10 +361,11 @@ export default ({ navigation }) => {
                 />
                 <Text style={styles.menuText}>고객센터</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
 
-            <TouchableHighlight
+            <TouchableRipple
               style={styles.menuBtn}
+              rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
             >
               <View style={styles.menuBox}>
@@ -369,16 +375,16 @@ export default ({ navigation }) => {
                 />
                 <Text style={styles.menuText}>이용안내</Text>
               </View>
-            </TouchableHighlight>
+            </TouchableRipple>
 
-            {/* <TouchableHighlight
-        underlayColor={"#f5f5f5"}
+            {/* <TouchableRipple
+        rippleColor="rgba(0, 0, 0, .06)"
         onPress={() => {
           navigation.navigate("ReservationCheckScreen");
         }}
       >
         <Text>버스 예약 확인</Text>
-      </TouchableHighlight> */}
+      </TouchableRipple> */}
 
             {/* <TouchableOpacity
             onPress={() => {
