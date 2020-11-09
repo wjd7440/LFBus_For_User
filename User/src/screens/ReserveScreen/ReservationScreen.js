@@ -119,6 +119,7 @@ export default ({ navigation, route }) => {
       name: "없음",
     },
   ];
+  console.log(equipment)
   const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -164,7 +165,7 @@ export default ({ navigation, route }) => {
                 },
               });
             }
-            console.log(pay);
+            console.log(needHelp);
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({
@@ -176,6 +177,7 @@ export default ({ navigation, route }) => {
                 arrivalStation: arriveStationName,
                 equipment: equipmentId,
                 equipmentName: equipmentName,
+                memo: needHelp,
                 pay: pay,
                 deviceToken: busInfo.UserBusInfo.deviceToken,
               },
@@ -415,7 +417,7 @@ export default ({ navigation, route }) => {
                   borderColor: "#ddd",
                 }}
                 items={equipmentArray}
-                defaultIndex={equipment - 1}
+                defaultIndex={equipment}
                 chip={true}
                 resetValue={false}
                 placeholderTextColor={"#8D8E93"}
@@ -530,41 +532,41 @@ export default ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={{ marginBottom: 30 }}>
-              <Checkbox
-                disabled={true}
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
-                label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
-                onChange={() => setPay(!pay)}
-                // flexDirection="row-reverse"
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  height: 50,
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#767676",
-                  marginTop: 6,
-                  textAlign: "center",
-                }}
-              >
-                탑승요금{" "}
-                <Text style={{ fontWeight: "bold", color: "#111" }}>
-                  1,250P
+              <TouchableOpacity style={{ marginBottom: 30 }}>
+                <Checkbox
+                  disabled={true}
+                  checkboxStyle={{ borderWidth: 1 }}
+                  color="#4B56F1"
+                  label="탑승 전 결제하겠습니다."
+                  labelStyle={{ fontSize: 16 }}
+                  onChange={() => setPay(!pay)}
+                  // flexDirection="row-reverse"
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    height: 50,
+                    borderRadius: 4,
+                    borderWidth: 1,
+                    borderColor: "#4b56f1",
+                    // alignItems: "flex-start",
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#767676",
+                    marginTop: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  탑승요금{" "}
+                  <Text style={{ fontWeight: "bold", color: "#111" }}>
+                    1,250P
                 </Text>
                 가 차감됩니다.
               </Text>
-            </TouchableOpacity>
-          )}
+              </TouchableOpacity>
+            )}
 
           {/* <Button
             title="취소하기"
@@ -583,14 +585,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableHighlight>
         ) : (
-          <TouchableHighlight
-            style={styles.offButton}
-            disabled={true}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.offButtonTxt}>탑승요청</Text>
-          </TouchableHighlight>
-        )}
+            <TouchableHighlight
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableHighlight>
+          )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
