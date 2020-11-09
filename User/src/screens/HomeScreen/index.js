@@ -175,7 +175,6 @@ export default ({ navigation }) => {
                               DISTANCE: rowData.DISTANCE * 1000,
                               GPS_LATI: rowData.GPS_LATI,
                               GPS_LONG: rowData.GPS_LONG,
-
                             });
                           }}
                         >

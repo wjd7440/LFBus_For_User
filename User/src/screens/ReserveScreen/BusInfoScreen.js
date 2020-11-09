@@ -13,6 +13,7 @@ import {
   StatusBar,
   Dimensions,
   Platform,
+  Animated,
 } from "react-native";
 import axios from "axios";
 import { useQuery } from "react-apollo-hooks";
@@ -27,6 +28,10 @@ import { Header } from "../../../components";
 import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation, route }) => {
+  const scrollViewToScroll = React.createRef();
+
+  const [dynamicHeight, setDynamicHeight] = useState(0);
+
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
@@ -79,6 +84,16 @@ export default ({ navigation, route }) => {
   useEffect(() => {
     dataLoader();
   }, []);
+
+  useEffect(() => {
+    if (scrollViewToScroll.current) {
+      scrollViewToScroll.current.scrollTo({
+        x: 0,
+        y: dynamicHeight,
+        animated: true,
+      });
+    }
+  }, [scrollViewToScroll]);
 
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -266,16 +281,20 @@ export default ({ navigation, route }) => {
           )}
         </View>
         {/* 상단 버스 정보// */}
-        <ScrollView>
+        <ScrollView ref={scrollViewToScroll}>
           <View>
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
               return (
                 <View
-                  style={
+                  style={[
                     rowData.BUS_NODE_ID === BUS_NODE_ID
                       ? styles.onList
-                      : styles.list
-                  }
+                      : styles.list,
+                  ]}
+                  onLayout={(event) => {
+                    rowData.BUS_NODE_ID == BUS_NODE_ID &&
+                      setDynamicHeight(event.nativeEvent.layout.y);
+                  }}
                 >
                   <View style={styles.busState}>
                     {getIndex(
