@@ -9,7 +9,7 @@ import {
   Image,
   TouchableHighlight,
 } from "react-native";
-
+import { TouchableRipple } from "react-native-paper";
 import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
 import { BUS_STATION_LIST_QUERY } from "../Queries";

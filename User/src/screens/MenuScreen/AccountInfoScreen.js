@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, Button } from "react-native-paper";
+import { Text, Button, TouchableRipple } from "react-native-paper";
 import RadioGroup from "../../../components/RadioGroup";
 import CheckBox from "react-native-check-box";
 import {
@@ -38,12 +38,21 @@ export default ({ navigation, route }) => {
     >
       <Header
         back
-        title={"정보"}
+        title={"계정관리"}
         closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
       <ScrollView>
         <View style={{ ...styles.container }}>
+          <Text style={styles.sectionTit}>내 계정</Text>
+          <View>
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
+              onPress={() => {}}
+            >
+              <Text>asd</Text>
+            </TouchableRipple>
+          </View>
           <View style={styles.formArea}>
             <View style={styles.formControl}>
               <Text
@@ -81,7 +90,7 @@ export default ({ navigation, route }) => {
           </View>
         </View>
 
-        <View style={styles.menuList}>
+        {/* <View style={styles.menuList}>
           <Button
             style={{ backgroundColor: "#fff", borderColor: "#ddd" }}
             mode="outlined"
@@ -97,7 +106,7 @@ export default ({ navigation, route }) => {
           >
             asdasd
           </Button>
-        </View>
+        </View> */}
 
         <View style={[styles.underLineBox]}>
           <TouchableOpacity

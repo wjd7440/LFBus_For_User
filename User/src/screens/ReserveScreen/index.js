@@ -15,6 +15,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
+import { TouchableRipple } from "react-native-paper";
 
 import {
   widthPercentageToDP as wp,
