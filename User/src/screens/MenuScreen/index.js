@@ -24,6 +24,7 @@ import {
   RESERVATION_LIST_QUERY,
   ACCOUNT_INFO_QUERY,
   RESERVATION_DELETE_QUERY,
+  USER_MAILEAGE_WRITE_QUERY
 } from "../Queries";
 import NumberFormat from "react-number-format";
 import axios from "axios";
@@ -102,10 +103,21 @@ export default ({ navigation }) => {
     reservation.UserReservationList &&
     count > 0 &&
     reservation.UserReservationList.reservations[0].arrivalStation;
+  const pay =
+    !reservationloading &&
+    reservation &&
+    reservation.UserReservationList &&
+    count > 0 &&
+    reservation.UserReservationList.reservations[0].pay;
+  console.log(pay)
+
   const API_KEY =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
   const { handleSubmit } = useForm();
 
+  const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY, {
+    refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }]
+  });
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
       // console.log(arr[i][prop][0]);
@@ -150,13 +162,23 @@ export default ({ navigation }) => {
     return () => clearInterval(timer);
   }, [BUS_NODE_ID]);
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     try {
       reservationDeleteMutation({
         variables: {
           id: id,
         },
       });
+
+      if (pay) {
+        const {
+          data: { UserMaileageWrite },
+        } = await maileageWriteMutation({
+          variables: {
+            maileage: 1250,
+          },
+        });
+      }
 
       Alert.alert("탑승요청이 정상적으로 취소되었습니다.");
       navigation.replace("MenuScreen");
@@ -270,26 +292,26 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-            <View
-              style={[
-                styles.shadow,
-                styles.contBox,
-                styles.marginTop15,
-                styles.nonebus,
-              ]}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#8D8E93",
-                  textAlign: "center",
-                  paddingVertical: 20,
-                }}
+              <View
+                style={[
+                  styles.shadow,
+                  styles.contBox,
+                  styles.marginTop15,
+                  styles.nonebus,
+                ]}
               >
-                탑승요청한 버스가 없습니다.
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#8D8E93",
+                    textAlign: "center",
+                    paddingVertical: 20,
+                  }}
+                >
+                  탑승요청한 버스가 없습니다.
               </Text>
-            </View>
-          )}
+              </View>
+            )}
 
           {/* [예약 없을 시] 버스예약확인 */}
           {/* <View

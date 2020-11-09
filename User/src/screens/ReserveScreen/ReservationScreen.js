@@ -120,7 +120,6 @@ export default ({ navigation, route }) => {
       name: "없음",
     },
   ];
-  console.log(equipment);
   const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY);
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -166,7 +165,7 @@ export default ({ navigation, route }) => {
                 },
               });
             }
-            console.log(needHelp);
+
             const {
               data: { UserReservationWrite },
             } = await reservationMutation({

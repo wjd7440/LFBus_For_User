@@ -36,11 +36,11 @@ export default ({ navigation, route }) => {
   const parseString = require("react-native-xml2js").parseString;
 
   const dataLoader = () => {
-    console.log("3");
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${BUS_NODE_ID}`,
       method: "get",
     }).then((response) => {
+      console.log(response);
       parseString(response.data, function (err, result) {
         const busArriveInfoArray = result.ServiceResult.msgBody;
         setData(busArriveInfoArray);
@@ -123,9 +123,8 @@ export default ({ navigation, route }) => {
               return (
                 <Fragment key={index}>
                   {rowData.CAR_REG_NO && (
-                    <TouchableRipple
-                      rippleColor="rgba(0, 0, 0, .06)"
-                      underlayColor={"#f5f5f5"}
+                    <TouchableHighlight
+                      underlayColor={"#f6f6f6"}
                       onPress={() => {
                         // navigation.navigate("ReservationScreen", {
                         navigation.navigate("BusInfoScreen", {
@@ -157,7 +156,7 @@ export default ({ navigation, route }) => {
                         ROUTE_CD={rowData.ROUTE_CD}
                         BUSSTOP_NM={BUSSTOP_NM}
                       />
-                    </TouchableRipple>
+                    </TouchableHighlight>
                   )}
                 </Fragment>
               );

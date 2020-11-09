@@ -315,6 +315,7 @@ export const RESERVATION_LIST_QUERY = gql`
         arrivalStation
         equipment
         memo
+        pay
         createdAt
       }
       count
