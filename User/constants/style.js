@@ -42,6 +42,11 @@ export default StyleSheet.create({
     marginHorizontal: -theme.SIZES.BASE * 1.2,
     marginVertical: 30,
   },
+  emptyLine2: {
+    height: 5,
+    backgroundColor: "#f5f5f5",
+    marginHorizontal: -theme.SIZES.BASE * 1.2,
+  },
   itemBox: {
     flexWrap: "wrap",
     flexDirection: "row",
@@ -96,13 +101,15 @@ export default StyleSheet.create({
   },
   defalutForm: {
     backgroundColor: "#efefef",
-    paddingLeft: 15,
-    height: 54,
+    paddingHorizontal: 15,
+    // height: 54,
     justifyContent: "center",
     borderRadius: 4,
     borderWidth: 1,
     borderColor: "#ddd",
+    paddingVertical: 14,
   },
+  defalutForm2: {},
   defalutFormTxt: {
     fontSize: 16,
     color: "#565656",

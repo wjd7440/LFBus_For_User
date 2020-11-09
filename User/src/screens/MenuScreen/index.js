@@ -291,6 +291,9 @@ export default ({ navigation }) => {
           )}
 
           {/* [예약 없을 시] 버스예약확인 */}
+          {/* <View
+            style={{ ...styles.emptyLine2, marginTop: 30, marginBottom: 10 }}
+          ></View> */}
 
           <View style={[styles.menuListWrap, styles.marginPull]}>
             <TouchableHighlight
@@ -404,6 +407,42 @@ const styles = StyleSheet.create({
   marginTop15: {
     marginTop: 15,
   },
+  mT5: {
+    marginTop: 5,
+  },
+  mT10: {
+    marginTop: 10,
+  },
+  mT15: {
+    marginTop: 15,
+  },
+  mT20: {
+    marginTop: 20,
+  },
+  mT25: {
+    marginTop: 25,
+  },
+  mT30: {
+    marginTop: 30,
+  },
+  mB5: {
+    marginBottom: 5,
+  },
+  mB10: {
+    marginBottom: 10,
+  },
+  mB15: {
+    marginBottom: 15,
+  },
+  mB20: {
+    marginBottom: 20,
+  },
+  mB25: {
+    marginBottom: 25,
+  },
+  mB30: {
+    marginBottom: 30,
+  },
   contBox: {
     paddingHorizontal: 15,
     paddingVertical: 20,
@@ -461,7 +500,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   menuListWrap: {
-    marginTop: 30,
+    marginTop: 20,
   },
   menuBtn: {
     height: 56,
