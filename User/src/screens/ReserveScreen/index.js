@@ -35,11 +35,11 @@ export default ({ navigation, route }) => {
   const parseString = require("react-native-xml2js").parseString;
 
   const dataLoader = () => {
+    console.log("3")
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${BUS_NODE_ID}`,
       method: "get",
     }).then((response) => {
-      console.log(response);
       parseString(response.data, function (err, result) {
         const busArriveInfoArray = result.ServiceResult.msgBody;
         setData(busArriveInfoArray);
@@ -62,10 +62,10 @@ export default ({ navigation, route }) => {
 
   useEffect(() => {
     dataLoader();
-    // let timer = setInterval(() => {
-    //   dataLoader();
-    // }, 15000);
-    // return () => clearInterval(timer);
+    let timer = setInterval(() => {
+      dataLoader();
+    }, 15000);
+    return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
@@ -87,9 +87,9 @@ export default ({ navigation, route }) => {
         <View style={{ flex: 1 }}>
           <Header
             title="버스 도착 정보"
-            back
-            // close
-            // closeNavigate={"HomeScreen"}
+            // back
+            close
+            closeReplace={"HomeScreen"}
             navigation={navigation}
           />
           <View style={styles.loadingWrap}>
@@ -103,9 +103,9 @@ export default ({ navigation, route }) => {
           <View>
             <Header
               title="버스 도착 정보"
-              back
-              // close
-              // closeNavigate={"HomeScreen"}
+              // back
+              close
+              closeNavigate={"HomeScreen"}
               navigation={navigation}
               style={{
                 height: Platform.OS === "android" ? 55 : 50,
@@ -126,7 +126,7 @@ export default ({ navigation, route }) => {
                         underlayColor={"#f6f6f6"}
                         onPress={() => {
                           // navigation.navigate("ReservationScreen", {
-                          navigation.navigate("BusInfoScreen", {
+                          navigation.replace("BusInfoScreen", {
                             DISTANCE: DISTANCE,
                             CAR_REG_NO: rowData.CAR_REG_NO,
                             ROUTE_NO: rowData.ROUTE_NO,
@@ -135,6 +135,7 @@ export default ({ navigation, route }) => {
                             DESTINATION: rowData.DESTINATION,
                             ROUTE_TP: rowData.ROUTE_TP,
                             ROUTE_CD: rowData.ROUTE_CD,
+                            BUS_STOP_ID: rowData.BUS_STOP_ID,
                             BUSSTOP_NM: BUSSTOP_NM,
                             BUS_NODE_ID: BUS_NODE_ID,
                             GPS_LATI: GPS_LATI,

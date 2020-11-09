@@ -82,6 +82,7 @@ export default ({ navigation }) => {
   useEffect(() => {
     getLocation();
   }, []);
+
   const renderMap = () => {
     if (!loading) {
       return (
@@ -110,7 +111,7 @@ export default ({ navigation }) => {
                         key={`Callout-${index}`}
                         tooltip={true}
                         onPress={() => {
-                          navigation.navigate("ReserveScreen", {
+                          navigation.replace("ReserveScreen", {
                             BUS_NODE_ID: rowData.BUS_NODE_ID,
                             BUSSTOP_NM: rowData.BUSSTOP_NM,
                             DISTANCE: rowData.DISTANCE * 1000,
@@ -169,7 +170,7 @@ export default ({ navigation }) => {
                           activeOpacity={0.92}
                           style={styles.busItem}
                           onPress={() => {
-                            navigation.navigate("ReserveScreen", {
+                            navigation.replace("ReserveScreen", {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,
                               BUSSTOP_NM: rowData.BUSSTOP_NM,
                               DISTANCE: rowData.DISTANCE * 1000,

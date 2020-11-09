@@ -41,7 +41,7 @@ const CloseButton = ({ isWhite, style, navigation, closeNavigate }) => (
     style={[styles.button, style, styles.buttonRight]}
     onPress={() => {
       closeNavigate
-        ? navigation.navigate(closeNavigate)
+        ? navigation.replace(closeNavigate)
         : navigation.goBack(null);
     }}
   >
@@ -158,8 +158,8 @@ class Header extends React.Component {
     const headerStyles = [
       transparent
         ? {
-            backgroundColor: "transparent",
-          }
+          backgroundColor: "transparent",
+        }
         : null,
     ];
 

@@ -35,6 +35,7 @@ export default ({ navigation, route }) => {
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
+  const BUS_STOP_ID = route.params ? route.params.BUS_STOP_ID : null;
   const BUS_NODE_ID = route.params ? route.params.BUS_NODE_ID : null;
   const DESTINATION = route.params ? route.params.DESTINATION : null;
   const DISTANCE = route.params ? route.params.DISTANCE : null;
@@ -69,7 +70,7 @@ export default ({ navigation, route }) => {
       ROUTE_CD: ROUTE_CD[0],
     },
   });
-
+  // console.log(data)
   const { data: user, userLoading } = useQuery(ACCOUNT_INFO_QUERY, {
     fetchPolicy: "network-only",
   });
@@ -80,6 +81,13 @@ export default ({ navigation, route }) => {
       CAR_REG_NO: CAR_REG_NO[0],
     },
   });
+
+  // const { data: busSeq, busSeqLoading } = useQuery(BUS_SEQ_QUERY, {
+  //   fetchPolicy: "network-only",
+  //   variables: {
+  //     BUS_STOP_ID: BUS_STOP_ID[0],
+  //   },
+  // });
 
   useEffect(() => {
     dataLoader();
@@ -147,13 +155,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/on_seat.png")}
-                  />
-                </View>
-              )}
+                  <View style={styles.seatImgBox}>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/on_seat.png")}
+                    />
+                  </View>
+                )}
               {busInfo.UserBusInfo.SEAT2 ? (
                 <View style={styles.seatImgBox}>
                   <Image
@@ -162,13 +170,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/on_seat.png")}
-                  />
-                </View>
-              )}
+                  <View style={styles.seatImgBox}>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/on_seat.png")}
+                    />
+                  </View>
+                )}
             </View>
           }
         />
@@ -257,7 +265,7 @@ export default ({ navigation, route }) => {
               underlayColor={"#333FDA"}
               style={styles.resultButton}
               onPress={() => {
-                navigation.navigate("ReservationScreen", {
+                navigation.replace("ReservationScreen", {
                   DISTANCE: DISTANCE,
                   CAR_REG_NO: CAR_REG_NO,
                   ROUTE_NO: ROUTE_NO,
@@ -275,10 +283,10 @@ export default ({ navigation, route }) => {
               <Text style={{ fontSize: 16, color: "#fff" }}>탑승요청</Text>
             </TouchableHighlight>
           ) : (
-            <Text>
-              내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-            </Text>
-          )}
+              <Text>
+                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+              </Text>
+            )}
         </View>
         {/* 상단 버스 정보// */}
         <ScrollView ref={scrollViewToScroll}>
@@ -302,21 +310,21 @@ export default ({ navigation, route }) => {
                       liveData[0].itemList,
                       "BUS_NODE_ID"
                     ) ? (
-                      <Image
-                        style={[
-                          styles.busIcon,
-                          index % 5 !== 1 && { display: "none" },
-                        ]}
-                        source={require("../../../assets/busmarker.png")}
-                      />
-                    ) : (
-                      <Text></Text>
-                    )}
+                        <Image
+                          style={[
+                            styles.busIcon,
+                            index % 5 !== 1 && { display: "none" },
+                          ]}
+                          source={require("../../../assets/busmarker.png")}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
                     <View
                       style={[
                         styles.line,
                         index ===
-                          data.UserBusRotationList.busRotations.length - 1 && {
+                        data.UserBusRotationList.busRotations.length - 1 && {
                           height: "50%",
                         },
                       ]}

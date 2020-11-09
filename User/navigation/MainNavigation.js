@@ -93,28 +93,28 @@ export default () => {
           name="내 주변 정류장"
           component={TabStack}
           options={{
-            header: () => {},
+            header: () => { },
           }}
         />
         <Stack.Screen
           name="홈"
           component={HomeStack}
           options={{
-            header: () => {},
+            header: () => { },
           }}
         />
         <Stack.Screen
           name="메뉴"
           component={MoreMenuStack}
           options={{
-            header: () => {},
+            header: () => { },
           }}
         />
         <Stack.Screen
           name="검색"
           component={SearchStack}
           options={{
-            header: () => {},
+            header: () => { },
           }}
         />
       </Stack.Navigator>
