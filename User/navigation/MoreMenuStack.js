@@ -10,6 +10,8 @@ import ChargeScreen from "../src/screens/MenuScreen/ChargeScreen";
 import ChargeListScreen from "../src/screens/MenuScreen/ChargeListScreen";
 import AccountInfoScreen from "../src/screens/MenuScreen/AccountInfoScreen";
 import AccountEditScreen from "../src/screens/MenuScreen/AccountEditScreen";
+import PasswordChangeScreen from "../src/screens/MenuScreen/PasswordChangeScreen";
+import UserWithdrawalScreen from "../src/screens/MenuScreen/UserWithdrawalScreen";
 
 export default () => {
   return (
@@ -31,6 +33,8 @@ export default () => {
       <Stack.Screen name="ChargeListScreen" component={ChargeListScreen} />
       <Stack.Screen name="AccountInfoScreen" component={AccountInfoScreen} />
       <Stack.Screen name="AccountEditScreen" component={AccountEditScreen} />
+      <Stack.Screen name="PasswordChangeScreen" component={PasswordChangeScreen} />
+      <Stack.Screen name="UserWithdrawalScreen" component={UserWithdrawalScreen} />
     </Stack.Navigator>
   );
 };
