@@ -18,7 +18,6 @@ export default ({ serviceKey, BusStopID }) => {
   const [busExist, setBusExist] = useState(false);
 
   const dataLoader = () => {
-    console.log("1")
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${serviceKey}&BusStopID=${BusStopID}`,
       method: "get",

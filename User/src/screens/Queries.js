@@ -14,6 +14,20 @@ export const ACCOUNT_INFO_QUERY = gql`
   }
 `;
 
+export const ACCOUNT_EDIT_QUERY = gql`
+  mutation UserAccountEdit(
+    $needHelp: String
+    $equipment: String!
+    $equipmentName: String!
+  ) {
+    UserAccountEdit(
+      needHelp: $needHelp
+      equipment: $equipment
+      equipmentName: $equipmentName
+    )
+  }
+`;
+
 export const ACCOUNT_EDIT_PASSWORD_CHECKER_QUERY = gql`
   mutation UserAccountPasswordChecker($password: String!) {
     UserAccountPasswordChecker(password: $password)

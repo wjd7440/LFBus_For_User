@@ -45,9 +45,7 @@ export default ({ navigation }) => {
             <Fragment>
                 <Header
                     back
-                    title={"정류장 검색"}
-                    closeNavigate={"HomeScreen"}
-                    navigation={navigation}
+                    title={"버스 정류장 검색"}
                 />
                 <SearchableDropdown
                     multi={true}

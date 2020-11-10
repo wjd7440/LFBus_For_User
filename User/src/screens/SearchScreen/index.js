@@ -6,6 +6,7 @@ import {
   View,
   FlatList,
   TextInput,
+  TouchableOpacity
 } from 'react-native';
 import { BUS_ROUTE_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
@@ -131,7 +132,20 @@ export default ({ navigation }) => {
   } else {
     return (
       <SafeAreaView style={{ flex: 1 }}>
+        <Header
+          back
+          title={"버스 노선 검색"}
+          closeNavigate={"HomeScreen"}
+          navigation={navigation}
+        />
         <View style={styles.container}>
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("BusStationSearchScreen");
+            }}
+          >
+            <Text style={styles.menuText}>버스 정류장 검색</Text>
+          </TouchableOpacity>
           <TextInput
             style={styles.textInputStyle}
             onChangeText={(text) => searchFilterFunction(text)}

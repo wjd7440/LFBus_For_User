@@ -82,9 +82,6 @@ export default ({ navigation, route }) => {
                     <Header
                         title="버스 도착 정보"
                         back
-                        close
-                        closeNavigate={"HomeScreen"}
-                        navigation={navigation}
                     />
                     <View style={styles.loadingWrap}>
                         <Text style={{ fontSize: 16, marginBottom: 15 }}>
@@ -98,9 +95,6 @@ export default ({ navigation, route }) => {
                         <Header
                             title="버스 도착 정보"
                             back
-                            close
-                            closeNavigate={"HomeScreen"}
-                            navigation={navigation}
                         />
                         <ScrollView>
                             {data[0].itemList.map((rowData, index) => {
