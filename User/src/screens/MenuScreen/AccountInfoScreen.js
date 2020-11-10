@@ -59,6 +59,7 @@ export default ({ navigation, route }) => {
                   userId: data.UserInfo.userId,
                   needHelp: data.UserInfo.needHelp,
                   equipment: data.UserInfo.equipment,
+                  equipmentName: data.UserInfo.equipmentName,
                 });
               }}
             >

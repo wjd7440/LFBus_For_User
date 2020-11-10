@@ -110,7 +110,6 @@ export default ({ navigation }) => {
     reservation.UserReservationList &&
     count > 0 &&
     reservation.UserReservationList.reservations[0].pay;
-  console.log(pay);
 
   const API_KEY =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
@@ -293,26 +292,26 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-            <View
-              style={[
-                styles.shadow,
-                styles.contBox,
-                styles.marginTop15,
-                styles.nonebus,
-              ]}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#8D8E93",
-                  textAlign: "center",
-                  paddingVertical: 20,
-                }}
+              <View
+                style={[
+                  styles.shadow,
+                  styles.contBox,
+                  styles.marginTop15,
+                  styles.nonebus,
+                ]}
               >
-                탑승요청한 버스가 없습니다.
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#8D8E93",
+                    textAlign: "center",
+                    paddingVertical: 20,
+                  }}
+                >
+                  탑승요청한 버스가 없습니다.
               </Text>
-            </View>
-          )}
+              </View>
+            )}
 
           {/* [예약 없을 시] 버스예약확인 */}
           {/* <View
@@ -358,6 +357,7 @@ export default ({ navigation }) => {
                   userId: data.UserInfo.userId,
                   needHelp: data.UserInfo.needHelp,
                   equipment: data.UserInfo.equipment,
+                  equipmentName: data.UserInfo.equipmentName,
                 });
               }}
             >
