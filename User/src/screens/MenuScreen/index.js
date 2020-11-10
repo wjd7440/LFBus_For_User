@@ -28,6 +28,7 @@ import {
 } from "../Queries";
 import NumberFormat from "react-number-format";
 import axios from "axios";
+import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation }) => {
   const [reservationDeleteMutation] = useMutation(RESERVATION_DELETE_QUERY, {
@@ -328,10 +329,11 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Image
+                <Icon name="exchange" type="light" size={18} color={"#111"} />
+                {/* <Image
                   style={styles.menuIcon}
                   source={require("../../../assets/menu_icon01.png")}
-                />
+                /> */}
                 <Text style={styles.menuText}>사용 및 충전 내역</Text>
               </View>
             </TouchableRipple>
@@ -342,10 +344,7 @@ export default ({ navigation }) => {
               style={styles.menuBtn}
             >
               <View style={styles.menuBox}>
-                <Image
-                  style={styles.menuIcon}
-                  source={require("../../../assets/menu_icon02.png")}
-                />
+                <Icon name="bullhorn" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>공지사항</Text>
               </View>
             </TouchableRipple>
@@ -363,10 +362,7 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Image
-                  style={styles.menuIcon}
-                  source={require("../../../assets/menu_icon03.png")}
-                />
+                <Icon name="user" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>계정관리</Text>
               </View>
             </TouchableRipple>
@@ -377,10 +373,7 @@ export default ({ navigation }) => {
               underlayColor={"#f5f5f5"}
             >
               <View style={styles.menuBox}>
-                <Image
-                  style={styles.menuIcon}
-                  source={require("../../../assets/menu_icon04.png")}
-                />
+                <Icon name="envelope" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>고객센터</Text>
               </View>
             </TouchableRipple>
@@ -391,9 +384,11 @@ export default ({ navigation }) => {
               underlayColor={"#f5f5f5"}
             >
               <View style={styles.menuBox}>
-                <Image
-                  style={styles.menuIcon}
-                  source={require("../../../assets/menu_icon05.png")}
+                <Icon
+                  name="info-circle"
+                  type="light"
+                  size={20}
+                  color={"#111"}
                 />
                 <Text style={styles.menuText}>이용안내</Text>
               </View>
