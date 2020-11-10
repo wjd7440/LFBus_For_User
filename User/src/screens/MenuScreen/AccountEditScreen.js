@@ -28,15 +28,11 @@ import { ACCOUNT_INFO_QUERY } from "../Queries";
 import style from "../../../constants/style";
 const sexArray = [
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "남성",
     value: "남성",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "여성",
     value: "여성",
     selected: false,
@@ -44,36 +40,26 @@ const sexArray = [
 ];
 const equipmentArray = [
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "수동휠체어",
     value: "수동휠체어",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동휠체어",
     value: "전동휠체어",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동스쿠터",
     value: "전동스쿠터",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "유모차",
     value: "유모차",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "없음",
     value: "없음",
     selected: false,
@@ -92,19 +78,21 @@ export default ({ navigation, route }) => {
     fetchPolicy: "network-only",
   });
   return (
-    <KeyboardAwareScrollView
+    <KeyboardAvoidingView
       // behavior={Platform.OS == "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
+      <View style={{ flex: 1, paddingBottom: 80 }}>
       <Header
         back
         title={"내 정보 수정"}
         closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
+
       <ScrollView>
         <View style={{ ...styles.container }}>
-          <View style={([styles.formArea], { marginBottom: 10 })}>
+          <View style={[styles.formArea]}>
             <View style={styles.sectionTitBox}>
               <Text style={styles.sectionTit}>등록된 내 정보</Text>
             </View>
@@ -180,16 +168,18 @@ export default ({ navigation, route }) => {
             </View>
           </View>
         </View>
-        <View style={{ justifyContent: "flex-end" }}>
-          <TouchableHighlight
-            underlayColor={"#333FDA"}
-            style={{ ...styles.onButton }}
-          >
-            <Text style={styles.buttonTxt}>회원 정보 수정</Text>
-          </TouchableHighlight>
-        </View>
       </ScrollView>
-    </KeyboardAwareScrollView>
+      <View style={{ position: "absolute", bottom: 0, left: 0, width: "100%" }}>
+        <TouchableHighlight
+          underlayColor={"#333FDA"}
+          style={{ ...styles.onButton }}
+        >
+          <Text style={styles.buttonTxt}>회원 정보 수정</Text>
+        </TouchableHighlight>
+      </View>
+      </View>
+      
+    </KeyboardAvoidingView>
   );
 };
 
@@ -209,7 +199,7 @@ const styles = StyleSheet.create({
   question: {
     fontSize: 14,
     fontWeight: "bold",
-    marginBottom: 3,
+    marginBottom: 7,
   },
   textForm: {
     borderBottomWidth: 0.5,

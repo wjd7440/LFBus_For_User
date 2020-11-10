@@ -63,8 +63,8 @@ export default ({ navigation, route }) => {
               }}
             >
               <View style={[styles.menuInner, styles.containerH]}>
-                <Icon name="user" type="light" size={18} color={"#111"} />
-                <Text style={styles.menuItemTxt}>등록된 정보 변경</Text>
+                <Icon name="pen" type="light" size={18} color={"#111"} />
+                <Text style={styles.menuItemTxt}>정보 변경</Text>
               </View>
             </TouchableRipple>
             {/* 비밀번호 번경 */}
@@ -181,6 +181,6 @@ const styles = StyleSheet.create({
   },
   menuItemTxt: {
     fontSize: 17,
-    marginLeft: 6,
+    marginLeft: 8,
   },
 });
