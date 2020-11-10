@@ -728,7 +728,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0.5,
     borderColor: "#ddd",
     width: "100%",
-    height: hp("5%"),
+    height: hp("6%"),
     paddingLeft: 0,
     paddingRight: 5,
     marginBottom: 8,
