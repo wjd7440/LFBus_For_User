@@ -95,21 +95,21 @@ export default ({ navigation, route }) => {
                       liveData[0].itemList,
                       "BUS_NODE_ID"
                     ) ? (
-                      <Image
-                        style={[
-                          styles.busIcon,
-                          index % 5 !== 1 && { display: "none" },
-                        ]}
-                        source={require("../../../assets/busmarker.png")}
-                      />
-                    ) : (
-                      <Text></Text>
-                    )}
+                        <Image
+                          style={[
+                            styles.busIcon,
+                            index % 5 !== 1 && { display: "none" },
+                          ]}
+                          source={require("../../../assets/busmarker.png")}
+                        />
+                      ) : (
+                        <Text></Text>
+                      )}
                     <View
                       style={[
                         styles.line,
                         index ===
-                          data.UserBusRotationList.busRotations.length - 1 && {
+                        data.UserBusRotationList.busRotations.length - 1 && {
                           height: "50%",
                         },
                       ]}

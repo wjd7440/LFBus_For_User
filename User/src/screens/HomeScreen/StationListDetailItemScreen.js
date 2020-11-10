@@ -18,6 +18,7 @@ export default ({ serviceKey, BusStopID }) => {
   const [busExist, setBusExist] = useState(false);
 
   const dataLoader = () => {
+    console.log("1")
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${serviceKey}&BusStopID=${BusStopID}`,
       method: "get",
@@ -36,11 +37,11 @@ export default ({ serviceKey, BusStopID }) => {
 
   useEffect(() => {
     dataLoader();
-    let timer = setInterval(() => {
-      dataLoader();
-    }, 10000);
+    // let timer = setInterval(() => {
+    //   dataLoader();
+    // }, 10000);
 
-    return () => clearInterval(timer);
+    // return () => clearInterval(timer);
   }, []);
 
   if (!loaded || !data[0]) {

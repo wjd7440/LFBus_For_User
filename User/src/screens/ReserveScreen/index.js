@@ -63,10 +63,10 @@ export default ({ navigation, route }) => {
 
   useEffect(() => {
     dataLoader();
-    let timer = setInterval(() => {
-      dataLoader();
-    }, 15000);
-    return () => clearInterval(timer);
+    // let timer = setInterval(() => {
+    //   dataLoader();
+    // }, 15000);
+    // return () => clearInterval(timer);
   }, []);
 
   useEffect(() => {
