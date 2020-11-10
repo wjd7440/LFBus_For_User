@@ -44,93 +44,71 @@ export default ({ navigation, route }) => {
       />
       <ScrollView>
         <View style={{ ...styles.container }}>
-          <Text style={styles.sectionTit}>내 계정</Text>
-          <View>
+          <View style={styles.sectionTitBox}>
+            <Text style={styles.sectionTit}>내 계정</Text>
+          </View>
+
+          <View style={styles.menuWrap}>
+            {/* 정보수정 */}
             <TouchableRipple
+              style={[styles.menuItem, styles.marginPull]}
               rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f5f5f5"}
+              onPress={() => {
+                navigation.navigate("AccountEditScreen", {
+                  userId: data.UserInfo.userId,
+                  needHelp: data.UserInfo.needHelp,
+                  equipment: data.UserInfo.equipment,
+                });
+              }}
+            >
+              <View style={[styles.menuInner, styles.containerH]}>
+                <Icon name="user" type="light" size={18} color={"#111"} />
+                <Text style={styles.menuItemTxt}>등록된 정보 변경</Text>
+              </View>
+            </TouchableRipple>
+            {/* 비밀번호 번경 */}
+            <TouchableRipple
+              style={[styles.menuItem, styles.marginPull]}
+              rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f5f5f5"}
               onPress={() => {}}
             >
-              <Text>asd</Text>
+              <View style={[styles.menuInner, styles.containerH]}>
+                <Icon name="lock-alt" type="light" size={18} color={"#111"} />
+                <Text style={styles.menuItemTxt}>비밀번호 변경</Text>
+              </View>
+            </TouchableRipple>
+            {/* 로그아웃 */}
+            <TouchableRipple
+              style={[styles.menuItem, styles.marginPull]}
+              rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f5f5f5"}
+              onPress={() => {}}
+            >
+              <View style={[styles.menuInner, styles.containerH]}>
+                <Icon name="sign-out" type="light" size={18} color={"#111"} />
+                <Text style={styles.menuItemTxt}>로그아웃</Text>
+              </View>
+            </TouchableRipple>
+            {/* 회원탈퇴 */}
+            <TouchableRipple
+              style={[styles.menuItem, styles.marginPull]}
+              rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f5f5f5"}
+              onPress={() => {}}
+            >
+              <View style={[styles.menuInner, styles.containerH]}>
+                <Icon
+                  name="times-hexagon"
+                  type="light"
+                  size={18}
+                  color={"#111"}
+                />
+                <Text style={styles.menuItemTxt}>회원탈퇴</Text>
+              </View>
             </TouchableRipple>
           </View>
-          <View style={styles.formArea}>
-            <View style={styles.formControl}>
-              <Text
-                style={{
-                  ...styles.formControlTit,
-                }}
-              >
-                아이디(이메일)
-              </Text>
-              <View style={styles.defalutForm}>
-                <Text style={styles.defalutFormTxt}>
-                  {!loading && data.UserInfo.userId}
-                </Text>
-              </View>
-            </View>
-
-            <View style={styles.formControl}>
-              <Text style={styles.formControlTit}>사용하는 보조기구</Text>
-              <View style={styles.defalutForm}>
-                <Text style={styles.defalutFormTxt}>
-                  {!loading && data.UserInfo.equipmentName}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.formControl}>
-              <Text style={styles.formControlTit}>
-                어떤 도움이 필요하신가요?
-              </Text>
-              <View style={styles.defalutForm}>
-                <Text style={styles.defalutFormTxt}>
-                  {!loading && data.UserInfo.needHelp}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-
-        {/* <View style={styles.menuList}>
-          <Button
-            style={{ backgroundColor: "#fff", borderColor: "#ddd" }}
-            mode="outlined"
-            contentStyle={styles.menuContentStyle}
-            labelStyle={{ color: "#111" }}
-            onPress={() => {
-              navigation.navigate("AccountEditScreen", {
-                userId: data.UserInfo.userId,
-                needHelp: data.UserInfo.needHelp,
-                equipment: data.UserInfo.equipment,
-              });
-            }}
-          >
-            asdasd
-          </Button>
-        </View> */}
-
-        <View style={[styles.underLineBox]}>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            style={{ ...styles.underLineButton }}
-          >
-            <Text style={styles.underLineTxt}>비밀번호 변경 {">"}</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View>
-          <TouchableHighlight
-            underlayColor={"#333FDA"}
-            style={{ ...styles.onButton }}
-            onPress={() => {
-              navigation.navigate("AccountEditScreen", {
-                userId: data.UserInfo.userId,
-                needHelp: data.UserInfo.needHelp,
-                equipment: data.UserInfo.equipment,
-              });
-            }}
-          >
-            <Text style={styles.buttonTxt}>정보 수정</Text>
-          </TouchableHighlight>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
@@ -143,43 +121,9 @@ const styles = StyleSheet.create({
   formArea: {
     width: "100%",
   },
-  signTit: {
-    fontSize: hp("4%"),
-    color: "#4B56F1",
-    marginTop: hp("5%"),
-    marginBottom: hp("3%"),
-  },
-  formControl: {
-    marginBottom: 20,
-  },
-  question: {
-    fontSize: 14,
-    fontWeight: "bold",
-    marginBottom: 3,
-  },
-  textForm: {
-    borderBottomWidth: 0.5,
-    borderColor: "#ddd",
-    width: "100%",
-    height: hp("5%"),
-    paddingLeft: 0,
-    paddingRight: 5,
+  formControlTit: {
+    fontSize: 17,
     marginBottom: 8,
-    fontSize: 16,
-  },
-  buttonArea: {
-    width: "100%",
-    height: hp("5%"),
-  },
-  button: {
-    backgroundColor: "#46c3ad",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  buttonTitle: {
-    color: "white",
   },
   onButton: {
     backgroundColor: "#4B56F1",
@@ -225,5 +169,18 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     height: 54,
     color: "#111",
+  },
+  menuWrap: {},
+  menuItem: {
+    height: 56,
+    justifyContent: "center",
+  },
+  menuInner: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  menuItemTxt: {
+    fontSize: 17,
+    marginLeft: 6,
   },
 });

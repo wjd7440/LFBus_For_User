@@ -67,6 +67,7 @@ export default StyleSheet.create({
     fontSize: 14,
     fontWeight: "bold",
     color: "#767676",
+    height: 32,
   },
   onButton: {
     backgroundColor: "#4B56F1",

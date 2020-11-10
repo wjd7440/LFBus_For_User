@@ -27,9 +27,6 @@ const TabStack = () => {
         barStyle: { backgroundColor: "#B0C4DE" },
         activeTintColor: "#4B56F1",
         inactiveTintColor: "rgba(0,0,0,0.6)",
-        labelStyle: {
-          fontFamily: "open-sans-regular",
-        },
         style: {
           height: Platform.OS === "ios" ? 90 : 60,
         },
@@ -93,28 +90,28 @@ export default () => {
           name="내 주변 정류장"
           component={TabStack}
           options={{
-            header: () => { },
+            header: () => {},
           }}
         />
         <Stack.Screen
           name="홈"
           component={HomeStack}
           options={{
-            header: () => { },
+            header: () => {},
           }}
         />
         <Stack.Screen
           name="메뉴"
           component={MoreMenuStack}
           options={{
-            header: () => { },
+            header: () => {},
           }}
         />
         <Stack.Screen
           name="검색"
           component={SearchStack}
           options={{
-            header: () => { },
+            header: () => {},
           }}
         />
       </Stack.Navigator>

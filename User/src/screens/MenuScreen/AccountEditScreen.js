@@ -17,12 +17,15 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from "react-native-responsive-screen";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { ScrollView } from "react-native-gesture-handler";
 import { Header } from "../../../components";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo-hooks";
 import { Block, theme } from "galio-framework";
-
+import { useQuery } from "react-apollo-hooks";
+import { ACCOUNT_INFO_QUERY } from "../Queries";
+import style from "../../../constants/style";
 const sexArray = [
   {
     backgroundBtnColor: "#FFF6E3",
@@ -85,19 +88,64 @@ export default ({ navigation, route }) => {
       equipment: route.params.equipment,
     },
   });
+  const { data, loading } = useQuery(ACCOUNT_INFO_QUERY, {
+    fetchPolicy: "network-only",
+  });
   return (
-    <KeyboardAvoidingView
+    <KeyboardAwareScrollView
       // behavior={Platform.OS == "ios" ? "padding" : "height"}
       style={{ flex: 1 }}
     >
+      <Header
+        back
+        title={"내 정보 수정"}
+        closeNavigate={"HomeScreen"}
+        navigation={navigation}
+      />
       <ScrollView>
-        <Header
-          back
-          title={"내 정보 수정"}
-          closeNavigate={"HomeScreen"}
-          navigation={navigation}
-        />
         <View style={{ ...styles.container }}>
+          <View style={([styles.formArea], { marginBottom: 10 })}>
+            <View style={styles.sectionTitBox}>
+              <Text style={styles.sectionTit}>등록된 내 정보</Text>
+            </View>
+            <View
+              style={
+                ([styles.formControl], { marginTop: 10, marginBottom: 20 })
+              }
+            >
+              <Text
+                style={{
+                  ...styles.question,
+                }}
+              >
+                아이디(이메일)
+              </Text>
+              <View style={styles.defalutForm}>
+                <Text style={styles.defalutFormTxt}>
+                  {!loading && data.UserInfo.userId}
+                </Text>
+              </View>
+            </View>
+            {/* 
+            <View style={styles.formControl}>
+              <Text style={styles.formControlTit}>사용하는 보조기구</Text>
+              <View style={styles.defalutForm}>
+                <Text style={styles.defalutFormTxt}>
+                  {!loading && data.UserInfo.equipmentName}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.formControl}>
+              <Text style={styles.formControlTit}>
+                어떤 도움이 필요하신가요?
+              </Text>
+              <View style={styles.defalutForm}>
+                <Text style={styles.defalutFormTxt}>
+                  {!loading && data.UserInfo.needHelp}
+                </Text>
+              </View>
+            </View> */}
+          </View>
           <View style={styles.formArea}>
             <View style={styles.formControl}>
               <Text style={styles.question}>사용하는 보조기구</Text>
@@ -132,7 +180,7 @@ export default ({ navigation, route }) => {
             </View>
           </View>
         </View>
-        <View>
+        <View style={{ justifyContent: "flex-end" }}>
           <TouchableHighlight
             underlayColor={"#333FDA"}
             style={{ ...styles.onButton }}
@@ -141,17 +189,13 @@ export default ({ navigation, route }) => {
           </TouchableHighlight>
         </View>
       </ScrollView>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
+  ...style,
+
   formArea: {
     width: "100%",
   },
@@ -161,9 +205,7 @@ const styles = StyleSheet.create({
     marginTop: hp("5%"),
     marginBottom: hp("3%"),
   },
-  formControl: {
-    marginBottom: 20,
-  },
+
   question: {
     fontSize: 14,
     fontWeight: "bold",

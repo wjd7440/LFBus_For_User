@@ -1,10 +1,7 @@
 import React, { Component, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo-hooks";
-import {
-  USER_MAILEAGE_WRITE_QUERY,
-  ACCOUNT_INFO_QUERY
-} from "../Queries";
+import { USER_MAILEAGE_WRITE_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
 import style from "../../../constants/style";
 import RadioColumnGroup from "../../../components/RadioColumnGroup";
 import { Dimensions } from "react-native";
@@ -17,7 +14,7 @@ import {
   TouchableOpacity,
   TouchableHighlight,
   RefreshControl,
-  Alert
+  Alert,
 } from "react-native";
 import { RadioButton, Appbar } from "react-native-paper";
 import { ScrollView } from "react-native-gesture-handler";
@@ -62,7 +59,7 @@ export default ({ navigation, route }) => {
   const [value, setValue] = useState(1000);
   const [payment, setPayment] = useState("신용카드");
   const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY, {
-    refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }]
+    refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }],
   });
   const { handleSubmit, errors, watch } = useForm();
   const onSubmit = async () => {
@@ -187,7 +184,9 @@ export default ({ navigation, route }) => {
                 displayType={"text"}
                 thousandSeparator={true}
                 renderText={(value) => (
-                  <Text style={{ fontSize: 28, fontWeight: "bold" }}>{value}P</Text>
+                  <Text style={{ fontSize: 28, fontWeight: "bold" }}>
+                    {value}P
+                  </Text>
                 )}
               />
             </View>
