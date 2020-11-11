@@ -8,13 +8,20 @@ import {
   RefreshControl,
   SafeAreaView,
   KeyboardAvoidingView,
+  TouchableHighlight,
 } from "react-native";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 import { ScrollView } from "react-native-gesture-handler";
 import { Header } from "../../../components";
 import style from "../../../constants/style";
 import { TextInput } from "react-native-paper";
 
 export default ({ navigation }) => {
+  const { isActive } = this.state;
+  const customStyle = isActive ? styles.customText : {};
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <KeyboardAvoidingView style={{ flex: 1 }}>
@@ -29,20 +36,71 @@ export default ({ navigation }) => {
             <View style={styles.formControl}>
               <Text style={styles.question}>현재 비밀번호</Text>
               <TextInput
-                mode={"flat"}
+                mode={"outlined"}
                 secureTextEntry={true}
-                selectionColor={"#111"}
                 style={styles.textForm}
+                keyboardType="default"
                 placeholder={"현재 비밀번호를 입력해주세요."}
                 name="password"
+                theme={{
+                  colors: {
+                    placeholder: "#ddd",
+                    primary: "#4B56F1",
+                    underlineColor: "transparent",
+                  },
+                }}
                 // onChangeText={(text) => {
                 //   setValue("password", text, true);
                 // }}
               />
             </View>
-            <Text>sample</Text>
+
+            <View style={styles.formControl}>
+              <Text style={styles.question}>변경 비밀번호</Text>
+              <TextInput
+                mode={"flat"}
+                secureTextEntry={true}
+                style={styles.textForm}
+                keyboardType="default"
+                placeholder={"변경하실 비밀번호를 입력해주세요."}
+                name="password"
+                theme={{
+                  colors: { primary: "#4B56F1", underlineColor: "transparent" },
+                }}
+                // onChangeText={(text) => {
+                //   setValue("password", text, true);
+                // }}
+              />
+            </View>
+
+            <View style={styles.formControl}>
+              <Text style={styles.question}>변경 비밀번호 확인</Text>
+              <TextInput
+                mode={"flat"}
+                secureTextEntry={true}
+                style={styles.textForm}
+                keyboardType="default"
+                placeholder={"변경 비밀번호를 다시 입력해주세요."}
+                name="password"
+                theme={{
+                  colors: { primary: "#4B56F1", underlineColor: "transparent" },
+                }}
+                // onChangeText={(text) => {
+                //   setValue("password", text, true);
+                // }}
+              />
+            </View>
           </View>
         </ScrollView>
+        <View>
+          <TouchableHighlight
+            underlayColor={"#333FDA"}
+            style={{ ...styles.onButton }}
+            onPress={() => {}}
+          >
+            <Text style={styles.buttonTxt}>비밀번호 변경</Text>
+          </TouchableHighlight>
+        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
@@ -60,5 +118,34 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     backgroundColor: "#fff",
+    padding: 0,
+    margin: 0,
+  },
+  buttonTitle: {
+    color: "white",
+  },
+  onButton: {
+    backgroundColor: "#4B56F1",
+    width: "100%",
+    height: hp("7.6%"),
+    justifyContent: "center",
+    alignItems: "center",
+    // borderRadius: 4,
+  },
+  offButton: {
+    backgroundColor: "#fff",
+    width: "100%",
+    height: hp("7.6%"),
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+  },
+  buttonTxt: {
+    fontSize: 16,
+    color: "white",
+  },
+  errorTxt: {
+    color: "#FF3B3B",
+    fontSize: 13,
   },
 });

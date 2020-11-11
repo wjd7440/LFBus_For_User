@@ -12,6 +12,7 @@ import {
   Picker,
   Keyboard,
   KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
 import {
   widthPercentageToDP as wp,
@@ -118,11 +119,11 @@ export default ({ navigation, route }) => {
   };
 
   return (
-    <KeyboardAvoidingView
-      // behavior={Platform.OS == "ios" ? "padding" : "height"}
-      style={{ flex: 1 }}
-    >
-      <View style={{ flex: 1, paddingBottom: 80 }}>
+    <SafeAreaView style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        // behavior={Platform.OS == "ios" ? "padding" : "height"}
+        style={{ flex: 1 }}
+      >
         <Header
           back
           title={"내 정보 수정"}
@@ -157,11 +158,13 @@ export default ({ navigation, route }) => {
               <View style={styles.formControl}>
                 <Text style={styles.question}>
                   어떤 도움이 필요하신가요? (선택)
-              </Text>
+                </Text>
                 <View>
                   <TextInput
                     style={styles.textForm}
-                    placeholder={"ex) 교통카드를 대신 찍어주세요. / 괜찮습니다."}
+                    placeholder={
+                      "ex) 교통카드를 대신 찍어주세요. / 괜찮습니다."
+                    }
                     name="needHelp"
                     value={watch("needHelp")}
                     onChangeText={(text) => {
@@ -173,7 +176,7 @@ export default ({ navigation, route }) => {
             </View>
           </View>
         </ScrollView>
-        <View style={{ position: "absolute", bottom: 0, left: 0, width: "100%" }}>
+        <View>
           <TouchableHighlight
             underlayColor={"#333FDA"}
             style={{ ...styles.onButton }}
@@ -182,9 +185,8 @@ export default ({ navigation, route }) => {
             <Text style={styles.buttonTxt}>회원 정보 수정</Text>
           </TouchableHighlight>
         </View>
-      </View>
-
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </SafeAreaView>
   );
 };
 

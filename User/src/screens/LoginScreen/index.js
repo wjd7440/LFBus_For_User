@@ -91,6 +91,7 @@ export default ({ navigation }) => {
             style={styles.textForm}
             placeholder={"아이디(이메일)를 입력해주세요."}
             name="userId"
+            keyboardType="email-address"
             onChangeText={(text) => {
               var lowerCase = text.toLowerCase();
               setValue("userId", lowerCase, true);
@@ -107,6 +108,7 @@ export default ({ navigation }) => {
             secureTextEntry={true}
             style={styles.textForm}
             placeholder={"비밀번호를 입력해주세요."}
+            keyboardType="defalut"
             name="password"
             onChangeText={(text) => {
               setValue("password", text, true);
