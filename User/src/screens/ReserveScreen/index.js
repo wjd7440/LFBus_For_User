@@ -36,7 +36,6 @@ export default ({ navigation, route }) => {
   const parseString = require("react-native-xml2js").parseString;
 
   const dataLoader = () => {
-    console.log("3")
     axios({
       url: `http://openapitraffic.daejeon.go.kr/api/rest/arrive/getArrInfoByStopID?serviceKey=${API_KEY}&BusStopID=${BUS_NODE_ID}`,
       method: "get",

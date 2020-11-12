@@ -287,7 +287,7 @@ export default ({ navigation }) => {
                 onPress={handleSubmit(onSubmit)}
               >
                 <Text style={{ fontSize: 16, color: "#fff" }}>
-                  탑승 취소 / 하차 완료
+                  탑승 취소
                 </Text>
               </TouchableHighlight>
             </View>
@@ -341,6 +341,9 @@ export default ({ navigation }) => {
               rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
               style={styles.menuBtn}
+              onPress={() => {
+                navigation.navigate("NoticeScreen");
+              }}
             >
               <View style={styles.menuBox}>
                 <Icon name="bullhorn" type="light" size={20} color={"#111"} />

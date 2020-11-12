@@ -29,10 +29,6 @@ import { TouchableRipple } from "react-native-paper";
 import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation, route }) => {
-  const scrollViewToScroll = React.createRef();
-
-  const [dynamicHeight, setDynamicHeight] = useState(0);
-
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
@@ -45,6 +41,7 @@ export default ({ navigation, route }) => {
   const GPS_LONG = route.params ? route.params.GPS_LONG : null;
   const parseString = require("react-native-xml2js").parseString;
   const [loaded, setLoaded] = useState(false);
+  const [DIR, setDIR] = useState();
   const [liveData, setLiveData] = useState([]);
   const dataLoader = () => {
     axios({
@@ -63,6 +60,8 @@ export default ({ navigation, route }) => {
       .catch(function (err) {
         // console.log(err);
       });
+
+    { liveData && liveData[0] && getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO") }
   };
 
   const { data, loading } = useQuery(BUS_ROTATION_LIST_QUERY, {
@@ -71,7 +70,7 @@ export default ({ navigation, route }) => {
       ROUTE_CD: ROUTE_CD[0],
     },
   });
-  // console.log(data)
+
   const { data: user, userLoading } = useQuery(ACCOUNT_INFO_QUERY, {
     fetchPolicy: "network-only",
   });
@@ -83,26 +82,9 @@ export default ({ navigation, route }) => {
     },
   });
 
-  // const { data: busSeq, busSeqLoading } = useQuery(BUS_SEQ_QUERY, {
-  //   fetchPolicy: "network-only",
-  //   variables: {
-  //     BUS_STOP_ID: BUS_STOP_ID[0],
-  //   },
-  // });
-
   useEffect(() => {
     dataLoader();
   }, []);
-
-  useEffect(() => {
-    if (scrollViewToScroll.current) {
-      scrollViewToScroll.current.scrollTo({
-        x: 0,
-        y: dynamicHeight,
-        animated: true,
-      });
-    }
-  }, [scrollViewToScroll]);
 
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
@@ -116,7 +98,14 @@ export default ({ navigation, route }) => {
     // console.log("버스지나감");
     return false;
   };
-
+  const getDir = (value, arr, prop) => {
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i][prop][0] === value[0]) {
+        return arr[i]["DIR"][0];
+      }
+    }
+    return false;
+  };
   if (loading || userLoading || busInfoLoading || !loaded) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -127,10 +116,9 @@ export default ({ navigation, route }) => {
     return (
       <View style={{ flex: 1 }}>
         <Header
-          back
           title={ROUTE_NO[0] + "번"}
           titleStyle={{ fontSize: 21, fontWeight: "500", color: "#111" }}
-          // close
+          close
           closeNavigate={"HomeScreen"}
           navigation={navigation}
           style={{
@@ -142,8 +130,8 @@ export default ({ navigation, route }) => {
             borderColor: "#f5f5f5",
             zIndex: 5,
           }}
-          right={
-            <View style={[styles.seatImgCont, styles.rightAb]}>
+          left={
+            <View style={[styles.seatImgCont, styles.leftAb]}>
               {busInfo.UserBusInfo.SEAT1 ? (
                 <View style={styles.seatImgBox}>
                   <Image
@@ -275,6 +263,7 @@ export default ({ navigation, route }) => {
                   equipment: !loading && user.UserInfo.equipment,
                   equipmentNa: !loading && user.UserInfo.equipmentName,
                   needHelp: !loading && user.UserInfo.needHelp,
+                  DIR: getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO")
                 });
               }}
             >
@@ -287,7 +276,7 @@ export default ({ navigation, route }) => {
             )}
         </View>
         {/* 상단 버스 정보// */}
-        <ScrollView ref={scrollViewToScroll}>
+        <ScrollView>
           <View>
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
               return (
@@ -297,10 +286,6 @@ export default ({ navigation, route }) => {
                       ? styles.onList
                       : styles.list,
                   ]}
-                  onLayout={(event) => {
-                    rowData.BUS_NODE_ID == BUS_NODE_ID &&
-                      setDynamicHeight(event.nativeEvent.layout.y);
-                  }}
                 >
                   <View style={styles.busState}>
                     {getIndex(
@@ -334,7 +319,7 @@ export default ({ navigation, route }) => {
                   </View>
                   <View style={styles.busStationInfo}>
                     <Text style={styles.busStationName}>
-                      {rowData.BUSSTOP_NM}
+                      {rowData.BUSSTOP_NM}{rowData.BUSSTOP_TP === 1 ? <Text>(기점)</Text> : null}{rowData.BUSSTOP_TP === 2 ? <Text>(반환점)</Text> : null}{rowData.BUSSTOP_TP === 3 ? <Text>(종점)</Text> : null}
                     </Text>
                     {/* {rowData.BUS_NODE_ID === BUS_NODE_ID ? (
                       <Text>내 위치</Text>

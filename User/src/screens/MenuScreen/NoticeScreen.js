@@ -1,19 +1,25 @@
 import React, { Component } from "react";
-import { View, Text, Button, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  Button,
+  StyleSheet,
+  TouchableOpacity,
+  RefreshControl,
+} from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { Header } from "../../../components";
+
 export default ({ navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text>something</Text>
-      <Button title="back" onPress={() => this.props.navigation.goBack()} />
-    </View>
+    <ScrollView>
+      <Header
+        back
+        title={"샘플"}
+        closeNavigate={"HomeScreen"}
+        navigation={navigation}
+      />
+      <Text>sample</Text>
+    </ScrollView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "white",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-});
