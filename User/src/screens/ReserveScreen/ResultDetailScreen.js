@@ -13,6 +13,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { Header } from "../../../components";
 
 export default ({
+  busExist,
+  setBusExist,
   CAR_REG_NO,
   ROUTE_NO,
   STATUS_POS,
@@ -33,6 +35,11 @@ export default ({
   if (loading) {
     return null;
   } else {
+
+    if (!busExist && data.UserBusInfo) {
+      setBusExist(true);
+    }
+
     if (data.UserBusInfo) {
       return (
         <View key={ROUTE_NO} style={[styles.busList, styles.row]}>
@@ -57,10 +64,10 @@ export default ({
                 </Text>
               </View>
             ) : (
-              <View style={{ ...styles.row, paddingTop: 2 }}>
-                <Text style={{ fontSize: 16, color: "#FF4646" }}>진입중</Text>
-              </View>
-            )}
+                <View style={{ ...styles.row, paddingTop: 2 }}>
+                  <Text style={{ fontSize: 16, color: "#FF4646" }}>진입중</Text>
+                </View>
+              )}
           </View>
           {/* 오른쪽박스 자리 여부 이미지 */}
           <View style={styles.right}>
@@ -74,14 +81,14 @@ export default ({
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
               </View>
             ) : (
-              <View style={styles.seatImgBox}>
-                <Image
-                  style={styles.seatImg}
-                  source={require("../../../assets/on_seat.png")}
-                />
-                <Text style={styles.onSeatTxt}>탑승중</Text>
-              </View>
-            )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                  <Text style={styles.onSeatTxt}>탑승중</Text>
+                </View>
+              )}
             {/* 좌석2 */}
             {data.UserBusInfo.SEAT2 ? (
               <View style={styles.seatImgBox}>
@@ -92,14 +99,14 @@ export default ({
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
               </View>
             ) : (
-              <View style={styles.seatImgBox}>
-                <Image
-                  style={styles.seatImg}
-                  source={require("../../../assets/on_seat.png")}
-                />
-                <Text style={styles.onSeatTxt}>탑승중</Text>
-              </View>
-            )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                  <Text style={styles.onSeatTxt}>탑승중</Text>
+                </View>
+              )}
           </View>
 
           {/* <Text>CAR_REG_NO : {data.UserBusInfo.CAR_REG_NO}</Text> */}
