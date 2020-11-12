@@ -120,8 +120,6 @@ export default ({ navigation }) => {
   });
   const getIndex = (value, arr, prop) => {
     for (var i = 0; i < arr.length; i++) {
-      // console.log(arr[i][prop][0]);
-      // console.log(value);
       if (arr[i][prop][0] === value) {
         setStatusPos(arr[i]["STATUS_POS"]);
         setExtimeMin(arr[i]["EXTIME_MIN"]);
@@ -132,7 +130,6 @@ export default ({ navigation }) => {
         setExtimeMin("-");
       }
     }
-    // console.log("버스지나감");
     return false;
   };
 
@@ -251,7 +248,6 @@ export default ({ navigation }) => {
             </TouchableRipple>
           </View>
 
-          {/* [예약 했을 시] 버스예약확인 */}
           {count > 0 ? (
             <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
               {}
@@ -260,27 +256,22 @@ export default ({ navigation }) => {
               </Text>
               <View style={styles.busList}>
                 <Text style={styles.busTit}>탑승버스</Text>
-                {/* 사용자가 선택한 버스를 넣어주세요. */}
                 <Text style={styles.busInfo}>{ROUTE_NO}번</Text>
               </View>
               <View style={styles.busList}>
                 <Text style={styles.busTit}>승차정류장</Text>
-                {/* 승차정류장을 넣어주세요. */}
                 <Text style={styles.busInfo}>{departureStation}</Text>
               </View>
               <View style={styles.busList}>
                 <Text style={styles.busTit}>하차정류장</Text>
-                {/* 하차정류장을 넣어주세요. */}
                 <Text style={styles.busInfo}>{arrivalStation}</Text>
               </View>
               <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
                 <Text style={styles.busTit}>버스위치</Text>
-                {/* 버스위치와 몇분 후 도착하는지를 넣어주세요. */}
                 <Text style={styles.busInfo}>
                   {statusPos}정류장 전 ({extimeMin}분)
                 </Text>
               </View>
-              {/* 탑승 취소 버튼 */}
               <TouchableHighlight
                 style={{ ...styles.onButton, marginTop: 10 }}
                 underlayColor={"#333FDA"}
@@ -374,6 +365,9 @@ export default ({ navigation }) => {
               style={styles.menuBtn}
               rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
+              onPress={() => {
+                navigation.navigate("CustomerCenterScreen");
+              }}
             >
               <View style={styles.menuBox}>
                 <Icon name="envelope" type="light" size={20} color={"#111"} />
@@ -385,6 +379,9 @@ export default ({ navigation }) => {
               style={styles.menuBtn}
               rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
+              onPress={() => {
+                navigation.navigate("ServiceGuideScreen");
+              }}
             >
               <View style={styles.menuBox}>
                 <Icon
@@ -396,23 +393,6 @@ export default ({ navigation }) => {
                 <Text style={styles.menuText}>이용안내</Text>
               </View>
             </TouchableRipple>
-
-            {/* <TouchableRipple
-        rippleColor="rgba(0, 0, 0, .06)"
-        onPress={() => {
-          navigation.navigate("ReservationCheckScreen");
-        }}
-      >
-        <Text>버스 예약 확인</Text>
-      </TouchableRipple> */}
-
-            {/* <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("RouteScreen");
-            }}
-          >
-            <Text>경로 검색</Text>
-          </TouchableOpacity> */}
           </View>
         </View>
       </ScrollView>

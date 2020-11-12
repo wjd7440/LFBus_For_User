@@ -83,7 +83,7 @@ export default ({ navigation, route }) => {
                 underlayColor={"#f5f5f5"}
                 style={styles.list}
                 onPress={() => {
-                  navigation.navigate("ReserveScreen", {
+                  navigation.navigate("BusStationSearchResultScreen", {
                     BUS_NODE_ID: rowData.BUS_NODE_ID,
                   });
                 }}
