@@ -292,26 +292,26 @@ export default ({ navigation }) => {
               </TouchableHighlight>
             </View>
           ) : (
-              <View
-                style={[
-                  styles.shadow,
-                  styles.contBox,
-                  styles.marginTop15,
-                  styles.nonebus,
-                ]}
+            <View
+              style={[
+                styles.shadow,
+                styles.contBox,
+                styles.marginTop15,
+                styles.nonebus,
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#8D8E93",
+                  textAlign: "center",
+                  paddingVertical: 20,
+                }}
               >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#8D8E93",
-                    textAlign: "center",
-                    paddingVertical: 20,
-                  }}
-                >
-                  탑승요청한 버스가 없습니다.
+                탑승요청한 버스가 없습니다.
               </Text>
-              </View>
-            )}
+            </View>
+          )}
 
           {/* [예약 없을 시] 버스예약확인 */}
           {/* <View
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
   },
   menuIcon: {
     resizeMode: "contain",
-    width: 22,
-    height: 22,
+    width: 18,
+    height: 18,
   },
 });

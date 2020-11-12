@@ -42,7 +42,7 @@ export default ({ navigation, route }) => {
               <Text
                 style={{ textAlign: "center", fontSize: 15, lineHeight: 21 }}
               >
-                탈퇴하시면 모든 정보와 구매내역이{"\n"}
+                회원 탈퇴하시면 모든 정보와 구매내역이{"\n"}
                 <Text style={{ color: "#FF4444" }}>
                   삭제되고 복구되지 않습니다.
                 </Text>
@@ -53,7 +53,7 @@ export default ({ navigation, route }) => {
           </View>
 
           {/* //보유중인 포인트 내역 */}
-          <View style={[styles.point]}>
+          <View style={[styles.point, styles.shadow]}>
             <Text
               style={{
                 ...styles.pointTxt,

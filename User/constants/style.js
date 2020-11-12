@@ -63,6 +63,10 @@ export default StyleSheet.create({
   marginTopPull: {
     marginTop: -theme.SIZES.BASE * 1.2,
   },
+  sectionTitBox: {
+    justifyContent: "center",
+    height: 38,
+  },
   sectionTit: {
     fontSize: 14,
     fontWeight: "bold",
@@ -101,13 +105,13 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
   defalutForm: {
-    backgroundColor: "#efefef",
+    backgroundColor: "#dfdfdf",
     paddingHorizontal: 15,
     // height: 54,
     justifyContent: "center",
     borderRadius: 4,
     borderWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#d1d1d1",
     paddingVertical: 14,
   },
   defalutForm2: {},
