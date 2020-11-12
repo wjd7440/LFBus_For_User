@@ -12,6 +12,7 @@ import AccountInfoScreen from "../src/screens/MenuScreen/AccountInfoScreen";
 import AccountEditScreen from "../src/screens/MenuScreen/AccountEditScreen";
 import PasswordChangeScreen from "../src/screens/MenuScreen/PasswordChangeScreen";
 import UserWithdrawalScreen from "../src/screens/MenuScreen/UserWithdrawalScreen";
+import NoticeScreen from "../src/screens/MenuScreen/NoticeScreen";
 
 export default () => {
   return (
@@ -35,6 +36,7 @@ export default () => {
       <Stack.Screen name="AccountEditScreen" component={AccountEditScreen} />
       <Stack.Screen name="PasswordChangeScreen" component={PasswordChangeScreen} />
       <Stack.Screen name="UserWithdrawalScreen" component={UserWithdrawalScreen} />
+      <Stack.Screen name="NoticeScreen" component={NoticeScreen} />
     </Stack.Navigator>
   );
 };

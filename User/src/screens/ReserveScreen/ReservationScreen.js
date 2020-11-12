@@ -39,6 +39,9 @@ import { Button, Checkbox } from "galio-framework";
 import { Appbar, TouchableRipple } from "react-native-paper";
 
 export default ({ navigation, route }) => {
+  const scrollViewToScroll = React.createRef();
+
+  const [dynamicHeight, setDynamicHeight] = useState(0);
   const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
   // const [data, setData] = useState(null);
   const [existBus, setExistBus] = useState(null);
@@ -58,6 +61,8 @@ export default ({ navigation, route }) => {
       needHelp: route.params ? route.params.needHelp : null,
     },
   });
+  const DIR = route.params ? route.params.DIR : null;
+
   const needHelp = route.params ? route.params.needHelp : null;
   const equipment = route.params ? route.params.equipment : null;
   const equipmentNa = route.params ? route.params.equipmentNa : null;
@@ -134,6 +139,16 @@ export default ({ navigation, route }) => {
     return false;
   };
 
+  useEffect(() => {
+    if (scrollViewToScroll.current) {
+      scrollViewToScroll.current.scrollTo({
+        x: 0,
+        y: dynamicHeight,
+        animated: true,
+      });
+    }
+  }, [scrollViewToScroll]);
+
   const onSubmit = async (data) => {
     try {
       axios({
@@ -152,7 +167,7 @@ export default ({ navigation, route }) => {
           ) {
             if (count > 0) {
               Alert.alert(
-                "탑승요청은 한번만 신청 가능합니다. 메뉴에서 취소 요청 / 하차 완료 버튼을 눌러주세요."
+                "탑승요청은 한번만 신청 가능합니다. 메뉴에서 탑승 취소 버튼을 눌러주세요."
               );
               return false;
             }
@@ -211,7 +226,31 @@ export default ({ navigation, route }) => {
   useEffect(() => {
     if (!loading) {
       let tempItems = [];
-      data.UserBusRotationList.busRotations.map((rowData, index) => {
+      const start_seq = data.UserBusRotationList.busRotations.filter((rowData) => {
+        return rowData.BUSSTOP_TP === 1 ? true : false;
+      });
+      const upTrainSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
+        return rowData.BUSSTOP_TP === 2 ? true : false;
+      });
+      const downTrainSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
+        return rowData.BUSSTOP_TP === 3 ? true : false;
+      });
+      const currentSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
+        return rowData.BUS_NODE_ID === BUS_NODE_ID ? true : false;
+      });
+
+
+      const array = data.UserBusRotationList.busRotations.filter((rowData) => {
+        if (DIR === 0) {
+          // console.log({ rowData: rowData.BUSSTOP_SEQ, currentSeq: currentSeq[0].BUSSTOP_SEQ, upTrainSeq: upTrainSeq[0].BUSSTOP_SEQ })
+          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ && rowData.BUSSTOP_SEQ <= upTrainSeq[0].BUSSTOP_SEQ ? true : false;
+        } else {
+          // console.log({ rowData: rowData.BUSSTOP_SEQ, currentSeq: currentSeq[0].BUSSTOP_SEQ, downTrainSeq: downTrainSeq[0].BUSSTOP_SEQ })
+          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ && rowData.BUSSTOP_SEQ <= downTrainSeq[0].BUSSTOP_SEQ ? true : false;
+        }
+      });
+
+      array.map((rowData, index) => {
         if (BUS_NODE_ID === rowData.BUS_NODE_ID) {
           tempItems.push({
             id: rowData.BUS_NODE_ID,
@@ -260,7 +299,6 @@ export default ({ navigation, route }) => {
   return (
     <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
       <Header
-        back
         title="탑승요청"
         close
         closeNavigate={"HomeScreen"}
@@ -315,6 +353,10 @@ export default ({ navigation, route }) => {
                 />
               </View>
               <SearchableDropdown
+                onLayout={(event) => {
+                  items.name == BUSSTOP_NM &&
+                    setDynamicHeight(event.nativeEvent.layout.y);
+                }}
                 multi={true}
                 containerStyle={{
                   padding: 0,
@@ -532,41 +574,41 @@ export default ({ navigation, route }) => {
               </Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity style={{ marginBottom: 30 }}>
-              <Checkbox
-                disabled={true}
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
-                label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
-                onChange={() => setPay(!pay)}
-                // flexDirection="row-reverse"
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  height: 50,
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#767676",
-                  marginTop: 6,
-                  textAlign: "center",
-                }}
-              >
-                탑승요금{" "}
-                <Text style={{ fontWeight: "bold", color: "#111" }}>
-                  1,250P
+              <TouchableOpacity style={{ marginBottom: 30 }}>
+                <Checkbox
+                  disabled={true}
+                  checkboxStyle={{ borderWidth: 1 }}
+                  color="#4B56F1"
+                  label="탑승 전 결제하겠습니다."
+                  labelStyle={{ fontSize: 16 }}
+                  onChange={() => setPay(!pay)}
+                  // flexDirection="row-reverse"
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    height: 50,
+                    borderRadius: 4,
+                    borderWidth: 1,
+                    borderColor: "#4b56f1",
+                    // alignItems: "flex-start",
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#767676",
+                    marginTop: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  탑승요금{" "}
+                  <Text style={{ fontWeight: "bold", color: "#111" }}>
+                    1,250P
                 </Text>
                 가 차감됩니다.
               </Text>
-            </TouchableOpacity>
-          )}
+              </TouchableOpacity>
+            )}
 
           {/* <Button
             title="취소하기"
@@ -588,14 +630,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableRipple>
         ) : (
-          <TouchableRipple
-            style={styles.offButton}
-            disabled={true}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.offButtonTxt}>탑승요청</Text>
-          </TouchableRipple>
-        )}
+            <TouchableRipple
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableRipple>
+          )}
       </ScrollView>
     </KeyboardAvoidingView>
   );
