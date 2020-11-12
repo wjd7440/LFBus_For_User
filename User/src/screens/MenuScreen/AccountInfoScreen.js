@@ -87,7 +87,7 @@ export default ({ navigation, route }) => {
               style={[styles.menuItem, styles.marginPull]}
               rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
-              onPress={() => { }}
+              onPress={() => {}}
             >
               <View style={[styles.menuInner, styles.containerH]}>
                 <Icon name="sign-out" type="light" size={18} color={"#111"} />
@@ -126,6 +126,7 @@ const styles = StyleSheet.create({
   formArea: {
     width: "100%",
   },
+
   formControlTit: {
     fontSize: 17,
     marginBottom: 8,

@@ -41,36 +41,26 @@ const sexArray = [
 ];
 const equipmentArray = [
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "수동휠체어",
     value: "0",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동휠체어",
     value: "1",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동스쿠터",
     value: "2",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "유모차",
     value: "3",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "없음",
     value: "4",
     selected: false,
@@ -137,6 +127,24 @@ export default ({ navigation, route }) => {
               <View style={styles.sectionTitBox}>
                 <Text style={styles.sectionTit}>등록된 내 정보</Text>
               </View>
+              <View
+                style={
+                  ([styles.formControl], { marginTop: 10, marginBottom: 20 })
+                }
+              >
+                <Text
+                  style={{
+                    ...styles.question,
+                  }}
+                >
+                  아이디(이메일)
+                </Text>
+                <View style={styles.defalutForm}>
+                  <Text style={styles.defalutFormTxt}>
+                    {!loading && data.UserInfo.userId}
+                  </Text>
+                </View>
+              </View>
             </View>
             <View style={styles.formArea}>
               <View style={styles.formControl}>
@@ -174,17 +182,17 @@ export default ({ navigation, route }) => {
                 </View>
               </View>
             </View>
+            <View>
+              <TouchableHighlight
+                underlayColor={"#333FDA"}
+                style={{ ...styles.onButton }}
+                onPress={handleSubmit(onSubmit)}
+              >
+                <Text style={styles.buttonTxt}>회원 정보 수정</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </ScrollView>
-        <View>
-          <TouchableHighlight
-            underlayColor={"#333FDA"}
-            style={{ ...styles.onButton }}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.buttonTxt}>회원 정보 수정</Text>
-          </TouchableHighlight>
-        </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
