@@ -25,7 +25,7 @@ import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo-hooks";
 import { Block, theme } from "galio-framework";
 import { useQuery } from "react-apollo-hooks";
-// import { ACCOUNT_INFO_QUERY, ACCOUNT_EDIT_QUERY } from "../Queries";
+import { ACCOUNT_INFO_QUERY, ACCOUNT_EDIT_QUERY } from "../Queries";
 import style from "../../../constants/style";
 const sexArray = [
   {
@@ -68,9 +68,6 @@ const equipmentArray = [
 ];
 
 export default ({ navigation, route }) => {
-  // const { data, loading } = useQuery(ACCOUNT_INFO_QUERY, {
-  //   fetchPolicy: "network-only",
-  // });
   const { register, setValue, handleSubmit, errors, watch } = useForm({
     defaultValues: {
       userId: route.params.userId,
@@ -144,7 +141,7 @@ export default ({ navigation, route }) => {
                 </Text>
                 <View style={styles.defalutForm}>
                   <Text style={styles.defalutFormTxt}>
-                    {/* {!loading && data.UserInfo.userId} */}
+                    {!loading && data.UserInfo.userId}
                   </Text>
                 </View>
               </View>
