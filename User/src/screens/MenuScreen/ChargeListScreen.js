@@ -20,7 +20,6 @@ export default ({ navigation }) => {
   const { data, loading } = useQuery(USER_MAILEAGE_LIST_QUERY, {
     fetchPolicy: "network-only",
   });
-  console.log(!loading && data);
 
   if (loading) {
     return <Text>Loading...</Text>;
@@ -46,21 +45,21 @@ export default ({ navigation }) => {
                           color={"#4B56F1"}
                         />
                       ) : (
-                        <Icon
-                          name="arrow-square-left"
-                          type="light"
-                          size={28}
-                          color={"#F14B4B"}
-                        />
-                      )}
+                          <Icon
+                            name="arrow-square-left"
+                            type="light"
+                            size={28}
+                            color={"#F14B4B"}
+                          />
+                        )}
                     </View>
 
                     <View>
                       {rowData.account > 0 ? (
                         <Text style={styles.mailTxt}>충전</Text>
                       ) : (
-                        <Text style={styles.mailTxt}>사용</Text>
-                      )}
+                          <Text style={styles.mailTxt}>사용</Text>
+                        )}
                       <Moment
                         element={Text}
                         format="YYYY.MM.DD"

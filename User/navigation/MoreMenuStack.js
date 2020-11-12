@@ -13,6 +13,8 @@ import AccountEditScreen from "../src/screens/MenuScreen/AccountEditScreen";
 import PasswordChangeScreen from "../src/screens/MenuScreen/PasswordChangeScreen";
 import UserWithdrawalScreen from "../src/screens/MenuScreen/UserWithdrawalScreen";
 import NoticeScreen from "../src/screens/MenuScreen/NoticeScreen";
+import ServiceGuideScreen from "../src/screens/MenuScreen/ServiceGuideScreen";
+import CustomerCenterScreen from "../src/screens/MenuScreen/CustomerCenterScreen";
 
 export default () => {
   return (
@@ -37,6 +39,8 @@ export default () => {
       <Stack.Screen name="PasswordChangeScreen" component={PasswordChangeScreen} />
       <Stack.Screen name="UserWithdrawalScreen" component={UserWithdrawalScreen} />
       <Stack.Screen name="NoticeScreen" component={NoticeScreen} />
+      <Stack.Screen name="ServiceGuideScreen" component={ServiceGuideScreen} />
+      <Stack.Screen name="CustomerCenterScreen" component={CustomerCenterScreen} />
     </Stack.Navigator>
   );
 };
