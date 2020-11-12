@@ -110,7 +110,7 @@ export default ({ navigation, route }) => {
             <View style={{ marginTop: 30 }}>
               <TouchableRipple
                 rippleColor="rgba(255, 255, 255, .1)"
-                underlayColor={"#f6f6f6"}
+                underlayColor={"#333"}
                 style={styles.exitButton}
                 onPress={() => {}}
               >
@@ -170,6 +170,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#111",
-    height: 50,
+    height: 56,
   },
 });

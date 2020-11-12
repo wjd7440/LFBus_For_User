@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
   onButton: {
     backgroundColor: "#4B56F1",
     width: "100%",
-    height: hp("7.6%"),
+    height: 56,
     justifyContent: "center",
     alignItems: "center",
     // borderRadius: 4,
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
   offButton: {
     backgroundColor: "#fff",
     width: "100%",
-    height: hp("7.6%"),
+    height: 56,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 4,

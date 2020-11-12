@@ -41,25 +41,25 @@ export default ({ navigation }) => {
                         <Icon
                           name="arrow-square-right"
                           type="light"
-                          size={28}
+                          size={24}
                           color={"#4B56F1"}
                         />
                       ) : (
-                          <Icon
-                            name="arrow-square-left"
-                            type="light"
-                            size={28}
-                            color={"#F14B4B"}
-                          />
-                        )}
+                        <Icon
+                          name="arrow-square-left"
+                          type="light"
+                          size={24}
+                          color={"#F14B4B"}
+                        />
+                      )}
                     </View>
 
                     <View>
                       {rowData.account > 0 ? (
                         <Text style={styles.mailTxt}>충전</Text>
                       ) : (
-                          <Text style={styles.mailTxt}>사용</Text>
-                        )}
+                        <Text style={styles.mailTxt}>사용</Text>
+                      )}
                       <Moment
                         element={Text}
                         format="YYYY.MM.DD"
@@ -102,11 +102,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   mailTxt: {
-    fontSize: 18,
+    fontSize: 16,
   },
   mailNum: {
-    fontSize: 18,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "normal",
   },
   date: {
     color: "#767676",

@@ -18,6 +18,7 @@ import Loader from "../../../components/Loader";
 import ResultDetailItemScreen from "./ResultDetailItemScreen";
 import StationListDetailItemScreen from "./StationListDetailItemScreen";
 import { ScrollView } from "react-native-gesture-handler";
+import style from "../../../constants/style";
 
 const { width, height } = Dimensions.get("window");
 
@@ -168,7 +169,7 @@ export default ({ navigation }) => {
                       (rowData, index) => (
                         <TouchableOpacity
                           activeOpacity={0.92}
-                          style={styles.busItem}
+                          style={[styles.busItem, styles.containerMH]}
                           onPress={() => {
                             navigation.replace("ReserveScreen", {
                               BUS_NODE_ID: rowData.BUS_NODE_ID,
@@ -244,6 +245,7 @@ export default ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  ...style,
   mainMapWrap: {
     flex: 3,
   },
@@ -255,9 +257,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffffff",
     borderRadius: 7,
     marginBottom: 10,
-    marginRight: 20,
-    marginLeft: 20,
-
+    flexWrap: "wrap",
     paddingTop: 15,
     paddingBottom: 18,
     shadowColor: "#000",
@@ -277,7 +277,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-  busRight: {},
+  busRight: { flexWrap: "wrap", flex: 1 },
   away: {
     justifyContent: "center",
     alignItems: "center",
@@ -299,21 +299,21 @@ const styles = StyleSheet.create({
   },
   busListBox: {
     flexDirection: "row",
-    alignSelf: "flex-start",
   },
   busList: {
     flexDirection: "row",
+    flexWrap: "wrap",
   },
   busNum: {
     fontSize: 16,
     marginRight: 8,
   },
   busLabel: {
+    marginTop: 1,
+    width: 32,
+    height: 22,
+    justifyContent: "center",
     backgroundColor: "#4B56F1",
-    paddingRight: 4,
-    paddingLeft: 4,
-    paddingTop: 2,
-    paddingBottom: 2,
     borderRadius: 4,
     marginRight: 5,
     alignItems: "center",

@@ -16,6 +16,10 @@ import HomeStack from "./HomeStack";
 import ReservationStack from "./ReservationStack";
 import MoreMenuStack from "./MoreMenuStack";
 import SearchStack from "./SearchStack";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const TabStack = () => {
   return (
@@ -28,7 +32,7 @@ const TabStack = () => {
         activeTintColor: "#4B56F1",
         inactiveTintColor: "rgba(0,0,0,0.6)",
         style: {
-          height: Platform.OS === "ios" ? 90 : 60,
+          height: Platform.OS === "ios" ? hp("10.5%") : 60,
         },
         pressColor: "black",
       }}

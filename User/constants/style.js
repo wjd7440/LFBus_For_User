@@ -17,6 +17,9 @@ export default StyleSheet.create({
   containerH: {
     paddingHorizontal: theme.SIZES.BASE * 1.2,
   },
+  containerMH: {
+    marginHorizontal: theme.SIZES.BASE * 1.2,
+  },
   leftAb: {
     left: theme.SIZES.BASE * 1.2,
   },

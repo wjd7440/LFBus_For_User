@@ -11,6 +11,10 @@ import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
 import { LinearGradient } from "expo-linear-gradient";
 import { Header } from "../../../components";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({
   busExist,
@@ -35,7 +39,6 @@ export default ({
   if (loading) {
     return null;
   } else {
-
     if (!busExist && data.UserBusInfo) {
       setBusExist(true);
     }
@@ -64,10 +67,10 @@ export default ({
                 </Text>
               </View>
             ) : (
-                <View style={{ ...styles.row, paddingTop: 2 }}>
-                  <Text style={{ fontSize: 16, color: "#FF4646" }}>진입중</Text>
-                </View>
-              )}
+              <View style={{ ...styles.row, paddingTop: 2 }}>
+                <Text style={{ fontSize: 16, color: "#FF4646" }}>진입중</Text>
+              </View>
+            )}
           </View>
           {/* 오른쪽박스 자리 여부 이미지 */}
           <View style={styles.right}>
@@ -81,14 +84,14 @@ export default ({
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
               </View>
             ) : (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/on_seat.png")}
-                  />
-                  <Text style={styles.onSeatTxt}>탑승중</Text>
-                </View>
-              )}
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/on_seat.png")}
+                />
+                <Text style={styles.onSeatTxt}>탑승중</Text>
+              </View>
+            )}
             {/* 좌석2 */}
             {data.UserBusInfo.SEAT2 ? (
               <View style={styles.seatImgBox}>
@@ -99,14 +102,14 @@ export default ({
                 <Text style={styles.offSeatTxt}>탑승가능</Text>
               </View>
             ) : (
-                <View style={styles.seatImgBox}>
-                  <Image
-                    style={styles.seatImg}
-                    source={require("../../../assets/on_seat.png")}
-                  />
-                  <Text style={styles.onSeatTxt}>탑승중</Text>
-                </View>
-              )}
+              <View style={styles.seatImgBox}>
+                <Image
+                  style={styles.seatImg}
+                  source={require("../../../assets/on_seat.png")}
+                />
+                <Text style={styles.onSeatTxt}>탑승중</Text>
+              </View>
+            )}
           </View>
 
           {/* <Text>CAR_REG_NO : {data.UserBusInfo.CAR_REG_NO}</Text> */}
@@ -129,7 +132,7 @@ const styles = StyleSheet.create({
   },
   busList: {
     borderBottomWidth: 1,
-    borderColor: "#ddd",
+    borderColor: "#f1f1f1",
     paddingRight: 15,
     paddingLeft: 15,
     paddingTop: 18,
@@ -144,17 +147,19 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   seatImgBox: {
-    paddingRight: 5,
-    paddingLeft: 5,
+    paddingRight: wp("0.8%"),
+    paddingLeft: wp("0.8%"),
+    justifyContent: "center",
+    alignItems: "center",
   },
   seatImg: {
-    width: 48,
-    height: 48,
+    width: wp("12%"),
+    height: wp("12%"),
     resizeMode: "contain",
   },
   offSeatTxt: {
     marginTop: 5,
-    fontSize: 12,
+    fontSize: wp("2.8%"),
     color: "#9a9a9a",
   },
   onSeatTxt: {

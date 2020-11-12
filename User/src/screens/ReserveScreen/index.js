@@ -16,6 +16,7 @@ import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
 import { TouchableRipple } from "react-native-paper";
+import Icon from "react-native-fontawesome-pro";
 
 import {
   widthPercentageToDP as wp,
@@ -23,6 +24,7 @@ import {
 } from "react-native-responsive-screen";
 
 export default ({ navigation, route }) => {
+  const [display, setDisplay] = useState(false);
   const [data, setData] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [busExist, setBusExist] = useState(false);
@@ -81,19 +83,15 @@ export default ({ navigation, route }) => {
     setTime(year + "/" + month + "/" + date + " " + hours + ":" + min);
 
     // }, 15000);
+    setTimeout(() => {
+      setDisplay(true);
+    }, 2000);
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={{ flex: 1 }}>
       {!loaded || !data[0] ? (
         <View style={{ flex: 1 }}>
-          <Header
-            title="버스 도착 정보"
-            // back
-            close
-            closeReplace={"HomeScreen"}
-            navigation={navigation}
-          />
           <View style={styles.loadingWrap}>
             <Text style={{ fontSize: 16, marginBottom: 15 }}>
               실시간 저상버스 정보를 검색중입니다.
@@ -102,75 +100,87 @@ export default ({ navigation, route }) => {
           </View>
         </View>
       ) : (
-          <View>
-            <Header
-              title="버스 도착 정보"
-              // back
-              close
-              closeNavigate={"HomeScreen"}
-              navigation={navigation}
+        <View style={{ flex: 1 }}>
+          <Header
+            title="버스 도착 정보"
+            // back
+            close
+            closeNavigate={"HomeScreen"}
+            navigation={navigation}
+            style={{
+              height: Platform.OS === "android" ? 55 : 50,
+              marginTop: Platform.OS === "android" ? 25 : 5,
+              alignItems: "center",
+              textAlign: "justify",
+              borderBottomWidth: 1,
+              borderColor: "#f5f5f5",
+              zIndex: 5,
+            }}
+          />
+          <ScrollView>
+            {data[0].itemList.map((rowData, index) => {
+              return (
+                <Fragment key={index}>
+                  {rowData.CAR_REG_NO && (
+                    <TouchableRipple
+                      rippleColor="rgba(0, 0, 0, .06)"
+                      underlayColor={"#f6f6f6"}
+                      onPress={() => {
+                        // navigation.navigate("ReservationScreen", {
+                        navigation.replace("BusInfoScreen", {
+                          DISTANCE: DISTANCE,
+                          CAR_REG_NO: rowData.CAR_REG_NO,
+                          ROUTE_NO: rowData.ROUTE_NO,
+                          STATUS_POS: rowData.STATUS_POS,
+                          EXTIME_MIN: rowData.EXTIME_MIN,
+                          DESTINATION: rowData.DESTINATION,
+                          ROUTE_TP: rowData.ROUTE_TP,
+                          ROUTE_CD: rowData.ROUTE_CD,
+                          BUS_STOP_ID: rowData.BUS_STOP_ID,
+                          BUSSTOP_NM: BUSSTOP_NM,
+                          BUS_NODE_ID: BUS_NODE_ID,
+                          GPS_LATI: GPS_LATI,
+                          GPS_LONG: GPS_LONG,
+                          equipment: !loading && user.UserInfo.equipment,
+                          memo: !loading && user.UserInfo.memo,
+                        });
+                      }}
+                    >
+                      <ResultDetailScreen
+                        busExist={busExist}
+                        setBusExist={setBusExist}
+                        DISTANCE={DISTANCE}
+                        CAR_REG_NO={rowData.CAR_REG_NO}
+                        ROUTE_NO={rowData.ROUTE_NO}
+                        STATUS_POS={rowData.STATUS_POS}
+                        EXTIME_MIN={rowData.EXTIME_MIN}
+                        DESTINATION={rowData.DESTINATION}
+                        ROUTE_TP={rowData.ROUTE_TP}
+                        ROUTE_CD={rowData.ROUTE_CD}
+                        BUSSTOP_NM={BUSSTOP_NM}
+                      />
+                    </TouchableRipple>
+                  )}
+                </Fragment>
+              );
+            })}
+          </ScrollView>
+          {!busExist && display && (
+            <View
               style={{
-                height: Platform.OS === "android" ? 55 : 50,
-                marginTop: Platform.OS === "android" ? 25 : 5,
+                flex: 1,
+                justifyContent: "center",
                 alignItems: "center",
-                textAlign: "justify",
-                borderBottomWidth: 1,
-                borderColor: "#f5f5f5",
-                zIndex: 5,
               }}
-            />
-            <ScrollView>
-              {data[0].itemList.map((rowData, index) => {
-                return (
-                  <Fragment key={index}>
-                    {rowData.CAR_REG_NO && (
-                      <TouchableRipple
-                        rippleColor="rgba(0, 0, 0, .06)"
-                        underlayColor={"#f6f6f6"}
-                        onPress={() => {
-                          // navigation.navigate("ReservationScreen", {
-                          navigation.replace("BusInfoScreen", {
-                            DISTANCE: DISTANCE,
-                            CAR_REG_NO: rowData.CAR_REG_NO,
-                            ROUTE_NO: rowData.ROUTE_NO,
-                            STATUS_POS: rowData.STATUS_POS,
-                            EXTIME_MIN: rowData.EXTIME_MIN,
-                            DESTINATION: rowData.DESTINATION,
-                            ROUTE_TP: rowData.ROUTE_TP,
-                            ROUTE_CD: rowData.ROUTE_CD,
-                            BUS_STOP_ID: rowData.BUS_STOP_ID,
-                            BUSSTOP_NM: BUSSTOP_NM,
-                            BUS_NODE_ID: BUS_NODE_ID,
-                            GPS_LATI: GPS_LATI,
-                            GPS_LONG: GPS_LONG,
-                            equipment: !loading && user.UserInfo.equipment,
-                            memo: !loading && user.UserInfo.memo,
-                          });
-                        }}
-                      >
-                        <ResultDetailScreen
-                          busExist={busExist}
-                          setBusExist={setBusExist}
-                          DISTANCE={DISTANCE}
-                          CAR_REG_NO={rowData.CAR_REG_NO}
-                          ROUTE_NO={rowData.ROUTE_NO}
-                          STATUS_POS={rowData.STATUS_POS}
-                          EXTIME_MIN={rowData.EXTIME_MIN}
-                          DESTINATION={rowData.DESTINATION}
-                          ROUTE_TP={rowData.ROUTE_TP}
-                          ROUTE_CD={rowData.ROUTE_CD}
-                          BUSSTOP_NM={BUSSTOP_NM}
-                        />
-                      </TouchableRipple>
-                    )}
-                  </Fragment>
-                );
-              })}
-
-              {!busExist && (<Text>현재 저상버스 도착정보가 없습니다.</Text>)}
-            </ScrollView>
-          </View>
-        )}
+            >
+              <Icon name="bus" type="solid" size={64} color={"#979797"} />
+              <Text style={{ fontSize: 16, color: "#676767", marginTop: 20 }}>
+                현재 저상버스 도착정보가 없습니다.
+              </Text>
+            </View>
+          )}
+        </View>
+      )}
     </View>
   );
 };
