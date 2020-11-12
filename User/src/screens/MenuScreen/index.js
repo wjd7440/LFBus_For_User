@@ -48,7 +48,7 @@ export default ({ navigation }) => {
     fetchPolicy: "network-only",
   });
 
-  const { data: reservation, reservationloading } = useQuery(
+  const { data: reservation, reservationloading, refetch } = useQuery(
     RESERVATION_LIST_QUERY,
     {
       fetchPolicy: "network-only",
@@ -123,11 +123,10 @@ export default ({ navigation }) => {
       if (arr[i][prop][0] === value) {
         setStatusPos(arr[i]["STATUS_POS"]);
         setExtimeMin(arr[i]["EXTIME_MIN"]);
-        setBusData;
         return true;
       } else {
-        setStatusPos("-");
-        setExtimeMin("-");
+        setStatusPos(false);
+        setExtimeMin(false);
       }
     }
     return false;
@@ -154,6 +153,7 @@ export default ({ navigation }) => {
     dataLoader();
     let timer = setInterval(() => {
       dataLoader();
+      refetch();
     }, 15000);
 
     return () => clearInterval(timer);
@@ -178,6 +178,23 @@ export default ({ navigation }) => {
       }
 
       Alert.alert("탑승요청이 정상적으로 취소되었습니다.");
+      navigation.replace("MenuScreen");
+    } catch (e) {
+      console.log(e);
+      Alert.alert("탑승요청 취소에 실패했습니다. 다시 시도해주세요.");
+      navigation.navigate("MenuScreen");
+    }
+  };
+
+  const onSubmit2 = async () => {
+    try {
+      reservationDeleteMutation({
+        variables: {
+          id: id,
+        },
+      });
+
+      Alert.alert("하차처리가 완료 되었습니다.");
       navigation.replace("MenuScreen");
     } catch (e) {
       console.log(e);
@@ -266,13 +283,14 @@ export default ({ navigation }) => {
                 <Text style={styles.busTit}>하차정류장</Text>
                 <Text style={styles.busInfo}>{arrivalStation}</Text>
               </View>
-              <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
+              {statusPos !== false ? <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
                 <Text style={styles.busTit}>버스위치</Text>
                 <Text style={styles.busInfo}>
                   {statusPos}정류장 전 ({extimeMin}분)
                 </Text>
-              </View>
-              <TouchableHighlight
+              </View> : <View></View>}
+
+              {extimeMin !== false || statusPos !== false ? <TouchableHighlight
                 style={{ ...styles.onButton, marginTop: 10 }}
                 underlayColor={"#333FDA"}
                 onPress={handleSubmit(onSubmit)}
@@ -280,7 +298,15 @@ export default ({ navigation }) => {
                 <Text style={{ fontSize: 16, color: "#fff" }}>
                   탑승 취소
                 </Text>
-              </TouchableHighlight>
+              </TouchableHighlight> : <TouchableHighlight
+                style={{ ...styles.onButton, marginTop: 10 }}
+                underlayColor={"#333FDA"}
+                onPress={handleSubmit(onSubmit2)}
+              >
+                  <Text style={{ fontSize: 16, color: "#fff" }}>
+                    하차 완료
+                </Text>
+                </TouchableHighlight>}
             </View>
           ) : (
               <View
