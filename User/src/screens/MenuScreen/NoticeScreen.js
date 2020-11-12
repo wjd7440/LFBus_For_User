@@ -16,7 +16,6 @@ export default ({ navigation }) => {
       <Header
         back
         title={"샘플"}
-        closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
       <Text>sample</Text>
