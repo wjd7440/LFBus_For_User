@@ -262,7 +262,7 @@ export default ({ navigation, route }) => {
           </View>
 
           {/* <Text>거리 : {DISTANCE}m</Text> */}
-          {DISTANCE < 500 ? (
+          {DISTANCE < 501 ? (
             <TouchableRipple
               underlayColor={"#333FDA"}
               rippleColor="rgba(51,63, 218, .8)"

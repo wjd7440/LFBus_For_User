@@ -226,27 +226,40 @@ export default ({ navigation, route }) => {
   useEffect(() => {
     if (!loading) {
       let tempItems = [];
-      const start_seq = data.UserBusRotationList.busRotations.filter((rowData) => {
-        return rowData.BUSSTOP_TP === 1 ? true : false;
-      });
-      const upTrainSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
-        return rowData.BUSSTOP_TP === 2 ? true : false;
-      });
-      const downTrainSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
-        return rowData.BUSSTOP_TP === 3 ? true : false;
-      });
-      const currentSeq = data.UserBusRotationList.busRotations.filter((rowData) => {
-        return rowData.BUS_NODE_ID === BUS_NODE_ID ? true : false;
-      });
-
+      const start_seq = data.UserBusRotationList.busRotations.filter(
+        (rowData) => {
+          return rowData.BUSSTOP_TP === 1 ? true : false;
+        }
+      );
+      const upTrainSeq = data.UserBusRotationList.busRotations.filter(
+        (rowData) => {
+          return rowData.BUSSTOP_TP === 2 ? true : false;
+        }
+      );
+      const downTrainSeq = data.UserBusRotationList.busRotations.filter(
+        (rowData) => {
+          return rowData.BUSSTOP_TP === 3 ? true : false;
+        }
+      );
+      const currentSeq = data.UserBusRotationList.busRotations.filter(
+        (rowData) => {
+          return rowData.BUS_NODE_ID === BUS_NODE_ID ? true : false;
+        }
+      );
 
       const array = data.UserBusRotationList.busRotations.filter((rowData) => {
         if (DIR === 0) {
           // console.log({ rowData: rowData.BUSSTOP_SEQ, currentSeq: currentSeq[0].BUSSTOP_SEQ, upTrainSeq: upTrainSeq[0].BUSSTOP_SEQ })
-          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ && rowData.BUSSTOP_SEQ <= upTrainSeq[0].BUSSTOP_SEQ ? true : false;
+          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ &&
+            rowData.BUSSTOP_SEQ <= upTrainSeq[0].BUSSTOP_SEQ
+            ? true
+            : false;
         } else {
           // console.log({ rowData: rowData.BUSSTOP_SEQ, currentSeq: currentSeq[0].BUSSTOP_SEQ, downTrainSeq: downTrainSeq[0].BUSSTOP_SEQ })
-          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ && rowData.BUSSTOP_SEQ <= downTrainSeq[0].BUSSTOP_SEQ ? true : false;
+          return rowData.BUSSTOP_SEQ >= currentSeq[0].BUSSTOP_SEQ &&
+            rowData.BUSSTOP_SEQ <= downTrainSeq[0].BUSSTOP_SEQ
+            ? true
+            : false;
         }
       });
 
@@ -540,7 +553,7 @@ export default ({ navigation, route }) => {
           </View>
           {/* 보유중인 포인트 내역 끝 // */}
           {maileage > 0 ? (
-            <TouchableOpacity style={{ marginBottom: 30 }}>
+            <View style={{ marginBottom: 30 }}>
               <Checkbox
                 checkboxStyle={{ borderWidth: 1 }}
                 color="#4B56F1"
@@ -572,43 +585,43 @@ export default ({ navigation, route }) => {
                 </Text>
                 가 차감됩니다.
               </Text>
-            </TouchableOpacity>
+            </View>
           ) : (
-              <TouchableOpacity style={{ marginBottom: 30 }}>
-                <Checkbox
-                  disabled={true}
-                  checkboxStyle={{ borderWidth: 1 }}
-                  color="#4B56F1"
-                  label="탑승 전 결제하겠습니다."
-                  labelStyle={{ fontSize: 16 }}
-                  onChange={() => setPay(!pay)}
-                  // flexDirection="row-reverse"
-                  style={{
-                    width: "100%",
-                    justifyContent: "center",
-                    height: 50,
-                    borderRadius: 4,
-                    borderWidth: 1,
-                    borderColor: "#4b56f1",
-                    // alignItems: "flex-start",
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "#767676",
-                    marginTop: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  탑승요금{" "}
-                  <Text style={{ fontWeight: "bold", color: "#111" }}>
-                    1,250P
+            <View style={{ marginBottom: 30 }}>
+              <Checkbox
+                disabled={true}
+                checkboxStyle={{ borderWidth: 1 }}
+                color="#4B56F1"
+                label="탑승 전 결제하겠습니다."
+                labelStyle={{ fontSize: 16 }}
+                onChange={() => setPay(!pay)}
+                // flexDirection="row-reverse"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  height: 50,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  borderColor: "#4b56f1",
+                  // alignItems: "flex-start",
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "#767676",
+                  marginTop: 6,
+                  textAlign: "center",
+                }}
+              >
+                탑승요금{" "}
+                <Text style={{ fontWeight: "bold", color: "#111" }}>
+                  1,250P
                 </Text>
                 가 차감됩니다.
               </Text>
-              </TouchableOpacity>
-            )}
+            </View>
+          )}
 
           {/* <Button
             title="취소하기"
@@ -630,14 +643,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableRipple>
         ) : (
-            <TouchableRipple
-              style={styles.offButton}
-              disabled={true}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.offButtonTxt}>탑승요청</Text>
-            </TouchableRipple>
-          )}
+          <TouchableRipple
+            style={styles.offButton}
+            disabled={true}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.offButtonTxt}>탑승요청</Text>
+          </TouchableRipple>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );

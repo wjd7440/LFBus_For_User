@@ -63,12 +63,10 @@ export default ({ navigation }) => {
           }}
         >
           <View style={[styles.flexRow]}>
-            <View>
-              <Text>급행</Text>
+            <View style={{ ...styles.busType, backgroundColor: "#F63A3A" }}>
+              <Text style={styles.busTypeTxt}>급행</Text>
             </View>
-            <Text style={styles.itemStyleTxt}>
-              {"급행 " + item.ROUTE_NO + "번"}
-            </Text>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
           </View>
         </TouchableHighlight>
       );
@@ -84,9 +82,12 @@ export default ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.itemStyleTxt}>
-            {"간선 " + item.ROUTE_NO + "번"}
-          </Text>
+          <View style={[styles.flexRow]}>
+            <View style={{ ...styles.busType, backgroundColor: "#3351E6" }}>
+              <Text style={styles.busTypeTxt}>간선</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
+          </View>
         </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 3) {
@@ -101,9 +102,12 @@ export default ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.itemStyleTxt}>
-            {"지선 " + item.ROUTE_NO + "번"}
-          </Text>
+          <View style={[styles.flexRow]}>
+            <View style={{ ...styles.busType, backgroundColor: "#5BB025" }}>
+              <Text style={styles.busTypeTxt}>지선</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
+          </View>
         </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 4) {
@@ -118,9 +122,12 @@ export default ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.itemStyleTxt}>
-            {"외곽 " + item.ROUTE_NO + "번"}
-          </Text>
+          <View style={[styles.flexRow]}>
+            <View style={{ ...styles.busType, backgroundColor: "#5BB025" }}>
+              <Text style={styles.busTypeTxt}>외곽</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
+          </View>
         </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 5) {
@@ -135,9 +142,12 @@ export default ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.itemStyleTxt}>
-            {"마을 " + item.ROUTE_NO + "번"}
-          </Text>
+          <View style={[styles.flexRow]}>
+            <View style={{ ...styles.busType, backgroundColor: "#3BA5F4" }}>
+              <Text style={styles.busTypeTxt}>마을</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
+          </View>
         </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 6) {
@@ -152,9 +162,12 @@ export default ({ navigation }) => {
             });
           }}
         >
-          <Text style={styles.itemStyleTxt}>
-            {"첨단 " + item.ROUTE_NO + "번"}
-          </Text>
+          <View style={[styles.flexRow]}>
+            <View style={{ ...styles.busType, backgroundColor: "#5BB025" }}>
+              <Text style={styles.busTypeTxt}>첨단</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>{item.ROUTE_NO + "번"}</Text>
+          </View>
         </TouchableHighlight>
       );
     }
@@ -209,6 +222,7 @@ export default ({ navigation }) => {
             underlineColorAndroid="transparent"
             placeholder="버스 번호를 입력해주세요."
             placeholderTextColor="#8D8E93"
+            keyboardType={"number-pad"}
           />
           <View style={styles.searchTabBox}>
             <TouchableRipple
@@ -236,7 +250,7 @@ export default ({ navigation }) => {
           </View>
 
           <FlatList
-            contentContainerStyle={{ flex: 1 }}
+            contentContainerStyle={{ flexGrow: 1 }}
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
             renderItem={ItemView}
@@ -293,8 +307,25 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 15,
     backgroundColor: "#f5f5f5",
+    borderBottomWidth: 1,
+    borderTopWidth: 1,
+    borderColor: "#efefef",
   },
   flexRow: {
     flexDirection: "row",
+    alignItems: "center",
+  },
+  busType: {
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 2,
+    marginRight: 5,
+    height: 18,
+  },
+  busTypeTxt: {
+    fontSize: 10,
+    paddingHorizontal: 4,
+    paddingVertical: 0,
+    color: "#fff",
   },
 });
