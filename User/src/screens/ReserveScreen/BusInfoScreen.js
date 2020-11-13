@@ -29,6 +29,9 @@ import { TouchableRipple } from "react-native-paper";
 import Icon from "react-native-fontawesome-pro";
 
 export default ({ navigation, route }) => {
+  const scrollViewToScroll = React.createRef();
+
+  const [dynamicHeight, setDynamicHeight] = useState(0);
   const ROUTE_NO = route.params ? route.params.ROUTE_NO : null;
   const ROUTE_CD = route.params ? route.params.ROUTE_CD : null;
   const BUSSTOP_NM = route.params ? route.params.BUSSTOP_NM : null;
@@ -61,7 +64,11 @@ export default ({ navigation, route }) => {
         // console.log(err);
       });
 
-    { liveData && liveData[0] && getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO") }
+    {
+      liveData &&
+        liveData[0] &&
+        getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO");
+    }
   };
 
   const { data, loading } = useQuery(BUS_ROTATION_LIST_QUERY, {
@@ -81,6 +88,16 @@ export default ({ navigation, route }) => {
       CAR_REG_NO: CAR_REG_NO[0],
     },
   });
+
+  useEffect(() => {
+    if (scrollViewToScroll.current) {
+      scrollViewToScroll.current.scrollTo({
+        x: 0,
+        y: dynamicHeight,
+        animated: true,
+      });
+    }
+  }, [scrollViewToScroll]);
 
   useEffect(() => {
     dataLoader();
@@ -140,13 +157,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                  <View style={styles.seatImgBox}>
-                    <Image
-                      style={styles.seatImg}
-                      source={require("../../../assets/on_seat.png")}
-                    />
-                  </View>
-                )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                </View>
+              )}
               {busInfo.UserBusInfo.SEAT2 ? (
                 <View style={styles.seatImgBox}>
                   <Image
@@ -155,13 +172,13 @@ export default ({ navigation, route }) => {
                   />
                 </View>
               ) : (
-                  <View style={styles.seatImgBox}>
-                    <Image
-                      style={styles.seatImg}
-                      source={require("../../../assets/on_seat.png")}
-                    />
-                  </View>
-                )}
+                <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/on_seat.png")}
+                  />
+                </View>
+              )}
             </View>
           }
         />
@@ -263,20 +280,20 @@ export default ({ navigation, route }) => {
                   equipment: !loading && user.UserInfo.equipment,
                   equipmentNa: !loading && user.UserInfo.equipmentName,
                   needHelp: !loading && user.UserInfo.needHelp,
-                  DIR: getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO")
+                  DIR: getDir(CAR_REG_NO, liveData[0].itemList, "PLATE_NO"),
                 });
               }}
             >
               <Text style={{ fontSize: 16, color: "#fff" }}>탑승요청</Text>
             </TouchableRipple>
           ) : (
-              <Text>
-                내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
-              </Text>
-            )}
+            <Text>
+              내 위치로부터 500m 내의 버스만 탑승요청을 하실 수 있습니다.
+            </Text>
+          )}
         </View>
         {/* 상단 버스 정보// */}
-        <ScrollView>
+        <ScrollView ref={scrollViewToScroll}>
           <View>
             {data.UserBusRotationList.busRotations.map((rowData, index) => {
               return (
@@ -286,6 +303,10 @@ export default ({ navigation, route }) => {
                       ? styles.onList
                       : styles.list,
                   ]}
+                  onLayout={(event) => {
+                    rowData.BUS_NODE_ID == BUS_NODE_ID &&
+                      setDynamicHeight(event.nativeEvent.layout.y);
+                  }}
                 >
                   <View style={styles.busState}>
                     {getIndex(
@@ -293,21 +314,21 @@ export default ({ navigation, route }) => {
                       liveData[0].itemList,
                       "BUS_NODE_ID"
                     ) ? (
-                        <Image
-                          style={[
-                            styles.busIcon,
-                            index % 5 !== 1 && { display: "none" },
-                          ]}
-                          source={require("../../../assets/busmarker.png")}
-                        />
-                      ) : (
-                        <Text></Text>
-                      )}
+                      <Image
+                        style={[
+                          styles.busIcon,
+                          index % 5 !== 1 && { display: "none" },
+                        ]}
+                        source={require("../../../assets/busmarker.png")}
+                      />
+                    ) : (
+                      <Text></Text>
+                    )}
                     <View
                       style={[
                         styles.line,
                         index ===
-                        data.UserBusRotationList.busRotations.length - 1 && {
+                          data.UserBusRotationList.busRotations.length - 1 && {
                           height: "50%",
                         },
                       ]}
@@ -319,7 +340,10 @@ export default ({ navigation, route }) => {
                   </View>
                   <View style={styles.busStationInfo}>
                     <Text style={styles.busStationName}>
-                      {rowData.BUSSTOP_NM}{rowData.BUSSTOP_TP === 1 ? <Text>(기점)</Text> : null}{rowData.BUSSTOP_TP === 2 ? <Text>(반환점)</Text> : null}{rowData.BUSSTOP_TP === 3 ? <Text>(종점)</Text> : null}
+                      {rowData.BUSSTOP_NM}
+                      {rowData.BUSSTOP_TP === 1 ? <Text>(기점)</Text> : null}
+                      {rowData.BUSSTOP_TP === 2 ? <Text>(반환점)</Text> : null}
+                      {rowData.BUSSTOP_TP === 3 ? <Text>(종점)</Text> : null}
                     </Text>
                     {/* {rowData.BUS_NODE_ID === BUS_NODE_ID ? (
                       <Text>내 위치</Text>

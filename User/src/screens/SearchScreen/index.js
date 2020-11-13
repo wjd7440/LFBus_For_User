@@ -7,10 +7,14 @@ import {
   FlatList,
   TextInput,
   TouchableOpacity,
+  ActivityIndicator,
+  StatusBar,
 } from "react-native";
 import { BUS_ROUTE_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { TouchableRipple } from "react-native-paper";
 
 export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(BUS_ROUTE_LIST_QUERY, {
@@ -142,33 +146,49 @@ export default ({ navigation }) => {
   const getItem = (item) => {
     alert("Id : " + item.id + " Title : " + item.title);
   };
-
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#4B56F1" />
+      </View>
+    );
   } else {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
-        <Header
-          back
-          title={"버스 노선 검색"}
-          closeNavigate={"HomeScreen"}
-          navigation={navigation}
-        />
+      <SafeAreaView style={{ flex: 1, marginTop: getStatusBarHeight() }}>
         <View style={styles.container}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("BusStationSearchScreen");
-            }}
-          >
-            <Text style={styles.menuText}>버스 정류장 검색</Text>
-          </TouchableOpacity>
           <TextInput
             style={styles.textInputStyle}
             onChangeText={(text) => searchFilterFunction(text)}
             value={search}
             underlineColorAndroid="transparent"
             placeholder="버스 번호를 입력해주세요."
+            placeholderTextColor="#8D8E93"
           />
+          <View style={styles.searchTabBox}>
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f6f6f6"}
+              style={[styles.OnSearchTabBtn, styles.searchTabBtn]}
+              onPress={() => {
+                navigation.navigate("BusStationSearchScreen");
+              }}
+              disabled={true}
+            >
+              <Text style={styles.OnSearchTabTxt}>버스</Text>
+            </TouchableRipple>
+
+            <TouchableRipple
+              rippleColor="rgba(0, 0, 0, .06)"
+              underlayColor={"#f6f6f6"}
+              style={[styles.searchTabBtn, styles.OffSearchTabBtn]}
+              onPress={() => {
+                navigation.navigate("BusStationSearchScreen");
+              }}
+            >
+              <Text style={styles.OffSearchTabTxt}>버스 정류장</Text>
+            </TouchableRipple>
+          </View>
+
           <FlatList
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
@@ -188,12 +208,36 @@ const styles = StyleSheet.create({
   itemStyle: {
     padding: 10,
   },
+  searchTabBox: {
+    flexDirection: "row",
+    borderBottomWidth: 1,
+    borderColor: "#ddd",
+  },
+  searchTabBtn: {
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: 15,
+    flex: 1,
+  },
+  OnSearchTabBtn: {
+    borderBottomWidth: 2,
+    borderColor: "#4B56F1",
+  },
+  OnSearchTabTxt: {
+    color: "#4B56F1",
+    fontSize: 15,
+  },
+  OffSearchTabBtn: {},
+  OffSearchTabTxt: {
+    color: "#8D8E93",
+    fontSize: 15,
+  },
   textInputStyle: {
-    height: 40,
-    borderWidth: 1,
-    paddingLeft: 20,
-    margin: 5,
-    borderColor: "#009688",
-    backgroundColor: "#FFFFFF",
+    marginTop: 10,
+    height: 56,
+    paddingLeft: 15,
+    fontSize: 15,
+    backgroundColor: "#f5f5f5",
   },
 });
