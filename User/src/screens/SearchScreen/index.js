@@ -9,12 +9,18 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   StatusBar,
+  TouchableHighlight,
 } from "react-native";
 import { BUS_ROUTE_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";
 import { getStatusBarHeight } from "react-native-status-bar-height";
 import { TouchableRipple } from "react-native-paper";
+import Icon from "react-native-fontawesome-pro";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(BUS_ROUTE_LIST_QUERY, {
@@ -46,7 +52,8 @@ export default ({ navigation }) => {
   const ItemView = ({ item }) => {
     if (item.ROUTE_TP === 1) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -55,12 +62,20 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"급행 " + item.ROUTE_NO + "번"}
-        </Text>
+          <View style={[styles.flexRow]}>
+            <View>
+              <Text>급행</Text>
+            </View>
+            <Text style={styles.itemStyleTxt}>
+              {"급행 " + item.ROUTE_NO + "번"}
+            </Text>
+          </View>
+        </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 2) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -69,12 +84,15 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"간선 " + item.ROUTE_NO + "번"}
-        </Text>
+          <Text style={styles.itemStyleTxt}>
+            {"간선 " + item.ROUTE_NO + "번"}
+          </Text>
+        </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 3) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -83,12 +101,15 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"지선 " + item.ROUTE_NO + "번"}
-        </Text>
+          <Text style={styles.itemStyleTxt}>
+            {"지선 " + item.ROUTE_NO + "번"}
+          </Text>
+        </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 4) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -97,12 +118,15 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"외곽 " + item.ROUTE_NO + "번"}
-        </Text>
+          <Text style={styles.itemStyleTxt}>
+            {"외곽 " + item.ROUTE_NO + "번"}
+          </Text>
+        </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 5) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -111,12 +135,15 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"마을 " + item.ROUTE_NO + "번"}
-        </Text>
+          <Text style={styles.itemStyleTxt}>
+            {"마을 " + item.ROUTE_NO + "번"}
+          </Text>
+        </TouchableHighlight>
       );
     } else if (item.ROUTE_TP === 6) {
       return (
-        <Text
+        <TouchableHighlight
+          underlayColor={"#f5f5f5"}
           style={styles.itemStyle}
           onPress={() => {
             navigation.navigate("BusRouteInfoScreen", {
@@ -125,8 +152,10 @@ export default ({ navigation }) => {
             });
           }}
         >
-          {"첨단 " + item.ROUTE_NO + "번"}
-        </Text>
+          <Text style={styles.itemStyleTxt}>
+            {"첨단 " + item.ROUTE_NO + "번"}
+          </Text>
+        </TouchableHighlight>
       );
     }
   };
@@ -143,6 +172,23 @@ export default ({ navigation }) => {
     );
   };
 
+  const NoneItem = () => {
+    return (
+      <View
+        style={{
+          justifyContent: "center",
+          alignItems: "center",
+          flex: 1,
+        }}
+      >
+        <Icon name="info-circle" type="light" size={28} color={"#767676"} />
+        <Text style={{ marginTop: 8, fontSize: 16, color: "#767676" }}>
+          검색결과가 없습니다.
+        </Text>
+      </View>
+    );
+  };
+
   const getItem = (item) => {
     alert("Id : " + item.id + " Title : " + item.title);
   };
@@ -155,7 +201,7 @@ export default ({ navigation }) => {
   } else {
     return (
       <SafeAreaView style={{ flex: 1, marginTop: getStatusBarHeight() }}>
-        <View style={styles.container}>
+        <View style={{ flex: 1 }}>
           <TextInput
             style={styles.textInputStyle}
             onChangeText={(text) => searchFilterFunction(text)}
@@ -190,10 +236,11 @@ export default ({ navigation }) => {
           </View>
 
           <FlatList
+            contentContainerStyle={{ flex: 1 }}
             data={filteredDataSource}
             keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={ItemSeparatorView}
             renderItem={ItemView}
+            ListEmptyComponent={NoneItem}
           />
         </View>
       </SafeAreaView>
@@ -206,7 +253,14 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   itemStyle: {
-    padding: 10,
+    paddingHorizontal: 15,
+    justifyContent: "center",
+    height: 54,
+    borderBottomWidth: 1,
+    borderBottomColor: "#efefef",
+  },
+  itemStyleTxt: {
+    fontSize: 15,
   },
   searchTabBox: {
     flexDirection: "row",
@@ -239,5 +293,8 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     fontSize: 15,
     backgroundColor: "#f5f5f5",
+  },
+  flexRow: {
+    flexDirection: "row",
   },
 });

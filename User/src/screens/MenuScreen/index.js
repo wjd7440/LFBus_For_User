@@ -17,6 +17,7 @@ import {
   Image,
   RefreshControl,
   ScrollView,
+  SafeAreaView,
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { useMutation } from "react-apollo-hooks";
@@ -29,6 +30,7 @@ import {
 import NumberFormat from "react-number-format";
 import axios from "axios";
 import Icon from "react-native-fontawesome-pro";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 export default ({ navigation }) => {
   const [reservationDeleteMutation] = useMutation(RESERVATION_DELETE_QUERY, {
@@ -204,16 +206,13 @@ export default ({ navigation }) => {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Header title="메뉴" />
       {/* <Appbar.Header style={{ backgroundColor: "#4B56F1" }}>
         <Appbar.Content title="메뉴" titleStyle={{ fontSize: 16 }} />
       </Appbar.Header> */}
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-      >
-        <View style={{ ...styles.container }}>
+      <ScrollView>
+        <View style={styles.container}>
           {/* 내 포인트 내역 */}
           <View style={[styles.shadow, styles.chargeBox]}>
             <View
@@ -283,52 +282,56 @@ export default ({ navigation }) => {
                 <Text style={styles.busTit}>하차정류장</Text>
                 <Text style={styles.busInfo}>{arrivalStation}</Text>
               </View>
-              {statusPos !== false ? <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
-                <Text style={styles.busTit}>버스위치</Text>
-                <Text style={styles.busInfo}>
-                  {statusPos}정류장 전 ({extimeMin}분)
-                </Text>
-              </View> : <View></View>}
+              {statusPos !== false ? (
+                <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
+                  <Text style={styles.busTit}>버스위치</Text>
+                  <Text style={styles.busInfo}>
+                    {statusPos}정류장 전 ({extimeMin}분)
+                  </Text>
+                </View>
+              ) : (
+                <View></View>
+              )}
 
-              {extimeMin !== false || statusPos !== false ? <TouchableHighlight
-                style={{ ...styles.onButton, marginTop: 10 }}
-                underlayColor={"#333FDA"}
-                onPress={handleSubmit(onSubmit)}
-              >
-                <Text style={{ fontSize: 16, color: "#fff" }}>
-                  탑승 취소
-                </Text>
-              </TouchableHighlight> : <TouchableHighlight
-                style={{ ...styles.onButton, marginTop: 10 }}
-                underlayColor={"#333FDA"}
-                onPress={handleSubmit(onSubmit2)}
-              >
-                  <Text style={{ fontSize: 16, color: "#fff" }}>
-                    하차 완료
-                </Text>
-                </TouchableHighlight>}
+              {extimeMin !== false || statusPos !== false ? (
+                <TouchableHighlight
+                  style={{ ...styles.onButton, marginTop: 10 }}
+                  underlayColor={"#333FDA"}
+                  onPress={handleSubmit(onSubmit)}
+                >
+                  <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
+                </TouchableHighlight>
+              ) : (
+                <TouchableHighlight
+                  style={{ ...styles.onButton, marginTop: 10 }}
+                  underlayColor={"#333FDA"}
+                  onPress={handleSubmit(onSubmit2)}
+                >
+                  <Text style={{ fontSize: 16, color: "#fff" }}>하차 완료</Text>
+                </TouchableHighlight>
+              )}
             </View>
           ) : (
-              <View
-                style={[
-                  styles.shadow,
-                  styles.contBox,
-                  styles.marginTop15,
-                  styles.nonebus,
-                ]}
+            <View
+              style={[
+                styles.shadow,
+                styles.contBox,
+                styles.marginTop15,
+                styles.nonebus,
+              ]}
+            >
+              <Text
+                style={{
+                  fontSize: 15,
+                  color: "#8D8E93",
+                  textAlign: "center",
+                  paddingVertical: 20,
+                }}
               >
-                <Text
-                  style={{
-                    fontSize: 15,
-                    color: "#8D8E93",
-                    textAlign: "center",
-                    paddingVertical: 20,
-                  }}
-                >
-                  탑승요청한 버스가 없습니다.
+                탑승요청한 버스가 없습니다.
               </Text>
-              </View>
-            )}
+            </View>
+          )}
 
           {/* [예약 없을 시] 버스예약확인 */}
           {/* <View
@@ -422,7 +425,7 @@ export default ({ navigation }) => {
           </View>
         </View>
       </ScrollView>
-    </>
+    </SafeAreaView>
   );
 };
 

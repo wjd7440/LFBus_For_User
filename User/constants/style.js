@@ -66,6 +66,18 @@ export default StyleSheet.create({
   marginTopPull: {
     marginTop: -theme.SIZES.BASE * 1.2,
   },
+  marginTopPush: {
+    marginTop: theme.SIZES.BASE * 1.2,
+  },
+  marginTop0: {
+    marginTop: 0,
+  },
+  paddingTop0: {
+    paddingTop: 0,
+  },
+  paddingTopTheme: {
+    paddingVertical: theme.SIZES.BASE,
+  },
   sectionTitBox: {
     justifyContent: "center",
     height: 38,
@@ -126,5 +138,8 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  flexRow: {
+    flexDirection: "row",
   },
 });
