@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   RefreshControl,
+  ActivityIndicator,
 } from "react-native";
 import { Header } from "../../../components";
 import { ScrollView } from "react-native-gesture-handler";
@@ -22,7 +23,11 @@ export default ({ navigation }) => {
   });
 
   if (loading) {
-    return <Text>Loading...</Text>;
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size="large" color="#4B56F1" />
+      </View>
+    );
   } else {
     return (
       <View>

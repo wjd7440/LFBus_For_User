@@ -8,10 +8,11 @@ import {
   TouchableHighlight,
   RefreshControl,
   SafeAreaView,
+  NavigationActions,
 } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { Header } from "../../../components";
-import styles from "../../../styles";
+import style from "../../../constants/style";
 
 export default ({ navigation }) => {
   return (
@@ -21,18 +22,33 @@ export default ({ navigation }) => {
         <TouchableHighlight
           style={styles.notiList}
           underlayColor={"#f5f5f5"}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate("NoticeViewScreen");
+          }}
         >
-          <Text>공지사항</Text>
+          <View>
+            <Text style={styles.notiTit}>공지사항입니다.</Text>
+            <Text style={styles.notiDate}>2020.11.16</Text>
+          </View>
         </TouchableHighlight>
       </ScrollView>
     </SafeAreaView>
   );
 };
 
-// const styles = StyleSheet.create({
-//   notiList: {
-//     paddingHorizontal: 15,
-//     paddingVertical: 12,
-//   },
-// });
+const styles = StyleSheet.create({
+  ...style,
+  notiList: {
+    paddingHorizontal: 15,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderColor: "#f1f1f1",
+  },
+  notiTit: {
+    fontSize: 16,
+    lineHeight: 26,
+  },
+  notiDate: {
+    color: "#767676",
+  },
+});

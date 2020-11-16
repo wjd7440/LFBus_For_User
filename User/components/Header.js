@@ -238,7 +238,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     textAlign: "justify",
     borderBottomWidth: 1,
-    borderColor: "#f5f5f5",
+    borderColor: "#f1f1f1",
     zIndex: 5,
     // marginHorizontal: -10,
   },

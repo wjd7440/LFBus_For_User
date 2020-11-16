@@ -419,7 +419,7 @@ export default ({ navigation }) => {
                   size={20}
                   color={"#111"}
                 />
-                <Text style={styles.menuText}>이용안내</Text>
+                <Text style={styles.menuText}>이용약관</Text>
               </View>
             </TouchableRipple>
           </View>

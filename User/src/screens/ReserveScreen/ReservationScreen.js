@@ -555,20 +555,20 @@ export default ({ navigation, route }) => {
           {maileage > 0 ? (
             <View style={{ marginBottom: 30 }}>
               <Checkbox
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
+                color="#fff"
+                checkboxStyle={{ backgroundColor: "#fff" }}
+                iconColor="#4B56F1"
                 label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
+                labelStyle={{ fontSize: 16, color: "#fff" }}
                 onChange={() => setPay(!pay)}
-                // flexDirection="row-reverse"
                 style={{
                   width: "100%",
                   justifyContent: "center",
                   height: 50,
                   borderRadius: 4,
                   borderWidth: 1,
+                  backgroundColor: "#4B56F1",
                   borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
                 }}
               />
               <Text
@@ -590,10 +590,10 @@ export default ({ navigation, route }) => {
             <View style={{ marginBottom: 30 }}>
               <Checkbox
                 disabled={true}
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
+                color="#fff"
+                iconColor="#4B56F1"
                 label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
+                labelStyle={{ fontSize: 16, color: "#fff" }}
                 onChange={() => setPay(!pay)}
                 // flexDirection="row-reverse"
                 style={{
@@ -602,8 +602,8 @@ export default ({ navigation, route }) => {
                   height: 50,
                   borderRadius: 4,
                   borderWidth: 1,
+                  backgroundColor: "#4B56F1",
                   borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
                 }}
               />
               <Text
