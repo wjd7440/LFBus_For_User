@@ -13,9 +13,12 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.LFBus.LFBus"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -23,7 +26,9 @@
     "android": {
       "package": "com.LFBus.LFBus",
       "config": {
-        "googleMaps": { "apiKey": "AIzaSyD90O-mwcnWH7HYB6r90lbS9ZjErDj3Xvo" }
+        "googleMaps": {
+          "apiKey": "AIzaSyD90O-mwcnWH7HYB6r90lbS9ZjErDj3Xvo"
+        }
       }
     }
   }
