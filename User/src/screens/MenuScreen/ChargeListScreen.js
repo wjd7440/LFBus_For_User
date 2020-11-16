@@ -8,6 +8,7 @@ import {
   TouchableOpacity,
   RefreshControl,
   ActivityIndicator,
+  KeyboardAvoidingView,
 } from "react-native";
 import { Header } from "../../../components";
 import { ScrollView } from "react-native-gesture-handler";
@@ -30,16 +31,14 @@ export default ({ navigation }) => {
     );
   } else {
     return (
-      <View>
+      <KeyboardAvoidingView style={{ flex: 1 }}>
         <Header title="사용 및 충전 내역" back />
         <ScrollView>
-          <View style={[styles.container, styles.marginTopPull]}>
+          <View style={{ flex: 1 }}>
             {data.UserMaileageList.maileages.map((rowData, index) => {
               const maileages = rowData.account;
               return (
-                <View
-                  style={[styles.list, styles.containerH, styles.marginPull]}
-                >
+                <View style={[styles.list, styles.containerH]}>
                   <View style={styles.left}>
                     <View style={{ justifyContent: "center", marginRight: 10 }}>
                       {rowData.account > 0 ? (
@@ -89,7 +88,7 @@ export default ({ navigation }) => {
             })}
           </View>
         </ScrollView>
-      </View>
+      </KeyboardAvoidingView>
     );
   }
 };
