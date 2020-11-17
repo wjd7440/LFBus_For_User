@@ -1,7 +1,10 @@
 import { StyleSheet, Dimensions } from "react-native";
 import { theme } from "galio-framework";
 import { Images, wezonTheme } from "../constants";
-
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 const iPhoneX = () =>
   Platform.OS === "ios" &&
   (height === 812 || width === 812 || height === 896 || width === 896);
@@ -11,20 +14,20 @@ const { width, height } = Dimensions.get("screen");
 export default StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: theme.SIZES.BASE * 1.2,
-    paddingVertical: theme.SIZES.BASE,
+    paddingHorizontal: wp("3.75%"),
+    paddingVertical: wp("3.75%"),
   },
   containerH: {
-    paddingHorizontal: theme.SIZES.BASE * 1.2,
+    paddingHorizontal: wp("3.75%"),
   },
   containerMH: {
-    marginHorizontal: theme.SIZES.BASE * 1.2,
+    marginHorizontal: wp("3.75%"),
   },
   leftAb: {
-    left: theme.SIZES.BASE * 1.2,
+    left: wp("3.75%"),
   },
   rightAb: {
-    right: theme.SIZES.BASE * 1.2,
+    right: wp("3.75%"),
   },
   shadow: {
     backgroundColor: "#fff",
@@ -42,41 +45,75 @@ export default StyleSheet.create({
   emptyLine: {
     height: 5,
     backgroundColor: "#f5f5f5",
-    marginHorizontal: -theme.SIZES.BASE * 1.2,
-    marginVertical: 30,
+    marginHorizontal: -wp("3.75%"),
+    marginVertical: wp("7.5%"),
   },
   emptyLine2: {
     height: 5,
     backgroundColor: "#f5f5f5",
-    marginHorizontal: -theme.SIZES.BASE * 1.2,
+    marginHorizontal: -wp("3.75%"),
   },
   itemBox: {
     flexWrap: "wrap",
     flexDirection: "row",
   },
   colum3: {
-    width:
-      Dimensions.get("window").width * 0.348888888888888888 -
-      theme.SIZES.BASE * 1.2,
+    width: Dimensions.get("window").width * 0.348888888888888888 - wp("3.75%"),
     borderWidth: 1,
   },
   marginPull: {
-    marginHorizontal: -theme.SIZES.BASE * 1.2,
+    marginHorizontal: -wp("3.75%"),
   },
   marginTopPull: {
-    marginTop: -theme.SIZES.BASE * 1.2,
+    marginTop: -wp("3.75%"),
   },
   marginTopPush: {
-    marginTop: theme.SIZES.BASE * 1.2,
+    marginTop: wp("3.75%"),
   },
   marginTop0: {
     marginTop: 0,
+  },
+  mT5: {
+    marginTop: 5,
+  },
+  mT10: {
+    marginTop: 10,
+  },
+  mT15: {
+    marginTop: 15,
+  },
+  mT20: {
+    marginTop: 20,
+  },
+  mT25: {
+    marginTop: 25,
+  },
+  mT30: {
+    marginTop: 30,
+  },
+  mB5: {
+    marginBottom: 5,
+  },
+  mB10: {
+    marginBottom: 10,
+  },
+  mB15: {
+    marginBottom: 15,
+  },
+  mB20: {
+    marginBottom: 20,
+  },
+  mB25: {
+    marginBottom: 25,
+  },
+  mB30: {
+    marginBottom: 30,
   },
   paddingTop0: {
     paddingTop: 0,
   },
   paddingTopTheme: {
-    paddingVertical: theme.SIZES.BASE,
+    paddingVertical: wp("3.75%"),
   },
   sectionTitBox: {
     justifyContent: "center",
@@ -93,29 +130,29 @@ export default StyleSheet.create({
     justifyContent: "center",
     textAlign: "center",
     alignItems: "center",
-    height: 56,
+    height: wp("13.82%"),
     borderRadius: 4,
   },
   onButtonTxt: {
-    fontSize: 16,
+    fontSize: wp("3.95%"),
     color: "#fff",
   },
   offButton: {
-    height: 56,
+    height: wp("13.82%"),
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#DCDDDF",
     borderRadius: 4,
   },
   offButtonTxt: {
-    fontSize: 16,
+    fontSize: wp("3.95%"),
     color: "#A3A4A9",
   },
   formControl: {
-    paddingVertical: 15,
+    paddingVertical: wp("3.7%"),
   },
   formControlTit: {
-    fontSize: 16,
+    fontSize: wp("3.95%"),
     marginBottom: 7,
     fontWeight: "bold",
   },
@@ -131,7 +168,7 @@ export default StyleSheet.create({
   },
   defalutForm2: {},
   defalutFormTxt: {
-    fontSize: 16,
+    fontSize: wp("3.95%"),
     color: "#565656",
   },
   center: {

@@ -19,6 +19,10 @@ import ResultDetailItemScreen from "./ResultDetailItemScreen";
 import StationListDetailItemScreen from "./StationListDetailItemScreen";
 import { ScrollView } from "react-native-gesture-handler";
 import style from "../../../constants/style";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 const { width, height } = Dimensions.get("window");
 
@@ -152,9 +156,9 @@ export default ({ navigation }) => {
             <View style={styles.busWrap}>
               <Text
                 style={{
-                  fontSize: 12,
-                  paddingTop: 5,
-                  paddingBottom: 5,
+                  fontSize: wp("3%"),
+                  paddingTop: 8,
+                  paddingBottom: 8,
                   marginRight: 20,
                   marginLeft: 20,
                   color: "#454545",
@@ -188,7 +192,7 @@ export default ({ navigation }) => {
                               />
                               <Text
                                 style={{
-                                  fontSize: 20,
+                                  fontSize: wp("5%"),
                                   color: "#4B56F1",
                                   fontWeight: "bold",
                                 }}
@@ -284,16 +288,16 @@ const styles = StyleSheet.create({
   },
   markerImg: {
     marginTop: 2,
-    width: 12,
-    height: 18,
+    width: wp("3%"),
+    height: wp("4.5%"),
   },
   busTit: {
-    fontSize: 20,
+    fontSize: wp("4.8%"),
     color: "#4B56F1",
     fontWeight: "bold",
   },
   busDirection: {
-    fontSize: 14,
+    fontSize: wp("3.4%"),
     color: "#a1a1a1",
     paddingBottom: 6,
   },
@@ -319,7 +323,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   busLabelTxt: {
-    fontSize: 12,
+    fontSize: wp("3%"),
     color: "white",
   },
   button: {
