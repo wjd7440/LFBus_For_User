@@ -200,8 +200,8 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.replace("내 주변 정류장", {
-                screen: "HomeScreen",
+              navigation.navigate("메뉴", {
+                screen: "MenuScreen",
               });
             } else {
               setLoaded(false);
@@ -587,41 +587,41 @@ export default ({ navigation, route }) => {
               </Text>
             </View>
           ) : (
-            <View style={{ marginBottom: 30 }}>
-              <Checkbox
-                disabled={true}
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
-                label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
-                onChange={() => setPay(!pay)}
-                // flexDirection="row-reverse"
-                style={{
-                  width: "100%",
-                  justifyContent: "center",
-                  height: 50,
-                  borderRadius: 4,
-                  borderWidth: 1,
-                  borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
-                }}
-              />
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: "#767676",
-                  marginTop: 6,
-                  textAlign: "center",
-                }}
-              >
-                탑승요금{" "}
-                <Text style={{ fontWeight: "bold", color: "#111" }}>
-                  1,250P
+              <View style={{ marginBottom: 30 }}>
+                <Checkbox
+                  disabled={true}
+                  checkboxStyle={{ borderWidth: 1 }}
+                  color="#4B56F1"
+                  label="탑승 전 결제하겠습니다."
+                  labelStyle={{ fontSize: 16 }}
+                  onChange={() => setPay(!pay)}
+                  // flexDirection="row-reverse"
+                  style={{
+                    width: "100%",
+                    justifyContent: "center",
+                    height: 50,
+                    borderRadius: 4,
+                    borderWidth: 1,
+                    borderColor: "#4b56f1",
+                    // alignItems: "flex-start",
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 14,
+                    color: "#767676",
+                    marginTop: 6,
+                    textAlign: "center",
+                  }}
+                >
+                  탑승요금{" "}
+                  <Text style={{ fontWeight: "bold", color: "#111" }}>
+                    1,250P
                 </Text>
                 가 차감됩니다.
               </Text>
-            </View>
-          )}
+              </View>
+            )}
 
           {/* <Button
             title="취소하기"
@@ -643,14 +643,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableRipple>
         ) : (
-          <TouchableRipple
-            style={styles.offButton}
-            disabled={true}
-            onPress={handleSubmit(onSubmit)}
-          >
-            <Text style={styles.offButtonTxt}>탑승요청</Text>
-          </TouchableRipple>
-        )}
+            <TouchableRipple
+              style={styles.offButton}
+              disabled={true}
+              onPress={handleSubmit(onSubmit)}
+            >
+              <Text style={styles.offButtonTxt}>탑승요청</Text>
+            </TouchableRipple>
+          )}
       </ScrollView>
     </KeyboardAvoidingView>
   );

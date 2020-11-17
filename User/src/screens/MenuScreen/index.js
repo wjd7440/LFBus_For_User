@@ -26,6 +26,7 @@ import {
   ACCOUNT_INFO_QUERY,
   RESERVATION_DELETE_QUERY,
   USER_MAILEAGE_WRITE_QUERY,
+  BUS_INFO_QUERY
 } from "../Queries";
 import NumberFormat from "react-number-format";
 import axios from "axios";
@@ -205,6 +206,15 @@ export default ({ navigation }) => {
     }
   };
 
+  const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
+    fetchPolicy: "network-only",
+    variables: {
+      CAR_REG_NO: CAR_REG_NO,
+    },
+  });
+
+  console.log(!busInfoLoading && busInfo && busInfo.UserBusInfo && busInfo.UserBusInfo.SEAT1)
+
   return (
     <SafeAreaView>
       <Header title="메뉴" />
@@ -275,6 +285,35 @@ export default ({ navigation }) => {
                 <Text style={styles.busInfo}>{ROUTE_NO}번</Text>
               </View>
               <View style={styles.busList}>
+                <Text style={styles.busTit}>좌석현황</Text>
+                <Text style={styles.busInfo}>{!busInfoLoading && busInfo && busInfo.UserBusInfo && busInfo.UserBusInfo.SEAT1 ? <View style={styles.seatImgBox}>
+                  <Image
+                    style={styles.seatImg}
+                    source={require("../../../assets/off_seat.png")}
+                  />
+                </View>
+                  :
+                  <View style={styles.seatImgBox}>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/on_seat.png")}
+                    />
+                  </View>}
+                  {!busInfoLoading && busInfo && busInfo.UserBusInfo && busInfo.UserBusInfo.SEAT2 ? <View style={styles.seatImgBox}>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/off_seat.png")}
+                    />
+                  </View>
+                    :
+                    <View style={styles.seatImgBox}>
+                      <Image
+                        style={styles.seatImg}
+                        source={require("../../../assets/on_seat.png")}
+                      />
+                    </View>}</Text>
+              </View>
+              <View style={styles.busList}>
                 <Text style={styles.busTit}>승차정류장</Text>
                 <Text style={styles.busInfo}>{departureStation}</Text>
               </View>
@@ -286,12 +325,12 @@ export default ({ navigation }) => {
                 <View style={{ ...styles.busList, borderBottomWidth: 0 }}>
                   <Text style={styles.busTit}>버스위치</Text>
                   <Text style={styles.busInfo}>
-                    {statusPos}정류장 전 ({extimeMin}분)
+                    {statusPos != 0 ? statusPos + "정류장 전" : "진입중"} ({extimeMin}분)
                   </Text>
                 </View>
               ) : (
-                <View></View>
-              )}
+                  <View></View>
+                )}
 
               {extimeMin !== false || statusPos !== false ? (
                 <TouchableHighlight
@@ -302,36 +341,36 @@ export default ({ navigation }) => {
                   <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
                 </TouchableHighlight>
               ) : (
-                <TouchableHighlight
-                  style={{ ...styles.onButton, marginTop: 10 }}
-                  underlayColor={"#333FDA"}
-                  onPress={handleSubmit(onSubmit2)}
-                >
-                  <Text style={{ fontSize: 16, color: "#fff" }}>하차 완료</Text>
-                </TouchableHighlight>
-              )}
+                  <TouchableHighlight
+                    style={{ ...styles.onButton, marginTop: 10 }}
+                    underlayColor={"#333FDA"}
+                    onPress={handleSubmit(onSubmit2)}
+                  >
+                    <Text style={{ fontSize: 16, color: "#fff" }}>하차 완료</Text>
+                  </TouchableHighlight>
+                )}
             </View>
           ) : (
-            <View
-              style={[
-                styles.shadow,
-                styles.contBox,
-                styles.marginTop15,
-                styles.nonebus,
-              ]}
-            >
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: "#8D8E93",
-                  textAlign: "center",
-                  paddingVertical: 20,
-                }}
+              <View
+                style={[
+                  styles.shadow,
+                  styles.contBox,
+                  styles.marginTop15,
+                  styles.nonebus,
+                ]}
               >
-                탑승요청한 버스가 없습니다.
+                <Text
+                  style={{
+                    fontSize: 15,
+                    color: "#8D8E93",
+                    textAlign: "center",
+                    paddingVertical: 20,
+                  }}
+                >
+                  탑승요청한 버스가 없습니다.
               </Text>
-            </View>
-          )}
+              </View>
+            )}
 
           {/* [예약 없을 시] 버스예약확인 */}
           {/* <View
