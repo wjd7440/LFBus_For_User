@@ -555,20 +555,20 @@ export default ({ navigation, route }) => {
           {maileage > 0 ? (
             <View style={{ marginBottom: 30 }}>
               <Checkbox
-                checkboxStyle={{ borderWidth: 1 }}
-                color="#4B56F1"
+                color="#fff"
+                checkboxStyle={{ backgroundColor: "#fff" }}
+                iconColor="#4B56F1"
                 label="탑승 전 결제하겠습니다."
-                labelStyle={{ fontSize: 16 }}
+                labelStyle={{ fontSize: 16, color: "#fff" }}
                 onChange={() => setPay(!pay)}
-                // flexDirection="row-reverse"
                 style={{
                   width: "100%",
                   justifyContent: "center",
                   height: 50,
                   borderRadius: 4,
                   borderWidth: 1,
+                  backgroundColor: "#4B56F1",
                   borderColor: "#4b56f1",
-                  // alignItems: "flex-start",
                 }}
               />
               <Text
@@ -587,36 +587,36 @@ export default ({ navigation, route }) => {
               </Text>
             </View>
           ) : (
-              <View style={{ marginBottom: 30 }}>
-                <Checkbox
-                  disabled={true}
-                  checkboxStyle={{ borderWidth: 1 }}
-                  color="#4B56F1"
-                  label="탑승 전 결제하겠습니다."
-                  labelStyle={{ fontSize: 16 }}
-                  onChange={() => setPay(!pay)}
-                  // flexDirection="row-reverse"
-                  style={{
-                    width: "100%",
-                    justifyContent: "center",
-                    height: 50,
-                    borderRadius: 4,
-                    borderWidth: 1,
-                    borderColor: "#4b56f1",
-                    // alignItems: "flex-start",
-                  }}
-                />
-                <Text
-                  style={{
-                    fontSize: 14,
-                    color: "#767676",
-                    marginTop: 6,
-                    textAlign: "center",
-                  }}
-                >
-                  탑승요금{" "}
-                  <Text style={{ fontWeight: "bold", color: "#111" }}>
-                    1,250P
+            <View style={{ marginBottom: 30 }}>
+              <Checkbox
+                disabled={true}
+                color="#fff"
+                iconColor="#4B56F1"
+                label="탑승 전 결제하겠습니다."
+                labelStyle={{ fontSize: 16, color: "#fff" }}
+                onChange={() => setPay(!pay)}
+                // flexDirection="row-reverse"
+                style={{
+                  width: "100%",
+                  justifyContent: "center",
+                  height: 50,
+                  borderRadius: 4,
+                  borderWidth: 1,
+                  backgroundColor: "#4B56F1",
+                  borderColor: "#4b56f1",
+                }}
+              />
+              <Text
+                style={{
+                  fontSize: 14,
+                  color: "#767676",
+                  marginTop: 6,
+                  textAlign: "center",
+                }}
+              >
+                탑승요금{" "}
+                <Text style={{ fontWeight: "bold", color: "#111" }}>
+                  1,250P
                 </Text>
                 가 차감됩니다.
               </Text>

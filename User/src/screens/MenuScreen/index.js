@@ -32,6 +32,10 @@ import NumberFormat from "react-number-format";
 import axios from "axios";
 import Icon from "react-native-fontawesome-pro";
 import { getStatusBarHeight } from "react-native-status-bar-height";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({ navigation }) => {
   const [reservationDeleteMutation] = useMutation(RESERVATION_DELETE_QUERY, {
@@ -257,14 +261,18 @@ export default ({ navigation }) => {
             >
               <View style={{ justifyContent: "center", alignItems: "center" }}>
                 <Text
-                  style={{ fontSize: 18, color: "#4B56F1", fontWeight: "700" }}
+                  style={{
+                    fontSize: wp("3.8%"),
+                    color: "#4B56F1",
+                    fontWeight: "700",
+                  }}
                 >
                   충전하기
                 </Text>
                 <Image
                   style={{
-                    width: 36,
-                    height: 36,
+                    width: wp("7%"),
+                    height: wp("7%"),
                     resizeMode: "contain",
                     marginTop: 3,
                   }}
@@ -458,7 +466,7 @@ export default ({ navigation }) => {
                   size={20}
                   color={"#111"}
                 />
-                <Text style={styles.menuText}>이용안내</Text>
+                <Text style={styles.menuText}>이용약관</Text>
               </View>
             </TouchableRipple>
           </View>
@@ -536,11 +544,11 @@ const styles = StyleSheet.create({
   },
   myPointTxt: {
     color: "#fff",
-    fontSize: 14,
+    fontSize: wp("3.1%"),
     textAlign: "center",
   },
   myPointNumber: {
-    fontSize: 28,
+    fontSize: wp("6%"),
     marginTop: 2,
     color: "#4B56F1",
     fontWeight: "bold",

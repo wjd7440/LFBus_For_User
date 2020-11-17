@@ -14,6 +14,7 @@ import { Button, Block, NavBar, Text, theme } from "galio-framework";
 import Icon from "react-native-fontawesome-pro";
 import wezonTheme from "../constants/Theme";
 import style from "../constants/style";
+import { getStatusBarHeight } from "react-native-status-bar-height";
 
 const { height, width } = Dimensions.get("window");
 const iPhoneX = () =>
@@ -234,11 +235,11 @@ const styles = StyleSheet.create({
   },
   navbar: {
     height: Platform.OS === "android" ? 55 : 50,
-    marginTop: Platform.OS === "android" ? 25 : 0,
+    marginTop: Platform.OS === "android" ? getStatusBarHeight() : 0,
     alignItems: "center",
     textAlign: "justify",
     borderBottomWidth: 1,
-    borderColor: "#f5f5f5",
+    borderColor: "#f1f1f1",
     zIndex: 5,
     // marginHorizontal: -10,
   },
