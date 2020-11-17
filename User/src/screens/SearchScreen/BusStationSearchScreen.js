@@ -1,113 +1,211 @@
-import React, { useState, useEffect, Component, Fragment } from "react";
+import React, { useState, useEffect } from "react";
 import {
-    View,
+    SafeAreaView,
     Text,
-    Button,
     StyleSheet,
+    View,
+    FlatList,
+    TextInput,
     TouchableOpacity,
-    RefreshControl,
+    ActivityIndicator,
+    StatusBar,
+    TouchableHighlight,
 } from "react-native";
-import { ScrollView } from "react-native-gesture-handler";
-import { Header } from "../../../components";
-import SearchableDropdown from "react-native-searchable-dropdown";
 import { BUS_STATION_SEARCH_LIST_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
-import style from "../../../constants/style";
-import { theme } from "galio-framework";
+import { Header } from "../../../components";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import { TouchableRipple } from "react-native-paper";
+import Icon from "react-native-fontawesome-pro";
+import {
+    widthPercentageToDP as wp,
+    heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({ navigation }) => {
-    const [busStationNo, setBusStationNo] = useState(null);
-    const [busStationName, setBusStationName] = useState(null);
-    const [items, setItemsArray] = useState([]);
     const { data, loading, refetch } = useQuery(BUS_STATION_SEARCH_LIST_QUERY, {
         fetchPolicy: "network-only",
     });
-    const originItems = !loading && data.UserBusStationSearchList.busStations;
+    const [search, setSearch] = useState("");
+    const [filteredDataSource, setFilteredDataSource] = useState([]);
+    const [masterDataSource, setMasterDataSource] = useState([]);
 
     useEffect(() => {
-        if (!loading) {
-            let tempItems = [];
-
-            originItems.map((rowData, index) => {
-                tempItems.push({
-                    id: rowData.BUS_NODE_ID,
-                    name: rowData.BUSSTOP_NM,
-                });
-            });
-            setItemsArray(tempItems);
-        }
+        setFilteredDataSource(!loading && data.UserBusStationSearchList.busStations);
+        setMasterDataSource(!loading && data.UserBusStationSearchList.busStations);
     }, [loading]);
+    const searchFilterFunction = (text) => {
+        if (text) {
+            const newData = masterDataSource.filter(function (item) {
+                const itemData = String(item.BUSSTOP_NM);
+                15;
+                return itemData.indexOf(text) > -1;
+            });
+            setFilteredDataSource(newData);
+            setSearch(text);
+        } else {
+            setFilteredDataSource(masterDataSource);
+            setSearch(text);
+        }
+    };
+
+    const ItemView = ({ item }) => {
+        return (
+            <TouchableHighlight
+                underlayColor={"#f5f5f5"}
+                style={styles.itemStyle}
+                onPress={() => {
+                    navigation.navigate("BusRouteInfoScreen", {
+                        ROUTE_CD: String(item.ROUTE_CD),
+                        ROUTE_NO: item.ROUTE_NO,
+                    });
+                }}
+            >
+                <View style={[styles.flexRow]}>
+                    <Text style={styles.itemStyleTxt}>{item.BUSSTOP_NM}</Text>
+                    <Text style={styles.itemStyleTxt}>{item.BUS_NODE_ID}</Text>
+                </View>
+            </TouchableHighlight>
+        );
+    };
+
+    const NoneItem = () => {
+        return (
+            <View
+                style={{
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flex: 1,
+                }}
+            >
+                <Icon name="info-circle" type="light" size={28} color={"#767676"} />
+                <Text style={{ marginTop: 8, fontSize: 16, color: "#767676" }}>
+                    검색결과가 없습니다.
+        </Text>
+            </View>
+        );
+    };
 
     if (loading) {
-        return <Text>Loading......</Text>;
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator size="large" color="#4B56F1" />
+            </View>
+        );
     } else {
         return (
-            <Fragment>
-                <Header
-                    back
-                    title={"버스 정류장 검색"}
-                />
-                <SearchableDropdown
-                    multi={true}
-                    containerStyle={{ padding: 15 }}
-                    onItemSelect={(item) => {
-                        setBusStationNo(item.id);
-                        setBusStationName(item.name);
-                    }}
-                    itemStyle={{
-                        padding: 10,
-                        marginTop: 2,
-                        backgroundColor: "#ddd",
-                        borderColor: "#bbb",
-                        borderWidth: 1,
-                        borderRadius: 5,
-                    }}
-                    itemTextStyle={{ color: "#222", fontSize: 16 }}
-                    itemsContainerStyle={{ maxHeight: 216 }}
-                    items={items}
-                    defaultIndex={0}
-                    chip={true}
-                    resetValue={false}
-                    textInputProps={{
-                        placeholder: "버스정류장을 검색해주세요.",
-                        underlineColorAndroid: "transparent",
-                        style: {
-                            padding: 12,
-                            borderWidth: 1,
-                            borderColor: "#ccc",
-                            borderRadius: 5,
-                            backgroundColor: "#fff",
-                        },
-                    }}
-                    listProps={{
-                        nestedScrollEnabled: true,
-                    }}
-                />
-                {busStationNo ? (
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate("BusStationSearchResultScreen", {
-                                BUS_NODE_ID: busStationNo,
-                                BUSSTOP_NM: busStationName,
-                            })
-                        }
-                    >
-                        <Text>검색</Text>
-                    </TouchableOpacity>
-                ) : (
-                        <TouchableOpacity
-                            disabled={true}
-                            onPress={() =>
-                                navigation.navigate("BusStationSearchResultScreen", {
-                                    BUS_NODE_ID: busStationNo,
-                                    BUSSTOP_NM: busStationName,
-                                })
-                            }
+            <SafeAreaView style={{ flex: 1, marginTop: getStatusBarHeight() }}>
+                <View style={{ flex: 1 }}>
+                    <TextInput
+                        style={styles.textInputStyle}
+                        onChangeText={(text) => searchFilterFunction(text)}
+                        value={search}
+                        underlineColorAndroid="transparent"
+                        placeholder="버스 정류장을 입력해주세요."
+                        placeholderTextColor="#8D8E93"
+                    />
+                    <View style={styles.searchTabBox}>
+                        <TouchableRipple
+                            rippleColor="rgba(0, 0, 0, .06)"
+                            underlayColor={"#f6f6f6"}
+                            style={[styles.OffSearchTabBtn, styles.searchTabBtn]}
+                            onPress={() => {
+                                navigation.navigate("BusStationSearchScreen");
+                            }}
                         >
-                            <Text>검색</Text>
-                        </TouchableOpacity>
-                    )}
-            </Fragment>
+                            <Text style={styles.OffSearchTabTxt}>버스</Text>
+                        </TouchableRipple>
+
+                        <TouchableRipple
+                            rippleColor="rgba(0, 0, 0, .06)"
+                            underlayColor={"#f6f6f6"}
+                            style={[styles.searchTabBtn, styles.OnSearchTabBtn]}
+                            onPress={() => {
+                                navigation.navigate("BusStationSearchScreen");
+                            }}
+                            disabled={true}
+                        >
+                            <Text style={styles.OnSearchTabTxt}>버스 정류장</Text>
+                        </TouchableRipple>
+                    </View>
+
+                    <FlatList
+                        contentContainerStyle={{ flexGrow: 1 }}
+                        data={filteredDataSource}
+                        keyExtractor={(item, index) => index.toString()}
+                        renderItem={ItemView}
+                        ListEmptyComponent={NoneItem}
+                    />
+                </View>
+            </SafeAreaView>
         );
     }
 };
+
+const styles = StyleSheet.create({
+    container: {
+        backgroundColor: "white",
+    },
+    itemStyle: {
+        paddingHorizontal: 15,
+        justifyContent: "center",
+        height: 54,
+        borderBottomWidth: 1,
+        borderBottomColor: "#efefef",
+    },
+    itemStyleTxt: {
+        fontSize: 15,
+    },
+    searchTabBox: {
+        flexDirection: "row",
+        borderBottomWidth: 1,
+        borderColor: "#ddd",
+    },
+    searchTabBtn: {
+        height: 50,
+        justifyContent: "center",
+        alignItems: "center",
+        fontSize: 15,
+        flex: 1,
+    },
+    OnSearchTabBtn: {
+        borderBottomWidth: 2,
+        borderColor: "#4B56F1",
+    },
+    OnSearchTabTxt: {
+        color: "#4B56F1",
+        fontSize: 15,
+    },
+    OffSearchTabBtn: {},
+    OffSearchTabTxt: {
+        color: "#8D8E93",
+        fontSize: 15,
+    },
+    textInputStyle: {
+        marginTop: 10,
+        height: 56,
+        paddingLeft: 15,
+        fontSize: 15,
+        backgroundColor: "#f5f5f5",
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: "#efefef",
+    },
+    flexRow: {
+        flexDirection: "row",
+        alignItems: "center",
+    },
+    busType: {
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: 2,
+        marginRight: 5,
+        height: 18,
+    },
+    busTypeTxt: {
+        fontSize: 10,
+        paddingHorizontal: 4,
+        paddingVertical: 0,
+        color: "#fff",
+    },
+});

@@ -146,6 +146,7 @@ export const BUS_STATION_SEARCH_LIST_QUERY = gql`
       busStations {
         BUS_NODE_ID
         BUSSTOP_NM
+        ROUTE_CD
       }
       count
     }
