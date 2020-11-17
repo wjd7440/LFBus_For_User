@@ -17,6 +17,10 @@ import { useQuery } from "react-apollo-hooks";
 import NumberFormat from "react-number-format";
 import style from "../../../constants/style";
 import Icon from "react-native-fontawesome-pro";
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from "react-native-responsive-screen";
 
 export default ({ navigation }) => {
   const { data, loading } = useQuery(USER_MAILEAGE_LIST_QUERY, {
@@ -101,16 +105,18 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
   },
   left: {
     flexDirection: "row",
   },
   mailTxt: {
-    fontSize: 16,
+    fontSize: wp("3.95%"),
   },
   mailNum: {
-    fontSize: 16,
-    fontWeight: "normal",
+    fontSize: wp("4.5%"),
+    fontWeight: "bold",
+    color: "#333",
   },
   date: {
     color: "#767676",
