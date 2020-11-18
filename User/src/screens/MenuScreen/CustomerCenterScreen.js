@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Text, Button, TouchableRipple } from "react-native-paper";
-import RadioGroup from "../../../components/RadioGroup";
-import CheckBox from "react-native-check-box";
+
 import {
   View,
   TextInput,
@@ -44,7 +43,9 @@ export default ({ navigation }) => {
             style={[styles.menuItem]}
             rippleColor="rgba(0, 0, 0, .06)"
             underlayColor={"#f5f5f5"}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate("UserQna");
+            }}
           >
             <View style={[styles.menuInner, styles.containerH]}>
               <Icon
@@ -61,7 +62,9 @@ export default ({ navigation }) => {
             style={[styles.menuItem]}
             rippleColor="rgba(0, 0, 0, .06)"
             underlayColor={"#f5f5f5"}
-            onPress={() => {}}
+            onPress={() => {
+              navigation.navigate("QuestionView");
+            }}
           >
             <View style={[styles.menuInner, styles.containerH]}>
               <Icon name="comment-dots" type="light" size={18} color={"#111"} />
