@@ -26,6 +26,7 @@ import { SIGNUP_QUERY, USERID_CHECK_QUERY } from "../Queries";
 import { Block, theme } from "galio-framework";
 import Provision1Modal from "./Provision1Modal";
 import { ScrollView } from "react-native-gesture-handler";
+import style from "../../../constants/style";
 
 const localGuArray = [
   {
@@ -297,15 +298,11 @@ const localArray = [
 
 const sexArray = [
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "남성",
     value: "남성",
     selected: true,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "여성",
     value: "여성",
     selected: false,
@@ -313,45 +310,66 @@ const sexArray = [
 ];
 const equipmentArray = [
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "수동휠체어",
     value: "0",
     selected: true,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동휠체어",
     value: "1",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "전동스쿠터",
     value: "2",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "유모차",
     value: "3",
     selected: false,
   },
   {
-    backgroundBtnColor: "#FFF6E3",
-    backgroundIconColor: "#FDB62B",
     label: "없음",
     value: "4",
     selected: false,
   },
 ];
 
+const ageArray = [
+  {
+    label: "10대",
+    value: "10",
+  },
+  {
+    label: "20대",
+    value: "20",
+  },
+  {
+    label: "30대",
+    value: "30",
+  },
+  {
+    label: "40대",
+    value: "40",
+  },
+  {
+    label: "50대",
+    value: "50",
+  },
+  {
+    label: "60대",
+    value: "60",
+  },
+  {
+    label: "70대 이상",
+    value: "70",
+  },
+];
+
 export default ({ navigation }) => {
   const [gu, setGu] = useState(0);
-  const [dong, setDong] = useState(0);
+  const [age, setAge] = useState(0);
   const [equipmentName, setEquipmentName] = useState();
   const [allProvision, setAllProvision] = useState(false);
   const [provision1IsVisible, setProvision1IsVisible] = useState(false);
@@ -363,6 +381,20 @@ export default ({ navigation }) => {
   const [UserIdCheckMutation] = useMutation(USERID_CHECK_QUERY);
   const provision1ToggleModal = () => {
     setProvision1IsVisible(!provision1IsVisible);
+  };
+  const pickerStyle = {
+    inputIOS: {
+      color: "#111",
+      paddingTop: 13,
+      paddingHorizontal: 10,
+      paddingBottom: 12,
+    },
+    inputAndroid: {
+      color: "#111",
+      borderBottomWidth: 1,
+    },
+    placeholderColor: "#111",
+    underline: { borderTopWidth: 1 },
   };
   const onSubmit = async (data) => {
     console.log(data);
@@ -577,27 +609,80 @@ export default ({ navigation }) => {
               </View>
 
               <View style={styles.formControl}>
-                <Text style={styles.question}>거주지</Text>
-                <View>
+                <Text style={styles.question}>연령대</Text>
+                <View
+                  style={{
+                    flex: 1,
+                    borderBottomWidth: 1,
+                    borderColor: "#ddd",
+                  }}
+                >
                   <RNPickerSelect
-                    name="gu"
+                    name="age"
                     placeholder={{
-                      label: "구 선택",
+                      label: "연령대 선택",
                       value: null,
                     }}
-                    onValueChange={(value) => setGu(value)}
-                    items={localGuArray}
+                    placeholderTextColor="blue"
+                    style={pickerStyle}
+                    onValueChange={(value) => setAge(value)}
+                    items={ageArray}
                   />
                 </View>
-                <RNPickerSelect
-                  name="dong"
-                  placeholder={{
-                    label: "동 선택",
-                    value: null,
+              </View>
+
+              <View style={styles.formControl}>
+                <Text style={styles.question}>거주지</Text>
+                <View
+                  style={{
+                    flex: 1,
+                    flexDirection: "row",
                   }}
-                  onValueChange={(value) => setDong(value)}
-                  items={localArray}
-                />
+                >
+                  <View
+                    style={{
+                      flex: 1,
+                      borderBottomWidth: 1,
+                      marginRight: 4,
+                      borderColor: "#ddd",
+                    }}
+                  >
+                    <RNPickerSelect
+                      name="gu"
+                      placeholder={{
+                        label: "구 선택",
+                        value: null,
+                      }}
+                      placeholderTextColor="blue"
+                      style={{
+                        placeholder: style.sel_placeholder,
+                        inputAndroid: style.sel_inputAnd,
+                        inputIOS: style.sel_inputIOS,
+                      }}
+                      onValueChange={(value) => setGu(value)}
+                      items={localGuArray}
+                    />
+                  </View>
+                  <View
+                    style={{
+                      flex: 1,
+                      borderBottomWidth: 1,
+                      marginLeft: 4,
+                      borderColor: "#ddd",
+                    }}
+                  >
+                    <RNPickerSelect
+                      name="dong"
+                      placeholder={{
+                        label: "동 선택",
+                        value: null,
+                      }}
+                      style={pickerStyle}
+                      onValueChange={(value) => setGu(value)}
+                      items={localGuArray}
+                    />
+                  </View>
+                </View>
               </View>
 
               <View style={styles.formControl}>
@@ -735,7 +820,7 @@ const styles = StyleSheet.create({
     marginBottom: hp("3%"),
   },
   formControl: {
-    marginBottom: 20,
+    marginBottom: 30,
   },
   question: {
     fontSize: 14,
@@ -743,7 +828,7 @@ const styles = StyleSheet.create({
     marginBottom: 3,
   },
   textForm: {
-    borderBottomWidth: 0.5,
+    borderBottomWidth: 1,
     borderColor: "#ddd",
     width: "100%",
     height: hp("6%"),
@@ -756,13 +841,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: hp("5%"),
   },
-  button: {
-    backgroundColor: "#46c3ad",
-    width: "100%",
-    height: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-  },
+
   buttonTitle: {
     color: "white",
   },
@@ -789,5 +868,12 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: "#FF3B3B",
     fontSize: 13,
+  },
+  sel_placeholder: {
+    color: "#111",
+    borderBottomWidth: 1,
+  },
+  sel_inputAnd: {
+    backgroundColor: "blue",
   },
 });

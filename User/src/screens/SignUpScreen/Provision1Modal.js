@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   StatusBar,
 } from "react-native";
-
+import Icon from "react-native-fontawesome-pro";
 import Modal from "react-native-modal";
 
 import { Block, Text, theme } from "galio-framework";
@@ -42,9 +42,7 @@ export default ({ isVisible, toggleModal }) => {
                 toggleModal();
               }}
             >
-              <Text center size={14} color={"#666"}>
-                닫기
-              </Text>
+              <Icon name="times" type="light" size={18} color={"#111"} />
             </TouchableOpacity>
           </Block>
         </Block>
