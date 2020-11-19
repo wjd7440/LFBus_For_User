@@ -351,6 +351,7 @@ const equipmentArray = [
 
 export default ({ navigation }) => {
   const [gu, setGu] = useState(0);
+  const [dong, setDong] = useState(0);
   const [equipmentName, setEquipmentName] = useState();
   const [allProvision, setAllProvision] = useState(false);
   const [provision1IsVisible, setProvision1IsVisible] = useState(false);
@@ -574,14 +575,31 @@ export default ({ navigation }) => {
                   flexDirection="row"
                 />
               </View>
-              {/* <Text style={styles.question}>거주지 : </Text>
-            <RNPickerSelect
-              name="gu"
-              onValueChange={
-                (value) => setGu(value)
-              }
-              items={localGuArray}
-            /> */}
+
+              <View style={styles.formControl}>
+                <Text style={styles.question}>거주지</Text>
+                <View>
+                  <RNPickerSelect
+                    name="gu"
+                    placeholder={{
+                      label: "구 선택",
+                      value: null,
+                    }}
+                    onValueChange={(value) => setGu(value)}
+                    items={localGuArray}
+                  />
+                </View>
+                <RNPickerSelect
+                  name="dong"
+                  placeholder={{
+                    label: "동 선택",
+                    value: null,
+                  }}
+                  onValueChange={(value) => setDong(value)}
+                  items={localArray}
+                />
+              </View>
+
               <View style={styles.formControl}>
                 <Text style={styles.question}>사용하는 보조기구</Text>
                 <RadioGroup
