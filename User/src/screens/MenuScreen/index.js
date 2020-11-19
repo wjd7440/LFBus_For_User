@@ -217,15 +217,8 @@ export default ({ navigation }) => {
     },
   });
 
-  console.log(
-    !busInfoLoading &&
-      busInfo &&
-      busInfo.UserBusInfo &&
-      busInfo.UserBusInfo.SEAT1
-  );
-
   return (
-    <SafeAreaView>
+    <SafeAreaView style={{ flex: 1 }}>
       <Header title="메뉴" />
       {/* <Appbar.Header style={{ backgroundColor: "#4B56F1" }}>
         <Appbar.Content title="메뉴" titleStyle={{ fontSize: 16 }} />
@@ -236,7 +229,7 @@ export default ({ navigation }) => {
           <View style={[styles.shadow, styles.chargeBox]}>
             <View
               style={{
-                padding: wp("5%"),
+                padding: 20,
                 borderRightWidth: 1,
                 borderColor: "#f1f1f1",
                 flex: 1,
@@ -250,17 +243,16 @@ export default ({ navigation }) => {
                 displayType={"text"}
                 thousandSeparator={true}
                 renderText={(maileage) => (
-                  <Text style={styles.myPointNumber}>{maileage} P</Text>
+                  <Text size={26} color={"#333"} style={styles.myPointNumber}>
+                    {maileage} P
+                  </Text>
                 )}
               />
             </View>
             <TouchableRipple
               rippleColor="rgba(0, 0, 0, .06)"
               underlayColor={"#f5f5f5"}
-              style={{
-                justifyContent: "center",
-                width: "30%",
-              }}
+              style={{ justifyContent: "center", padding: 20, width: "30%" }}
               onPress={() => {
                 navigation.navigate("ChargeScreen", { maileage: maileage });
               }}
@@ -268,7 +260,7 @@ export default ({ navigation }) => {
               <View style={{ justifyContent: "center", alignItems: "center" }}>
                 <Text
                   style={{
-                    fontSize: wp("4%"),
+                    fontSize: wp("3.8%"),
                     color: "#4B56F1",
                     fontWeight: "700",
                   }}
@@ -290,14 +282,7 @@ export default ({ navigation }) => {
 
           {count > 0 ? (
             <View style={[styles.shadow, styles.contBox, styles.marginTop15]}>
-              {}
-              <Text
-                style={{
-                  fontSize: wp("3.25%"),
-                  color: "#8D8E93",
-                  marginBottom: 5,
-                }}
-              >
+              <Text style={{ fontSize: 13, color: "#8D8E93", marginBottom: 5 }}>
                 탑승요청 버스 내역
               </Text>
               <View style={styles.busList}>
@@ -306,44 +291,36 @@ export default ({ navigation }) => {
               </View>
               <View style={styles.busList}>
                 <Text style={styles.busTit}>좌석현황</Text>
-                <Text style={styles.busInfo}>
+                <View style={styles.busSeat}>
                   {!busInfoLoading &&
                   busInfo &&
                   busInfo.UserBusInfo &&
                   busInfo.UserBusInfo.SEAT1 ? (
-                    <View style={styles.seatImgBox}>
-                      <Image
-                        style={styles.seatImg}
-                        source={require("../../../assets/off_seat.png")}
-                      />
-                    </View>
+                    <Image
+                      style={{ ...styles.seatImg, marginRight: 4 }}
+                      source={require("../../../assets/off_seat.png")}
+                    />
                   ) : (
-                    <View style={styles.seatImgBox}>
-                      <Image
-                        style={styles.seatImg}
-                        source={require("../../../assets/on_seat.png")}
-                      />
-                    </View>
+                    <Image
+                      style={{ ...styles.seatImg, marginRight: 4 }}
+                      source={require("../../../assets/on_seat.png")}
+                    />
                   )}
                   {!busInfoLoading &&
                   busInfo &&
                   busInfo.UserBusInfo &&
                   busInfo.UserBusInfo.SEAT2 ? (
-                    <View style={styles.seatImgBox}>
-                      <Image
-                        style={styles.seatImg}
-                        source={require("../../../assets/off_seat.png")}
-                      />
-                    </View>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/off_seat.png")}
+                    />
                   ) : (
-                    <View style={styles.seatImgBox}>
-                      <Image
-                        style={styles.seatImg}
-                        source={require("../../../assets/on_seat.png")}
-                      />
-                    </View>
+                    <Image
+                      style={styles.seatImg}
+                      source={require("../../../assets/on_seat.png")}
+                    />
                   )}
-                </Text>
+                </View>
               </View>
               <View style={styles.busList}>
                 <Text style={styles.busTit}>승차정류장</Text>
@@ -367,13 +344,11 @@ export default ({ navigation }) => {
 
               {extimeMin !== false || statusPos !== false ? (
                 <TouchableHighlight
-                  style={{ ...styles.onButton, marginTop: wp("2.5%") }}
+                  style={{ ...styles.onButton, marginTop: 10 }}
                   underlayColor={"#333FDA"}
                   onPress={handleSubmit(onSubmit)}
                 >
-                  <Text style={{ fontSize: wp("3.95%"), color: "#fff" }}>
-                    탑승 취소
-                  </Text>
+                  <Text style={{ fontSize: 16, color: "#fff" }}>탑승 취소</Text>
                 </TouchableHighlight>
               ) : (
                 <TouchableHighlight
@@ -422,12 +397,7 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Icon
-                  name="exchange"
-                  type="light"
-                  size={wp("4.44%")}
-                  color={"#111"}
-                />
+                <Icon name="exchange" type="light" size={18} color={"#111"} />
                 {/* <Image
                   style={styles.menuIcon}
                   source={require("../../../assets/menu_icon01.png")}
@@ -445,12 +415,7 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Icon
-                  name="bullhorn"
-                  type="light"
-                  size={wp("4.93%")}
-                  color={"#111"}
-                />
+                <Icon name="bullhorn" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>공지사항</Text>
               </View>
             </TouchableRipple>
@@ -469,12 +434,7 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Icon
-                  name="user"
-                  type="light"
-                  size={wp("4.93%")}
-                  color={"#111"}
-                />
+                <Icon name="user" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>계정관리</Text>
               </View>
             </TouchableRipple>
@@ -488,12 +448,7 @@ export default ({ navigation }) => {
               }}
             >
               <View style={styles.menuBox}>
-                <Icon
-                  name="envelope"
-                  type="light"
-                  size={wp("4.93%")}
-                  color={"#111"}
-                />
+                <Icon name="envelope" type="light" size={20} color={"#111"} />
                 <Text style={styles.menuText}>고객센터</Text>
               </View>
             </TouchableRipple>
@@ -536,7 +491,42 @@ const styles = StyleSheet.create({
   marginTop15: {
     marginTop: 15,
   },
-
+  mT5: {
+    marginTop: 5,
+  },
+  mT10: {
+    marginTop: 10,
+  },
+  mT15: {
+    marginTop: 15,
+  },
+  mT20: {
+    marginTop: 20,
+  },
+  mT25: {
+    marginTop: 25,
+  },
+  mT30: {
+    marginTop: 30,
+  },
+  mB5: {
+    marginBottom: 5,
+  },
+  mB10: {
+    marginBottom: 10,
+  },
+  mB15: {
+    marginBottom: 15,
+  },
+  mB20: {
+    marginBottom: 20,
+  },
+  mB25: {
+    marginBottom: 25,
+  },
+  mB30: {
+    marginBottom: 30,
+  },
   contBox: {
     paddingHorizontal: 15,
     paddingVertical: 20,
@@ -556,11 +546,11 @@ const styles = StyleSheet.create({
   },
   myPointTxt: {
     color: "#fff",
-    fontSize: wp("3.45%"),
+    fontSize: wp("3.1%"),
     textAlign: "center",
   },
   myPointNumber: {
-    fontSize: wp("6.8%"),
+    fontSize: wp("6%"),
     marginTop: 2,
     color: "#4B56F1",
     fontWeight: "bold",
@@ -585,6 +575,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     flex: 1,
   },
+  busSeat: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  seatImg: {
+    width: wp("6%"),
+    height: wp("6%"),
+  },
   onButton: {
     backgroundColor: "#4B56F1",
     width: "100%",
@@ -597,7 +595,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   menuBtn: {
-    height: wp("13.8%"),
+    height: 56,
     justifyContent: "center",
     paddingLeft: theme.SIZES.BASE * 1.2,
     paddingRight: theme.SIZES.BASE * 1.2,
@@ -607,12 +605,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   menuText: {
-    fontSize: wp("4.19%"),
+    fontSize: 17,
     marginLeft: 8,
   },
   menuIcon: {
     resizeMode: "contain",
-    width: wp("4.44%"),
-    height: wp("4.44%"),
+    width: 18,
+    height: 18,
   },
 });
