@@ -55,9 +55,8 @@ export default ({ navigation }) => {
                 underlayColor={"#f5f5f5"}
                 style={styles.itemStyle}
                 onPress={() => {
-                    navigation.navigate("BusRouteInfoScreen", {
-                        ROUTE_CD: String(item.ROUTE_CD),
-                        ROUTE_NO: item.ROUTE_NO,
+                    navigation.navigate("BusStationSearchResultScreen", {
+                        BUS_NODE_ID: item.BUS_NODE_ID,
                     });
                 }}
             >
@@ -110,7 +109,7 @@ export default ({ navigation }) => {
                             underlayColor={"#f6f6f6"}
                             style={[styles.OffSearchTabBtn, styles.searchTabBtn]}
                             onPress={() => {
-                                navigation.navigate("BusStationSearchScreen");
+                                navigation.navigate("SearchScreen");
                             }}
                         >
                             <Text style={styles.OffSearchTabTxt}>버스</Text>
