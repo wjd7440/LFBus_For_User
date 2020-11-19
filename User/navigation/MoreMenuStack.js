@@ -16,6 +16,8 @@ import NoticeScreen from "../src/screens/MenuScreen/NoticeScreen";
 import NoticeViewScreen from "../src/screens/MenuScreen/NoticeViewScreen";
 import ServiceGuideScreen from "../src/screens/MenuScreen/ServiceGuideScreen";
 import CustomerCenterScreen from "../src/screens/MenuScreen/CustomerCenterScreen";
+import UserFaq from "../src/screens/MenuScreen/UserFaq";
+import QuestionView from "../src/screens/MenuScreen/QuestionView";
 
 export default () => {
   return (
@@ -52,6 +54,8 @@ export default () => {
         name="CustomerCenterScreen"
         component={CustomerCenterScreen}
       />
+      <Stack.Screen name="UserFaq" component={UserFaq} />
+      <Stack.Screen name="QuestionView" component={QuestionView} />
     </Stack.Navigator>
   );
 };
