@@ -31,23 +31,23 @@ import style from "../../../constants/style";
 const localGuArray = [
   {
     label: "동구",
-    value: 0,
+    value: "동구",
   },
   {
     label: "중구",
-    value: 1,
+    value: "중구",
   },
   {
     label: "서구",
-    value: 2,
+    value: "서구",
   },
   {
     label: "유성구",
-    value: 3,
+    value: "유성구",
   },
   {
     label: "대덕구",
-    value: 4,
+    value: "대덕구",
   },
 ];
 
@@ -339,37 +339,35 @@ const equipmentArray = [
 const ageArray = [
   {
     label: "10대",
-    value: "10",
+    value: "10대",
   },
   {
     label: "20대",
-    value: "20",
+    value: "20대",
   },
   {
     label: "30대",
-    value: "30",
+    value: "30대",
   },
   {
     label: "40대",
-    value: "40",
+    value: "40대",
   },
   {
     label: "50대",
-    value: "50",
+    value: "50대",
   },
   {
     label: "60대",
-    value: "60",
+    value: "60대",
   },
   {
     label: "70대 이상",
-    value: "70",
+    value: "70대 이상",
   },
 ];
 
 export default ({ navigation }) => {
-  const [gu, setGu] = useState(0);
-  const [age, setAge] = useState(0);
   const [equipmentName, setEquipmentName] = useState();
   const [allProvision, setAllProvision] = useState(false);
   const [provision1IsVisible, setProvision1IsVisible] = useState(false);
@@ -416,7 +414,8 @@ export default ({ navigation }) => {
             userId: data.userId,
             password: data.password,
             sex: data.sex,
-            // gu: gu,
+            gu: data.gu,
+            age: data.age,
             equipment: data.equipment,
             equipmentName: equipmentName,
             needHelp: data.needHelp,
@@ -478,7 +477,8 @@ export default ({ navigation }) => {
       }
     );
     register({ name: "sex" }, { required: "성별을 선택해주세요." });
-    // register({ name: "gu" }, { required: "거주지를 선택해주세요." });
+    register({ name: "age" }, { required: "연령대를 선택해주세요." });
+    register({ name: "gu" }, { required: "거주지를 선택해주세요." });
     register(
       { name: "equipment" },
       {
@@ -626,9 +626,14 @@ export default ({ navigation }) => {
                     }}
                     placeholderTextColor="blue"
                     style={pickerStyle}
-                    onValueChange={(value) => setAge(value)}
+                    onValueChange={(value) => setValue("age", value, true)}
                     items={ageArray}
                   />
+                  {errors.age && (
+                  <Block>
+                    <Text style={styles.errorTxt}>{errors.age.message}</Text>
+                  </Block>
+                )}
                 </View>
               </View>
 
@@ -656,11 +661,16 @@ export default ({ navigation }) => {
                       }}
                       placeholderTextColor="blue"
                       style={pickerStyle}
-                      onValueChange={(value) => setGu(value)}
+                      onValueChange={(value) => setValue("gu",value, true)}                      
                       items={localGuArray}
                     />
+                    {errors.gu && (
+                    <Block>
+                      <Text style={styles.errorTxt}>{errors.gu.message}</Text>
+                    </Block>
+                  )}
                   </View>
-                  <View
+                  {/* <View
                     style={{
                       flex: 1,
                       borderBottomWidth: 1,
@@ -678,7 +688,7 @@ export default ({ navigation }) => {
                       onValueChange={(value) => setGu(value)}
                       items={localGuArray}
                     />
-                  </View>
+                  </View> */}
                 </View>
               </View>
 
@@ -694,7 +704,6 @@ export default ({ navigation }) => {
                     });
                     setValue("equipment", item.value, true);
                     setEquipmentName(item.label);
-                    console.log(equipmentName);
                   }}
                   flexDirection="column"
                 />
