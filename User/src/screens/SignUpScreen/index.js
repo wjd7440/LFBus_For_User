@@ -541,7 +541,7 @@ export default ({ navigation }) => {
                 <Text style={styles.question}>아이디(이메일)</Text>
                 <TextInput
                   style={styles.textForm}
-                  placeholder={"아이디를(이메일) 입력해주세요."}
+                  placeholder={"아이디(이메일)를 입력해주세요."}
                   name="userId"
                   onChangeText={(text) => {
                     var lowerCase = text.toLowerCase();

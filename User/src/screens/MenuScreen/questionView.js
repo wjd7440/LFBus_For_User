@@ -47,7 +47,7 @@ export default ({ navigation }) => {
             </View>
           </View>
           <View style={styles.QView}>
-            <Text style={styles.Qtit}>이메일</Text>
+            <Text style={[styles.Qtit, styles.mT5]}>이메일</Text>
             <View style={styles.QInputBox}>
               <TextInput
                 style={styles.QInput}
@@ -61,7 +61,7 @@ export default ({ navigation }) => {
             </View>
           </View>
           <View style={styles.QView}>
-            <Text style={styles.Qtit}>제목</Text>
+            <Text style={[styles.Qtit, styles.mT5]}>제목</Text>
             <View style={styles.QInputBox}>
               <TextInput
                 style={styles.QInput}
@@ -70,7 +70,7 @@ export default ({ navigation }) => {
             </View>
           </View>
           <View style={styles.QView}>
-            <Text style={styles.Qtit}>내용</Text>
+            <Text style={[styles.Qtit, styles.mT5]}>내용</Text>
             <View style={styles.QInputBox}>
               <TextInput
                 style={{ ...styles.QInput, textAlignVertical: "top" }}
@@ -93,7 +93,7 @@ export default ({ navigation }) => {
           >
             <Checkbox.Item
               label="개인정보처리방침에 동의합니다"
-              style={{ flexDirection: "column" }}
+              style={{ flexDirection: "row" }}
               status={checked ? "checked" : "unchecked"}
               color={"#111"}
               theme={{
@@ -142,10 +142,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   QInput: {
-    borderWidth: 2,
+    borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 4,
-    paddingVertical: 5,
+    paddingVertical: 8,
     paddingHorizontal: 10,
     fontSize: 14,
   },

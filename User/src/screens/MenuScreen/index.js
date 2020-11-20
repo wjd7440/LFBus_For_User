@@ -377,7 +377,7 @@ export default ({ navigation }) => {
                   paddingVertical: 20,
                 }}
               >
-                탑승요청한 버스의 실시간 정보를 불러오는중 입니다.
+                탑승요청한 버스가 없습니다.
               </Text>
             </View>
           )}
