@@ -386,8 +386,9 @@ export default ({ navigation }) => {
     inputIOS: {
       color: "#111",
       paddingTop: 13,
-      paddingHorizontal: 10,
+      paddingHorizontal: 8,
       paddingBottom: 12,
+      fontSize: 16,
     },
     inputAndroid: {
       color: "#111",
@@ -654,11 +655,7 @@ export default ({ navigation }) => {
                         value: null,
                       }}
                       placeholderTextColor="blue"
-                      style={{
-                        placeholder: style.sel_placeholder,
-                        inputAndroid: style.sel_inputAnd,
-                        inputIOS: style.sel_inputIOS,
-                      }}
+                      style={pickerStyle}
                       onValueChange={(value) => setGu(value)}
                       items={localGuArray}
                     />
@@ -876,4 +873,5 @@ const styles = StyleSheet.create({
   sel_inputAnd: {
     backgroundColor: "blue",
   },
+  sel_inputIOS: {},
 });
