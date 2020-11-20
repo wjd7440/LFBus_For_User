@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "react-apollo-hooks";
 import { USER_MAILEAGE_WRITE_QUERY, ACCOUNT_INFO_QUERY } from "../Queries";
@@ -61,6 +61,10 @@ export default ({ navigation, route }) => {
   const [maileageWriteMutation] = useMutation(USER_MAILEAGE_WRITE_QUERY, {
     refetchQueries: () => [{ query: ACCOUNT_INFO_QUERY }],
   });
+  useEffect(() => {
+    setValue(1000);
+    setPayment("신용카드");
+  }, []);
   const { handleSubmit, errors, watch } = useForm();
   const onSubmit = async () => {
     try {

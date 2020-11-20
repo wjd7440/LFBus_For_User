@@ -16,6 +16,7 @@ import HomeStack from "./HomeStack";
 import ReservationStack from "./ReservationStack";
 import MoreMenuStack from "./MoreMenuStack";
 import SearchStack from "./SearchStack";
+import ChargeStack from "./ChargeStack";
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -121,6 +122,13 @@ export default () => {
         <Stack.Screen
           name="예약"
           component={ReservationStack}
+          options={{
+            header: () => {},
+          }}
+        />
+        <Stack.Screen
+          name="충전"
+          component={ChargeStack}
           options={{
             header: () => {},
           }}

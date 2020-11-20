@@ -254,7 +254,10 @@ export default ({ navigation }) => {
               underlayColor={"#f5f5f5"}
               style={{ justifyContent: "center", padding: 20, width: "30%" }}
               onPress={() => {
-                navigation.navigate("ChargeScreen", { maileage: maileage });
+                navigation.navigate("충전", { 
+                  Screen:"ChargeScreen", 
+                  params: { maileage: maileage }
+                });
               }}
             >
               <View style={{ justifyContent: "center", alignItems: "center" }}>
