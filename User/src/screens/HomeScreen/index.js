@@ -30,6 +30,7 @@ export default ({ navigation }) => {
   const [latitude, setLatitude] = useState(36.35069);
   const [longitude, setLongitude] = useState(127.384787);
   const [loaded, setLoaded] = useState(false);
+  const [showsMyLocationButton, setShowsMyLocationButton] = useState(false);
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.0922;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -101,6 +102,10 @@ export default ({ navigation }) => {
                 region={region}
                 minZoomLevel={16}
                 maxZoomLevel={18}
+                showsUserLocation={true}
+                followsUserLocation={true}
+                showsMyLocationButton={showsMyLocationButton}
+                showsPointsOfInterest={true}
               >
                 {data.UserBusStationList &&
                   data.UserBusStationList.busStations.map((rowData, index) => (
@@ -116,7 +121,7 @@ export default ({ navigation }) => {
                         key={`Callout-${index}`}
                         tooltip={true}
                         onPress={() => {
-                          navigation.replace("ReserveScreen", {
+                          navigation.navigate("ReservationStack", {
                             BUS_NODE_ID: rowData.BUS_NODE_ID,
                             BUSSTOP_NM: rowData.BUSSTOP_NM,
                             DISTANCE: rowData.DISTANCE * 1000,
@@ -175,12 +180,15 @@ export default ({ navigation }) => {
                           activeOpacity={0.92}
                           style={[styles.busItem, styles.containerMH]}
                           onPress={() => {
-                            navigation.replace("ReserveScreen", {
-                              BUS_NODE_ID: rowData.BUS_NODE_ID,
-                              BUSSTOP_NM: rowData.BUSSTOP_NM,
-                              DISTANCE: rowData.DISTANCE * 1000,
-                              GPS_LATI: rowData.GPS_LATI,
-                              GPS_LONG: rowData.GPS_LONG,
+                            navigation.navigate("예약", {
+                              screen: "ReserveScreen",
+                              params:{
+                                  BUS_NODE_ID: rowData.BUS_NODE_ID,
+                                  BUSSTOP_NM: rowData.BUSSTOP_NM,
+                                  DISTANCE: rowData.DISTANCE * 1000,
+                                  GPS_LATI: rowData.GPS_LATI,
+                                  GPS_LONG: rowData.GPS_LONG,
+                              }
                             });
                           }}
                         >

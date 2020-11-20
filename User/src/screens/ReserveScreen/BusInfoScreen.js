@@ -135,8 +135,9 @@ export default ({ navigation, route }) => {
         <Header
           title={ROUTE_NO[0] + "번"}
           titleStyle={{ fontSize: 21, fontWeight: "500", color: "#111" }}
-          close
-          closeNavigate={"HomeScreen"}
+          back
+          // close
+          // closeNavigate={"HomeScreen"}
           navigation={navigation}
           style={{
             height: Platform.OS === "android" ? 55 : 50,
@@ -147,8 +148,8 @@ export default ({ navigation, route }) => {
             borderColor: "#f5f5f5",
             zIndex: 5,
           }}
-          left={
-            <View style={[styles.seatImgCont, styles.leftAb]}>
+          right={
+            <View style={[styles.seatImgCont, styles.rightAb]}>
               {busInfo.UserBusInfo.SEAT1 ? (
                 <View style={styles.seatImgBox}>
                   <Image

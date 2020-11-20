@@ -200,13 +200,11 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.navigate("메뉴", {
-                screen: "MenuScreen",
-              });
+              navigation.navigate("MenuScreen");
             } else {
               setLoaded(false);
               Alert.alert("예약에 실패했습니다. 다시 시도해주세요.");
-              navigation.replace("내 주변 정류장", {
+              navigation.navigate("내 주변 정류장", {
                 screen: "HomeScreen",
               });
             }
@@ -312,9 +310,10 @@ export default ({ navigation, route }) => {
   return (
     <KeyboardAvoidingView behavior="height" style={{ flex: 1 }}>
       <Header
+        back
         title="탑승요청"
-        close
-        closeNavigate={"HomeScreen"}
+        // close
+        // closeNavigate={"HomeScreen"}
         navigation={navigation}
       />
       <ScrollView keyboardShouldPersistTaps="always" nestedScrollEnabled={true}>

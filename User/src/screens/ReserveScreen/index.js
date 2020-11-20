@@ -103,9 +103,9 @@ export default ({ navigation, route }) => {
         <View style={{ flex: 1 }}>
           <Header
             title="버스 도착 정보"
-            // back
-            close
-            closeNavigate={"HomeScreen"}
+            back
+            // close
+            // closeNavigate={"HomeScreen"}
             navigation={navigation}
             style={{
               height: Platform.OS === "android" ? 55 : 50,

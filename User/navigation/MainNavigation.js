@@ -118,6 +118,13 @@ export default () => {
             header: () => {},
           }}
         />
+        <Stack.Screen
+          name="예약"
+          component={ReservationStack}
+          options={{
+            header: () => {},
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
