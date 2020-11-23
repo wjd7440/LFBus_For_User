@@ -31,270 +31,916 @@ import style from "../../../constants/style";
 const localGuArray = [
   {
     label: "동구",
-    value: "동구",
+    value: 1,
   },
   {
     label: "중구",
-    value: "중구",
+    value: 2,
   },
   {
     label: "서구",
-    value: "서구",
+    value: 3,
   },
   {
     label: "유성구",
-    value: "유성구",
+    value: 4,
   },
   {
     label: "대덕구",
-    value: "대덕구",
+    value: 5,
   },
 ];
 
-const localArray = [
-  {
-    0: {
-      displayText: "동구",
-      localDongCode: {
-        1: "가양1동",
-        2: "가양2동",
-        3: "가양동",
-        4: "가오동",
-        5: "구도동",
-        6: "낭월동",
-        7: "내탑동",
-        8: "대동",
-        9: "대별동",
-        10: "대성동",
-        11: "대청동",
-        12: "마산동",
-        13: "비룡동",
-        14: "사성동",
-        15: "산내동",
-        16: "삼괴동",
-        17: "삼성동",
-        18: "삼정동",
-        19: "상소동",
-        20: "성남동",
-        21: "세천동",
-        22: "소제동",
-        23: "소호동",
-        24: "신상동",
-        25: "신안동",
-        26: "신인동",
-        27: "신촌동",
-        28: "신하동",
-        29: "신흥동",
-        30: "오동",
-        31: "용계동",
-        32: "용운동",
-        33: "용전동",
-        34: "원동",
-        35: "이사동",
-        36: "인동",
-        37: "자양동",
-        38: "장척동",
-        39: "정동",
-        40: "주산동",
-        41: "주촌동",
-        42: "중동",
-        43: "중앙동",
-        44: "직동",
-        45: "천동",
-        46: "추동",
-        47: "판암1동",
-        48: "판암2동",
-        49: "판암동",
-        50: "하소동",
-        51: "홍도동",
-        52: "효동",
-        53: "효평동",
-      },
+const localDongArray = {
+    1: {      
+      local_dong_code: [
+        {
+          label: "가양1동",
+          value: 0,
+        },
+        {
+          label: "가양2동",
+          value: 1,
+        },
+        {
+          label: "가양동",
+          value: 2,
+        },
+        {
+          label: "가오동",
+          value: 3,
+        },
+        {
+          label: "구도동",
+          value: 4,
+        },
+        {
+          label: "낭월동",
+          value: 5,
+        },
+        {
+          label: "내탑동",
+          value: 6,
+        },
+        {
+          label: "대동",
+          value: 7,
+        },
+        {
+          label: "대별동",
+          value: 8,
+        },
+        {
+          label: "대성동",
+          value: 9,
+        },
+        {
+          label: "대청동",
+          value: 10,
+        },
+        {
+          label: "마산동",
+          value: 11,
+        },
+        {
+          label: "비룡동",
+          value: 12,
+        },
+        {
+          label: "사성동",
+          value: 13,
+        },
+        {
+          label: "산내동",
+          value: 14,
+        },
+        {
+          label: "삼괴동",
+          value: 15,
+        },
+        {
+          label: "삼성동",
+          value: 16,
+        },
+        {
+          label: "상소동",
+          value: 17,
+        },
+        {
+          label: "성남동",
+          value: 18,
+        },
+        {
+          label: "세천동",
+          value: 19,
+        },
+        {
+          label: "소제동",
+          value: 20,
+        },
+        {
+          label: "소호동",
+          value: 21,
+        },
+        {
+          label: "신상동",
+          value: 22,
+        },
+        {
+          label: "신안동",
+          value: 23,
+        },
+        {
+          label: "신인동",
+          value: 24,
+        },
+        {
+          label: "신촌동",
+          value: 25,
+        },
+        {
+          label: "신하동",
+          value: 26,
+        },
+        {
+          label: "신흥동",
+          value: 27,
+        },
+        {
+          label: "오동",
+          value: 28,
+        },
+        {
+          label: "용계동",
+          value: 29,
+        },
+        {
+          label: "용운동",
+          value: 30,
+        },
+        {
+          label: "용전동",
+          value: 31,
+        },
+        {
+          label: "원동",
+          value: 32,
+        },
+        {
+          label: "이사동",
+          value: 33,
+        },
+        {
+          label: "인동",
+          value: 34,
+        },
+        {
+          label: "자양동",
+          value: 35,
+        },
+        {
+          label: "자양동",
+          value: 36,
+        },
+        {
+          label: "장척동",
+          value: 37,
+        },
+        {
+          label: "정동",
+          value: 38,
+        },
+        {
+          label: "주산동",
+          value: 39,
+        },
+        {
+          label: "주촌동",
+          value: 40,
+        },
+        {
+          label: "중동",
+          value: 41,
+        },
+        {
+          label: "중앙동",
+          value: 42,
+        },
+        {
+          label: "직동",
+          value: 43,
+        },
+        {
+          label: "천동",
+          value: 44,
+        },
+        {
+          label: "추동",
+          value: 45,
+        },
+        {
+          label: "판암1동",
+          value: 46,
+        },
+        {
+          label: "판암2동",
+          value: 47,
+        },
+        {
+          label: "판암동",
+          value: 48,
+        },
+        {
+          label: "하소동",
+          value: 49,
+        },
+        {
+          label: "홍도동",
+          value: 50,
+        },
+        {
+          label: "효동",
+          value: 51,
+        },
+        {
+          label: "효평동",
+          value: 52,
+        },
+      ]      
     },
-    1: {
-      displayText: "중구",
-      local_dong_code: {
-        60: "구완동",
-        61: "금동",
-        62: "대사동",
-        63: "대흥동",
-        64: "목달동",
-        65: "목동",
-        66: "무수동",
-        67: "문창동",
-        68: "문화1동",
-        69: "문화2동",
-        70: "문화동",
-        71: "부사동",
-        72: "사정동",
-        73: "산성동",
-        74: "석교동",
-        75: "선화동",
-        76: "안영동",
-        77: "어남동",
-        78: "오류동",
-        79: "옥계동",
-        80: "용두동",
-        81: "유천1동",
-        82: "유천2동",
-        83: "유천동",
-        84: "은행동",
-        85: "은행선화동",
-        86: "정생동",
-        87: "중촌동",
-        88: "침산동",
-        89: "태평1동",
-        90: "태평2동",
-        91: "태평동",
-        92: "호동",
-      },
+    2: {      
+      local_dong_code: [
+        {
+          label: "구완동",
+          value: 0,
+        },
+        {
+          label: "금동",
+          value: 1,
+        },
+        {
+          label: "대사동",
+          value: 2,
+        },
+        {
+          label: "대흥동",
+          value: 3,
+        },
+        {
+          label: "목달동",
+          value: 4,
+        },
+        {
+          label: "목동",
+          value: 5,
+        },
+        {
+          label: "무수동",
+          value: 6,
+        },
+        {
+          label: "문창동",
+          value: 7,
+        },
+        {
+          label: "문화1동",
+          value: 8,
+        },
+        {
+          label: "문화2동",
+          value: 9,
+        },
+        {
+          label: "문화동",
+          value: 10,
+        },
+        {
+          label: "부사동",
+          value: 11,
+        },
+        {
+          label: "사정동",
+          value: 12,
+        },
+        {
+          label: "산성동",
+          value: 13,
+        },
+        {
+          label: "석교동",
+          value: 14,
+        },
+        {
+          label: "선화동",
+          value: 15,
+        },
+        {
+          label: "안영동",
+          value: 16,
+        },
+        {
+          label: "어남동",
+          value: 17,
+        },
+        {
+          label: "오류동",
+          value: 18,
+        },
+        {
+          label: "옥계동",
+          value: 19,
+        },
+        {
+          label: "용두동",
+          value: 20,
+        },
+        {
+          label: "유천1동",
+          value: 21,
+        },
+        {
+          label: "유천2동",
+          value: 22,
+        },
+        {
+          label: "유천동",
+          value: 23,
+        },
+        {
+          label: "은행동",
+          value: 24,
+        },
+        {
+          label: "은행선화동",
+          value: 25,
+        },
+        {
+          label: "은행선화동",
+          value: 26,
+        },
+        {
+          label: "정생동",
+          value: 27,
+        },
+        {
+          label: "중촌동",
+          value: 28,
+        },
+        {
+          label: "침산동",
+          value: 29,
+        },
+        {
+          label: "태평1동",
+          value: 30,
+        },
+        {
+          label: "태평2동",
+          value: 31,
+        },
+        {
+          label: "태평동",
+          value: 32,
+        },
+        {
+          label: "호동",
+          value: 33,
+        },
+      ]
     },
-    2: {
-      displayText: "서구",
-      local_dong_code: {
-        100: "가수원동",
-        101: "가장동",
-        102: "갈마1동",
-        103: "갈마2동",
-        104: "갈마동",
-        105: "관저1동",
-        106: "관저동",
-        107: "관저2동",
-        108: "괴곡동",
-        109: "괴정동",
-        110: "기성동",
-        111: "내동",
-        112: "도마1동",
-        113: "도마2동",
-        114: "도마동",
-        115: "도안동",
-        116: "둔산1동",
-        117: "둔산2동",
-        118: "둔산3동",
-        119: "둔산동",
-        120: "만년동",
-        121: "매노동",
-        122: "변동",
-        123: "복수동",
-        124: "봉곡동",
-        125: "산직동",
-        126: "오동",
-        127: "용문동",
-        128: "용촌동",
-        129: "우명동",
-        130: "원정동",
-        131: "월평1동",
-        132: "월평2동",
-        133: "월평3동",
-        134: "월평동",
-        135: "장안동",
-        136: "정림동",
-        137: "탄방동",
-        138: "평촌동",
-        139: "흑성동",
-      },
+    3: {      
+      local_dong_code: [
+        {
+          label: "가수원동",
+          value: 0,
+        },
+        {
+          label: "가장동",
+          value: 1,
+        },
+        {
+          label: "갈마1동",
+          value: 2,
+        },
+        {
+          label: "갈마2동",
+          value: 3,
+        },
+        {
+          label: "갈마동",
+          value: 4,
+        },
+        {
+          label: "관저1동",
+          value: 5,
+        },
+        {
+          label: "관저동",
+          value: 6,
+        },
+        {
+          label: "관저2동",
+          value: 7,
+        },
+        {
+          label: "괴곡동",
+          value: 8,
+        },
+        {
+          label: "괴정동",
+          value: 9,
+        },
+        {
+          label: "기성동",
+          value: 10,
+        },
+        {
+          label: "내동",
+          value: 11,
+        },
+        {
+          label: "도마1동",
+          value: 12,
+        },
+        {
+          label: "도마2동",
+          value: 13,
+        },
+        {
+          label: "도마동",
+          value: 14,
+        },
+        {
+          label: "도안동",
+          value: 15,
+        },
+        {
+          label: "둔산1동",
+          value: 16,
+        },
+        {
+          label: "둔산2동",
+          value: 17,
+        },
+        {
+          label: "둔산3동",
+          value: 18,
+        },
+        {
+          label: "둔산동",
+          value: 19,
+        },
+        {
+          label: "만년동",
+          value: 20,
+        },
+        {
+          label: "매노동",
+          value: 21,
+        },
+        {
+          label: "변동",
+          value: 22,
+        },
+        {
+          label: "복수동",
+          value: 23,
+        },
+        {
+          label: "봉곡동",
+          value: 24,
+        },
+        {
+          label: "산직동",
+          value: 25,
+        },
+        {
+          label: "오동",
+          value: 26,
+        },
+        {
+          label: "용문동",
+          value: 27,
+        },
+        {
+          label: "용촌동",
+          value: 28,
+        },
+        {
+          label: "우명동",
+          value: 29,
+        },
+        {
+          label: "원정동",
+          value: 30,
+        },
+        {
+          label: "월평1동",
+          value: 31,
+        },
+        {
+          label: "월평2동",
+          value: 32,
+        },
+        {
+          label: "월평3동",
+          value: 33,
+        },
+        {
+          label: "월평동",
+          value: 34,
+        },
+        {
+          label: "장안동",
+          value: 35,
+        },
+        {
+          label: "정림동",
+          value: 36,
+        },
+        {
+          label: "탄방동",
+          value: 37,
+        },
+        {
+          label: "평촌동",
+          value: 38,
+        },
+        {
+          label: "흑성동",
+          value: 39,
+        },
+      ]
     },
-    3: {
-      displayText: "유성구",
-      local_dong_code: {
-        145: "가정동",
-        146: "갑동",
-        147: "계산동",
-        148: "관평동",
-        149: "교촌동",
-        150: "구룡동",
-        151: "구성동",
-        152: "구암동",
-        153: "구즉동",
-        154: "궁동",
-        155: "금고동",
-        156: "금탄동",
-        157: "노은1동",
-        158: "노은2동",
-        159: "노은3동",
-        160: "노은동",
-        161: "대동",
-        162: "대정동",
-        163: "덕명동",
-        164: "덕진동",
-        165: "도룡동",
-        166: "둔곡동",
-        167: "문지동",
-        168: "반석동",
-        169: "방동",
-        170: "방현동",
-        171: "복용동",
-        172: "봉명동",
-        173: "봉산동",
-        174: "상대동",
-        175: "성북동",
-        176: "세동",
-        177: "송강동",
-        178: "송정동",
-        179: "수남동",
-        180: "신동",
-        181: "신봉동",
-        182: "신성동",
-        183: "안산동",
-        184: "어은동",
-        185: "온천1동",
-        186: "온천2동",
-        187: "외삼동",
-        188: "용계동",
-        189: "용산동",
-        190: "원내동",
-        191: "원신흥동",
-        192: "원촌동",
-        193: "자운동",
-        194: "장대동",
-        195: "장동",
-        196: "전민동",
-        197: "죽동",
-        198: "지족동",
-        199: "진잠동",
-        200: "추목동",
-        201: "탑립동",
-        202: "하기동",
-        203: "학하동",
-        204: "화암동",
-      },
+    4: {      
+      local_dong_code: [
+        {
+          label: "가정동",
+          value: 0,
+        },
+        {
+          label: "갑동",
+          value: 1,
+        },
+        {
+          label: "계산동",
+          value: 2,
+        },
+        {
+          label: "관평동",
+          value: 3,
+        },
+        {
+          label: "교촌동",
+          value: 4,
+        },
+        {
+          label: "구룡동",
+          value: 5,
+        },
+        {
+          label: "구성동",
+          value: 6,
+        },
+        {
+          label: "구암동",
+          value: 7,
+        },
+        {
+          label: "구즉동",
+          value: 8,
+        },
+        {
+          label: "궁동",
+          value: 9,
+        },
+        {
+          label: "금고동",
+          value: 10,
+        },
+        {
+          label: "금탄동",
+          value: 11,
+        },
+        {
+          label: "노은1동",
+          value: 12,
+        },
+        {
+          label: "노은2동",
+          value: 13,
+        },
+        {
+          label: "노은3동",
+          value: 14,
+        },
+        {
+          label: "노은동",
+          value: 15,
+        },
+        {
+          label: "대동",
+          value: 16,
+        },
+        {
+          label: "대정동",
+          value: 17,
+        },
+        {
+          label: "덕명동",
+          value: 18,
+        },
+        {
+          label: "덕진동",
+          value: 19,
+        },
+        {
+          label: "도룡동",
+          value: 20,
+        },
+        {
+          label: "둔곡동",
+          value: 21,
+        },
+        {
+          label: "문지동",
+          value: 22,
+        },
+        {
+          label: "반석동",
+          value: 23,
+        },
+        {
+          label: "방동",
+          value: 24,
+        },
+        {
+          label: "방현동",
+          value: 25,
+        },
+        {
+          label: "복용동",
+          value: 26,
+        },
+        {
+          label: "봉명동",
+          value: 27,
+        },
+        {
+          label: "봉산동",
+          value: 28,
+        },
+        {
+          label: "상대동",
+          value: 29,
+        },
+        {
+          label: "성북동",
+          value: 30,
+        },
+        {
+          label: "세동",
+          value: 31,
+        },
+        {
+          label: "송강동",
+          value: 32,
+        },
+        {
+          label: "송정동",
+          value: 33,
+        },
+        {
+          label: "수남동",
+          value: 34,
+        },
+        {
+          label: "신동",
+          value: 35,
+        },
+        {
+          label: "신봉동",
+          value: 36,
+        },
+        {
+          label: "신성동",
+          value: 37,
+        },
+        {
+          label: "안산동",
+          value: 38,
+        },
+        {
+          label: "어은동",
+          value: 39,
+        },
+        {
+          label: "온천1동",
+          value: 40,
+        },
+        {
+          label: "온천2동",
+          value: 41,
+        },
+        {
+          label: "외삼동",
+          value: 42,
+        },
+        {
+          label: "용계동",
+          value: 43,
+        },
+        {
+          label: "용산동",
+          value: 44,
+        },
+        {
+          label: "원내동",
+          value: 45,
+        },
+        {
+          label: "원내동",
+          value: 46,
+        },
+        {
+          label: "원신흥동",
+          value: 47,
+        },
+        {
+          label: "원촌동",
+          value: 48,
+        },
+        {
+          label: "자운동",
+          value: 49,
+        },
+        {
+          label: "장대동",
+          value: 50,
+        },
+        {
+          label: "장동",
+          value: 51,
+        },
+        {
+          label: "전민동",
+          value: 52,
+        },
+        {
+          label: "죽동",
+          value: 53,
+        },
+        {
+          label: "지족동",
+          value: 54,
+        },
+        {
+          label: "진잠동",
+          value: 55,
+        },
+        {
+          label: "추목동",
+          value: 56,
+        },
+        {
+          label: "탑립동",
+          value: 57,
+        },
+        {
+          label: "하기동",
+          value: 58,
+        },
+        {
+          label: "학하동",
+          value: 59,
+        },
+        {
+          label: "화암동",
+          value: 60,
+        },
+      ]
     },
-    4: {
-      displayText: "대덕구",
-      local_dong_code: {
-        230: "갈전동",
-        231: "대화동",
-        232: "덕암동",
-        233: "목상동",
-        234: "문평동",
-        235: "미호동",
-        236: "법1동",
-        237: "법2동",
-        238: "법동",
-        239: "부수동",
-        240: "비래동",
-        241: "삼정동",
-        242: "상서동",
-        243: "석봉동",
-        244: "송촌동",
-        245: "신대동",
-        246: "신일동",
-        247: "신탄진동",
-        248: "연축동",
-        249: "오정동",
-        250: "와동",
-        251: "용호동",
-        252: "읍내동",
-        253: "이현동",
-        254: "장동",
-        255: "중리동",
-        256: "평촌동",
-        257: "환호동",
-        258: "회덕동",
-      },
+    5: {      
+      local_dong_code: [
+        {
+          label: "갈전동",
+          value: 0,
+        },
+        {
+          label: "대화동",
+          value: 1,
+        },
+        {
+          label: "덕암동",
+          value: 2,
+        },
+        {
+          label: "목상동",
+          value: 3,
+        },
+        {
+          label: "문평동",
+          value: 4,
+        },
+        {
+          label: "미호동",
+          value: 5,
+        },
+        {
+          label: "법1동",
+          value: 6,
+        },
+        {
+          label: "법2동",
+          value: 7,
+        },
+        {
+          label: "법동",
+          value: 8,
+        },
+        {
+          label: "부수동",
+          value: 9,
+        },
+        {
+          label: "비래동",
+          value: 10,
+        },
+        {
+          label: "삼정동",
+          value: 11,
+        },
+        {
+          label: "상서동",
+          value: 12,
+        },
+        {
+          label: "석봉동",
+          value: 13,
+        },
+        {
+          label: "송촌동",
+          value: 14,
+        },
+        {
+          label: "신대동",
+          value: 15,
+        },
+        {
+          label: "신일동",
+          value: 16,
+        },
+        {
+          label: "신탄진동",
+          value: 17,
+        },
+        {
+          label: "연축동",
+          value: 18,
+        },
+        {
+          label: "오정동",
+          value: 19,
+        },
+        {
+          label: "와동",
+          value: 20,
+        },
+        {
+          label: "용호동",
+          value: 21,
+        },
+        {
+          label: "읍내동",
+          value: 22,
+        },
+        {
+          label: "이현동",
+          value: 23,
+        },
+        {
+          label: "장동",
+          value: 24,
+        },
+        {
+          label: "중리동",
+          value: 25,
+        },
+        {
+          label: "평촌동",
+          value: 26,
+        },
+        {
+          label: "환호동",
+          value: 27,
+        },
+        {
+          label: "회덕동",
+          value: 28,
+        },
+      ],
     },
-  },
-];
+  };
 
 const sexArray = [
   {
@@ -369,6 +1015,8 @@ const ageArray = [
 
 export default ({ navigation }) => {
   const [equipmentName, setEquipmentName] = useState();
+  const [guName, setGuName] = useState();
+  const [dongName, setDongName] = useState();
   const [allProvision, setAllProvision] = useState(false);
   const [provision1IsVisible, setProvision1IsVisible] = useState(false);
   const [signupMutation] = useMutation(SIGNUP_QUERY);
@@ -396,7 +1044,7 @@ export default ({ navigation }) => {
     underline: { borderTopWidth: 1 },
   };
   const onSubmit = async (data) => {
-    console.log(data);
+    console.log(guName,dongName);
     setLoaded(true);
     try {
       const {
@@ -415,6 +1063,7 @@ export default ({ navigation }) => {
             password: data.password,
             sex: data.sex,
             gu: data.gu,
+            dong: data.dong,
             age: data.age,
             equipment: data.equipment,
             equipmentName: equipmentName,
@@ -670,7 +1319,9 @@ export default ({ navigation }) => {
                     </Block>
                   )}
                   </View>
-                  {/* <View
+                  
+                  {watch('gu') && (
+                  <View
                     style={{
                       flex: 1,
                       borderBottomWidth: 1,
@@ -685,10 +1336,10 @@ export default ({ navigation }) => {
                         value: null,
                       }}
                       style={pickerStyle}
-                      onValueChange={(value) => setGu(value)}
-                      items={localGuArray}
+                      onValueChange={(value) => setValue("dong",value, true)}
+                      items={localDongArray[watch('gu')].local_dong_code}
                     />
-                  </View> */}
+                  </View>)}
                 </View>
               </View>
 

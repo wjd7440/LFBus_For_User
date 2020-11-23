@@ -121,12 +121,15 @@ export default ({ navigation }) => {
                         key={`Callout-${index}`}
                         tooltip={true}
                         onPress={() => {
-                          navigation.navigate("ReservationStack", {
-                            BUS_NODE_ID: rowData.BUS_NODE_ID,
-                            BUSSTOP_NM: rowData.BUSSTOP_NM,
-                            DISTANCE: rowData.DISTANCE * 1000,
-                            GPS_LATI: rowData.GPS_LATI,
-                            GPS_LONG: rowData.GPS_LONG,
+                          navigation.navigate("예약", {
+                            screen: "ReserveScreen",
+                            params:{
+                                BUS_NODE_ID: rowData.BUS_NODE_ID,
+                                BUSSTOP_NM: rowData.BUSSTOP_NM,
+                                DISTANCE: rowData.DISTANCE * 1000,
+                                GPS_LATI: rowData.GPS_LATI,
+                                GPS_LONG: rowData.GPS_LONG,
+                            }
                           });
                         }}
                       >

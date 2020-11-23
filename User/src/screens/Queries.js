@@ -108,7 +108,8 @@ export const SIGNUP_QUERY = gql`
     $equipment: String!
     $equipmentName: String!
     $age: String!
-    $gu: String!
+    $gu: Int!
+    $dong: Int!
   ) {
     UserSignUp(
       userId: $userId
@@ -119,6 +120,7 @@ export const SIGNUP_QUERY = gql`
       equipmentName: $equipmentName
       age: $age
       gu: $gu
+      dong: $dong
     )
   }
 `;

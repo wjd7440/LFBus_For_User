@@ -200,7 +200,9 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.navigate("MenuScreen");
+              navigation.navigate("메뉴",{
+                screen: "MenuScreen"
+              });
             } else {
               setLoaded(false);
               Alert.alert("예약에 실패했습니다. 다시 시도해주세요.");
