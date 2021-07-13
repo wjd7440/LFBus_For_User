@@ -123,13 +123,13 @@ export default ({ navigation }) => {
                         onPress={() => {
                           navigation.navigate("예약", {
                             screen: "ReserveScreen",
-                            params:{
-                                BUS_NODE_ID: rowData.BUS_NODE_ID,
-                                BUSSTOP_NM: rowData.BUSSTOP_NM,
-                                DISTANCE: rowData.DISTANCE * 1000,
-                                GPS_LATI: rowData.GPS_LATI,
-                                GPS_LONG: rowData.GPS_LONG,
-                            }
+                            params: {
+                              BUS_NODE_ID: rowData.BUS_NODE_ID,
+                              BUSSTOP_NM: rowData.BUSSTOP_NM,
+                              DISTANCE: Math.floor(rowData.DISTANCE * 1000),
+                              GPS_LATI: rowData.GPS_LATI,
+                              GPS_LONG: rowData.GPS_LONG,
+                            },
                           });
                         }}
                       >
@@ -147,7 +147,7 @@ export default ({ navigation }) => {
                             {rowData.BUS_NODE_ID}
                           </Text>
                           <Text style={{ fontSize: 13, color: "#FF4444" }}>
-                            {rowData.DISTANCE * 1000}미터
+                            {Math.floor(rowData.DISTANCE * 1000)}미터
                           </Text>
                           <View style={{ flexDirection: "row" }}>
                             <ResultDetailItemScreen
@@ -185,13 +185,13 @@ export default ({ navigation }) => {
                           onPress={() => {
                             navigation.navigate("예약", {
                               screen: "ReserveScreen",
-                              params:{
-                                  BUS_NODE_ID: rowData.BUS_NODE_ID,
-                                  BUSSTOP_NM: rowData.BUSSTOP_NM,
-                                  DISTANCE: rowData.DISTANCE * 1000,
-                                  GPS_LATI: rowData.GPS_LATI,
-                                  GPS_LONG: rowData.GPS_LONG,
-                              }
+                              params: {
+                                BUS_NODE_ID: rowData.BUS_NODE_ID,
+                                BUSSTOP_NM: rowData.BUSSTOP_NM,
+                                DISTANCE: Math.floor(rowData.DISTANCE * 1000),
+                                GPS_LATI: rowData.GPS_LATI,
+                                GPS_LONG: rowData.GPS_LONG,
+                              },
                             });
                           }}
                         >
@@ -208,7 +208,7 @@ export default ({ navigation }) => {
                                   fontWeight: "bold",
                                 }}
                               >
-                                {rowData.DISTANCE * 1000}
+                                {Math.floor(rowData.DISTANCE * 1000)}
                               </Text>
                               <Text
                                 style={{
@@ -237,7 +237,7 @@ export default ({ navigation }) => {
                                 <StationListDetailItemScreen
                                   serviceKey={API_KEY}
                                   BusStopID={rowData.BUS_NODE_ID}
-                                  DISTANCE={rowData.DISTANCE}
+                                  DISTANCE={Math.floor(rowData.DISTANCE * 1000)}
                                 />
                               </View>
                             </View>

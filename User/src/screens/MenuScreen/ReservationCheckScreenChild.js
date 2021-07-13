@@ -11,7 +11,6 @@ import {
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY, RESERVATION_DELETE_QUERY } from "../Queries";
 import { useMutation } from "react-apollo-hooks";
-import { LinearGradient } from "expo-linear-gradient";
 import Moment from "react-moment";
 
 export default ({

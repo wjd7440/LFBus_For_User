@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { AsyncStorage } from "react-native";
-import Storage from "react-native-expire-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import Storage from "react-native-expire-storage";
 import ApolloClient from "apollo-client";
 import { setContext } from "apollo-link-context";
 import { InMemoryCache } from "apollo-cache-inmemory";
@@ -26,7 +26,7 @@ export default function App() {
   const [client, setClient] = useState(null);
 
   const authLink = setContext(async (_, { headers }) => {
-    const token = await Storage.getItem("jwt");
+    const token = await AsyncStorage.getItem("jwt");
     return {
       headers: {
         ...headers,
@@ -40,7 +40,7 @@ export default function App() {
       const cache = new InMemoryCache();
       await persistCache({
         cache,
-        storage: Storage,
+        storage: AsyncStorage,
       });
       const client = new ApolloClient({
         cache,

@@ -17,7 +17,7 @@ import NoticeViewScreen from "../src/screens/MenuScreen/NoticeViewScreen";
 import ServiceGuideScreen from "../src/screens/MenuScreen/ServiceGuideScreen";
 import CustomerCenterScreen from "../src/screens/MenuScreen/CustomerCenterScreen";
 import UserFaq from "../src/screens/MenuScreen/UserFaq";
-import QuestionView from "../src/screens/MenuScreen/QuestionView";
+import QuestionView from "../src/screens/MenuScreen/questionView";
 
 export default () => {
   return (

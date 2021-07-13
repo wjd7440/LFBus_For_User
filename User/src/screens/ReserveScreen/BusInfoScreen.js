@@ -77,7 +77,7 @@ export default ({ navigation, route }) => {
       ROUTE_CD: ROUTE_CD[0],
     },
   });
-
+  console.log(ROUTE_CD[0]);
   const { data: user, userLoading } = useQuery(ACCOUNT_INFO_QUERY, {
     fetchPolicy: "network-only",
   });

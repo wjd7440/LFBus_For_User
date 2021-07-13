@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
-import { AsyncStorage } from "react-native";
-import Storage from "react-native-expire-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+// import Storage from "react-native-expire-storage";
 
 export const AuthContext = createContext();
 
@@ -11,12 +11,12 @@ export const AuthProvider = ({
 }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(isLoggedInProp);
   const [isModalVisible, setIsModalVisible] = useState(isModalVisibleProp);
-  const expire = 60 * 60 * 24 * 365;
+  // const expire = 60 * 60 * 24 * 365;
 
   const logUserIn = async (token) => {
     try {
-      await Storage.setItem("isLoggedIn", "true", expire);
-      await Storage.setItem("jwt", token, expire);
+      await AsyncStorage.setItem("isLoggedIn", "true");
+      await AsyncStorage.setItem("jwt", token);
       setIsLoggedIn(true);
     } catch (e) {
       console.log(e);
@@ -25,20 +25,20 @@ export const AuthProvider = ({
 
   const logUserOut = async () => {
     try {
-      await Storage.setItem("isLoggedIn", "false", expire);
-      await Storage.removeItem("jwt");
+      await AsyncStorage.setItem("isLoggedIn", "false");
+      await AsyncStorage.removeItem("jwt");
       setIsLoggedIn(false);
     } catch (e) {
       console.log(e);
     }
   };
   const aotuLogUserIn = async () => {
-    console.log(await Storage.getAllKeys());
-    console.log(await Storage.getItem("jwt"));
-    const token = await Storage.getItem("jwt");
+    console.log(await AsyncStorage.getAllKeys());
+    console.log(await AsyncStorage.getItem("jwt"));
+    const token = await AsyncStorage.getItem("jwt");
     if (token) {
       try {
-        await Storage.setItem("isLoggedIn", "true", expire);
+        await AsyncStorage.setItem("isLoggedIn", "true");
         setIsLoggedIn(true);
       } catch (e) {
         console.log(e);

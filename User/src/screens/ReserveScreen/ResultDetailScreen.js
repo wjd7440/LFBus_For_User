@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
-import { LinearGradient } from "expo-linear-gradient";
 import { Header } from "../../../components";
 import {
   widthPercentageToDP as wp,

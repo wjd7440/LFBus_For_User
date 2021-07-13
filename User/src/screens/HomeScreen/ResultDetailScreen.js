@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useQuery } from "react-apollo-hooks";
 import { BUS_INFO_QUERY } from "../Queries";
-import { LinearGradient } from "expo-linear-gradient";
 
 export default ({
   busExist,
@@ -38,7 +37,7 @@ export default ({
     if (data.UserBusInfo) {
       return (
         <>
-          <Text style={{ marginRight: 5, }}>{ROUTE_NO}</Text>
+          <Text style={{ marginRight: 5 }}>{ROUTE_NO}</Text>
         </>
       );
     } else {

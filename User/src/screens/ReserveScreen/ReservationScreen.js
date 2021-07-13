@@ -200,8 +200,8 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.navigate("메뉴",{
-                screen: "MenuScreen"
+              navigation.navigate("메뉴", {
+                screen: "MenuScreen",
               });
             } else {
               setLoaded(false);
@@ -621,8 +621,8 @@ export default ({ navigation, route }) => {
                 </Text>
                 가 차감됩니다.
               </Text>
-              </View>
-            )}
+            </View>
+          )}
 
           {/* <Button
             title="취소하기"
@@ -644,14 +644,14 @@ export default ({ navigation, route }) => {
             <Text style={styles.onButtonTxt}>탑승요청</Text>
           </TouchableRipple>
         ) : (
-            <TouchableRipple
-              style={styles.offButton}
-              disabled={true}
-              onPress={handleSubmit(onSubmit)}
-            >
-              <Text style={styles.offButtonTxt}>탑승요청</Text>
-            </TouchableRipple>
-          )}
+          <TouchableRipple
+            style={styles.offButton}
+            disabled={true}
+            onPress={handleSubmit(onSubmit)}
+          >
+            <Text style={styles.offButtonTxt}>탑승요청</Text>
+          </TouchableRipple>
+        )}
       </ScrollView>
     </KeyboardAvoidingView>
   );

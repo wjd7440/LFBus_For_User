@@ -11,7 +11,6 @@ import {
 import ResultDetailScreen from "./ResultDetailScreen";
 import axios from "axios";
 import { ScrollView } from "react-native-gesture-handler";
-import { LinearGradient } from "expo-linear-gradient";
 import { ACCOUNT_INFO_QUERY } from "../Queries";
 import { useQuery } from "react-apollo-hooks";
 import { Header } from "../../../components";

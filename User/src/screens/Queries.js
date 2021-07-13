@@ -35,22 +35,14 @@ export const ACCOUNT_EDIT_PASSWORD_CHECKER_QUERY = gql`
 `;
 
 export const ACCOUNT_EDIT_PASSWORD_QUERY = gql`
-  mutation UserAccountEditPassword(
-    $password: String!
-    $newPassword: String!
-  ) {
-    UserAccountEditPassword(
-      password: $password
-      newPassword: $newPassword
-    )
+  mutation UserAccountEditPassword($password: String!, $newPassword: String!) {
+    UserAccountEditPassword(password: $password, newPassword: $newPassword)
   }
 `;
 
 export const USER_MAILEAGE_LIST_QUERY = gql`
   query UserMaileageList {
-    UserMaileageList(
-      orderBy: "createdAt_DESC"
-    ) {
+    UserMaileageList(orderBy: "createdAt_DESC") {
       maileages {
         userId
         account
@@ -62,12 +54,8 @@ export const USER_MAILEAGE_LIST_QUERY = gql`
 `;
 
 export const USER_MAILEAGE_WRITE_QUERY = gql`
-  mutation UserMaileageWrite(
-    $maileage: Int!
-  ) {
-    UserMaileageWrite(
-      maileage: $maileage
-    )
+  mutation UserMaileageWrite($maileage: Int!) {
+    UserMaileageWrite(maileage: $maileage)
   }
 `;
 
@@ -197,7 +185,12 @@ export const BUS_INFO_QUERY = gql`
 
 // BusRoute
 export const BUS_ROUTE_LIST_QUERY = gql`
-  query UserBusRouteList($ROUTE_TP: Int,$keyword: String, $skip: Int, $first: Int) {
+  query UserBusRouteList(
+    $ROUTE_TP: Int
+    $keyword: String
+    $skip: Int
+    $first: Int
+  ) {
     UserBusRouteList(
       ROUTE_TP: $ROUTE_TP
       keyword: $keyword
@@ -263,7 +256,12 @@ export const BUS_ROUTE_DETAIL_QUERY = gql`
 
 // Rotation
 export const BUS_ROTATION_LIST_QUERY = gql`
-  query UserBusRotationList($ROUTE_CD: String,$keyword: String, $skip: Int, $first: Int) {
+  query UserBusRotationList(
+    $ROUTE_CD: String
+    $keyword: String
+    $skip: Int
+    $first: Int
+  ) {
     UserBusRotationList(
       ROUTE_CD: $ROUTE_CD
       keyword: $keyword
