@@ -89,6 +89,14 @@ export default ({ navigation }) => {
     getLocation();
   }, []);
 
+  useEffect(() => {
+    let timer = setInterval(() => {
+      refetch();
+    }, 15000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   const renderMap = () => {
     if (!loading) {
       return (

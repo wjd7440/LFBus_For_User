@@ -55,7 +55,7 @@ export default ({ navigation }) => {
     fetchPolicy: "network-only",
   });
 
-  const { data: reservation, reservationloading, refetch } = useQuery(
+  const { data: reservation, reservationloading } = useQuery(
     RESERVATION_LIST_QUERY,
     {
       fetchPolicy: "network-only",
@@ -210,7 +210,11 @@ export default ({ navigation }) => {
     }
   };
 
-  const { data: busInfo, busInfoLoading } = useQuery(BUS_INFO_QUERY, {
+  const {
+    data: busInfo,
+    busInfoLoading,
+    refetch,
+  } = useQuery(BUS_INFO_QUERY, {
     fetchPolicy: "network-only",
     variables: {
       CAR_REG_NO: CAR_REG_NO,
@@ -254,9 +258,9 @@ export default ({ navigation }) => {
               underlayColor={"#f5f5f5"}
               style={{ justifyContent: "center", padding: 20, width: "30%" }}
               onPress={() => {
-                navigation.navigate("충전", { 
-                  Screen:"ChargeScreen", 
-                  params: { maileage: maileage }
+                navigation.navigate("충전", {
+                  Screen: "ChargeScreen",
+                  params: { maileage: maileage },
                 });
               }}
             >

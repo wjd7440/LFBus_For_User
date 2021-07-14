@@ -8,6 +8,7 @@ export default ({ navigation }) => {
   const { data, loading, refetch } = useQuery(RESERVATION_LIST_QUERY, {
     fetchPolicy: "network-only",
   });
+  console.log(data);
 
   return (
     <View>

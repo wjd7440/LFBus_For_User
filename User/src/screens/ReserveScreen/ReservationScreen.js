@@ -200,8 +200,8 @@ export default ({ navigation, route }) => {
 
             if (UserReservationWrite) {
               Alert.alert("예약이 완료되었습니다.");
-              navigation.navigate("메뉴", {
-                screen: "MenuScreen",
+              navigation.navigate("내 주변 정류장", {
+                screen: "HomeScreen",
               });
             } else {
               setLoaded(false);
