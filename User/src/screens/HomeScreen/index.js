@@ -89,13 +89,13 @@ export default ({ navigation }) => {
     getLocation();
   }, []);
 
-  useEffect(() => {
-    let timer = setInterval(() => {
-      refetch();
-    }, 15000);
+  // useEffect(() => {
+  //   let timer = setInterval(() => {
+  //     refetch();
+  //   }, 15000);
 
-    return () => clearInterval(timer);
-  }, []);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   const renderMap = () => {
     if (!loading) {
@@ -115,58 +115,60 @@ export default ({ navigation }) => {
                 showsMyLocationButton={showsMyLocationButton}
                 showsPointsOfInterest={true}
               >
-                {data.UserBusStationList &&
-                  data.UserBusStationList.busStations.map((rowData, index) => (
-                    <MapView.Marker
-                      key={index}
-                      image={require("../../../assets/busmarker.png")}
-                      coordinate={{
-                        latitude: rowData.GPS_LATI,
-                        longitude: rowData.GPS_LONG,
-                      }}
-                    >
-                      <MapView.Callout
-                        key={`Callout-${index}`}
-                        tooltip={true}
-                        onPress={() => {
-                          navigation.navigate("예약", {
-                            screen: "ReserveScreen",
-                            params: {
-                              BUS_NODE_ID: rowData.BUS_NODE_ID,
-                              BUSSTOP_NM: rowData.BUSSTOP_NM,
-                              DISTANCE: Math.floor(rowData.DISTANCE * 1000),
-                              GPS_LATI: rowData.GPS_LATI,
-                              GPS_LONG: rowData.GPS_LONG,
-                            },
-                          });
+                {data?.UserBusStationList &&
+                  data?.UserBusStationList?.busStations.map(
+                    (rowData, index) => (
+                      <MapView.Marker
+                        key={index}
+                        image={require("../../../assets/busmarker.png")}
+                        coordinate={{
+                          latitude: rowData.GPS_LATI,
+                          longitude: rowData.GPS_LONG,
                         }}
                       >
-                        <View style={styles.busModalStyle}>
-                          <Text style={{ fontSize: 15 }}>
-                            {rowData.BUSSTOP_NM}
-                          </Text>
-                          <Text
-                            style={{
-                              fontSize: 13,
-                              color: "#8D8E93",
-                              marginBottom: 5,
-                            }}
-                          >
-                            {rowData.BUS_NODE_ID}
-                          </Text>
-                          <Text style={{ fontSize: 13, color: "#FF4444" }}>
-                            {Math.floor(rowData.DISTANCE * 1000)}미터
-                          </Text>
-                          <View style={{ flexDirection: "row" }}>
-                            <ResultDetailItemScreen
-                              serviceKey={API_KEY}
-                              BusStopID={rowData.BUS_NODE_ID}
-                            />
+                        <MapView.Callout
+                          key={`Callout-${index}`}
+                          tooltip={true}
+                          onPress={() => {
+                            navigation.navigate("예약", {
+                              screen: "ReserveScreen",
+                              params: {
+                                BUS_NODE_ID: rowData.BUS_NODE_ID,
+                                BUSSTOP_NM: rowData.BUSSTOP_NM,
+                                DISTANCE: Math.floor(rowData.DISTANCE * 1000),
+                                GPS_LATI: rowData.GPS_LATI,
+                                GPS_LONG: rowData.GPS_LONG,
+                              },
+                            });
+                          }}
+                        >
+                          <View style={styles.busModalStyle}>
+                            <Text style={{ fontSize: 15 }}>
+                              {rowData.BUSSTOP_NM}
+                            </Text>
+                            <Text
+                              style={{
+                                fontSize: 13,
+                                color: "#8D8E93",
+                                marginBottom: 5,
+                              }}
+                            >
+                              {rowData.BUS_NODE_ID}
+                            </Text>
+                            <Text style={{ fontSize: 13, color: "#FF4444" }}>
+                              {Math.floor(rowData.DISTANCE * 1000)}미터
+                            </Text>
+                            <View style={{ flexDirection: "row" }}>
+                              <ResultDetailItemScreen
+                                serviceKey={API_KEY}
+                                BusStopID={rowData.BUS_NODE_ID}
+                              />
+                            </View>
                           </View>
-                        </View>
-                      </MapView.Callout>
-                    </MapView.Marker>
-                  ))}
+                        </MapView.Callout>
+                      </MapView.Marker>
+                    )
+                  )}
               </MapView>
             </View>
             <View style={styles.busWrap}>
@@ -184,8 +186,8 @@ export default ({ navigation }) => {
               </Text>
               <ScrollView>
                 <View style={styles.busListTitBox}>
-                  {data.UserBusStationList &&
-                    data.UserBusStationList.busStations.map(
+                  {data?.UserBusStationList &&
+                    data?.UserBusStationList?.busStations.map(
                       (rowData, index) => (
                         <TouchableOpacity
                           activeOpacity={0.92}

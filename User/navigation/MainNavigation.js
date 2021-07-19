@@ -50,6 +50,7 @@ const TabStack = () => {
               </Text>
             </Block>
           ),
+          unmountOnBlur: Platform.OS === "ios" ? false : true,
         }}
       />
       <Tab.Screen
@@ -64,6 +65,7 @@ const TabStack = () => {
               </Text>
             </Block>
           ),
+          unmountOnBlur: Platform.OS === "ios" ? false : true,
         }}
       />
       <Tab.Screen
@@ -78,6 +80,7 @@ const TabStack = () => {
               </Text>
             </Block>
           ),
+          unmountOnBlur: Platform.OS === "ios" ? false : true,
         }}
       />
     </Tab.Navigator>

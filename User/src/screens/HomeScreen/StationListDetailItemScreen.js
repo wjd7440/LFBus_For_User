@@ -52,7 +52,7 @@ export default ({ serviceKey, BusStopID }) => {
   } else {
     return (
       <Fragment key={BusStopID}>
-        {data[0].itemList.map((rowData, index) => {
+        {data[0]?.itemList?.map((rowData, index) => {
           return (
             <>
               {rowData.CAR_REG_NO && (

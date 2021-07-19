@@ -42,7 +42,9 @@ export default ({ navigation, route }) => {
   const scrollViewToScroll = React.createRef();
 
   const [dynamicHeight, setDynamicHeight] = useState(0);
-  const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY);
+  const [reservationMutation] = useMutation(RESERVATION_WRITE_QUERY, {
+    refetchQueries: () => [{ query: RESERVATION_LIST_QUERY }],
+  });
   // const [data, setData] = useState(null);
   const [existBus, setExistBus] = useState(null);
   const [loaded, setLoaded] = useState(false);

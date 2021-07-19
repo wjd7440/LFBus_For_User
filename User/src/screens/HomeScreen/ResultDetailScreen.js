@@ -34,7 +34,7 @@ export default ({
       setBusExist(true);
     }
 
-    if (data.UserBusInfo) {
+    if (data?.UserBusInfo) {
       return (
         <>
           <Text style={{ marginRight: 5 }}>{ROUTE_NO}</Text>

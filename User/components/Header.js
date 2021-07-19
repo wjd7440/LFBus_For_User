@@ -1,5 +1,6 @@
 import React from "react";
 import { withNavigation } from "@react-navigation/compat";
+import { CommonActions } from "@react-navigation/native";
 
 import {
   TouchableOpacity,
@@ -26,6 +27,7 @@ const BackButton = ({ isWhite, style, navigation }) => (
     activeOpacity={1}
     style={[styles.button, style, styles.buttonLeft]}
     onPress={() => navigation.goBack(null)}
+    // onPress={() => navigation.dispatch(CommonActions.goBack())}
   >
     <Icon
       name="angle-left"
