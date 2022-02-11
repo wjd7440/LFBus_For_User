@@ -8,6 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@actbase/react-daum-postcode": "^1.0.3",
     "@fortawesome/free-brands-svg-icons": "5.14.0",
     "@fortawesome/pro-light-svg-icons": "5.14.0",
     "@fortawesome/pro-regular-svg-icons": "5.14.0",
@@ -43,7 +44,6 @@
     "react-moment": "^1.0.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
     "react-native-check-box": "^2.1.7",
-    "react-native-daum-postcode": "^1.0.9",
     "react-native-expire-storage": "0.0.3",
     "react-native-fontawesome-pro": "2.1.0",
     "react-native-gesture-handler": "~1.10.2",

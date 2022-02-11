@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@actbase/react-daum-postcode@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@actbase/react-daum-postcode/-/react-daum-postcode-1.0.3.tgz#337e28f1a060d93baf2d5875e1521d41f30bd594"
+  integrity sha512-7PEJHUPCiSsxm5hzBoRgN40IHcGhU/4vxEYpnaELywlJ3wROXay6F2sVeUclScWJ7KsZVgleMsbYobh4vpwkxg==
+
 "@apollo/client@^3.0.2":
   version "3.2.5"
   resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.2.5.tgz#24e0a6faa1d231ab44807af237c6227410c75c4d"
@@ -7482,11 +7487,6 @@ react-native-check-box@^2.1.7:
   integrity sha512-dPVOoz4jKs2je2HSHp7+XJXNyZFq8Kij7IHutigrQKzB550Dko6ZAQu/1mG1FzdUMFxxkZ2nX59KmbR0Co0T8Q==
   dependencies:
     prop-types "^15.5.7"
-
-react-native-daum-postcode@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/react-native-daum-postcode/-/react-native-daum-postcode-1.0.9.tgz#957053c142434cbf8b2f3b0f1842153fc8e8ed2c"
-  integrity sha512-xrlYmbyn6geCRz4M2O7AQTUpRvrVnbIvpXzL0tPj9+k2c18YnRmTWWUT6L2FVMuFDM5kHt/egLLQm7+04sOsGw==
 
 react-native-expire-storage@0.0.3:
   version "0.0.3"

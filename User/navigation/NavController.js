@@ -8,8 +8,6 @@ import MainNavigation from "./MainNavigation";
 import Loader from "../components/Loader";
 
 export default () => {
-  const [loading, setLoading] = useState(true);
-
   const isLoggedIn = useIsLoggedIn();
 
   return isLoggedIn ? (
