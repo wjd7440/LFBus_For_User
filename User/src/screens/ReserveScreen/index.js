@@ -108,7 +108,7 @@ export default ({ navigation, route }) => {
             navigation={navigation}
             style={{
               height: Platform.OS === "android" ? 55 : 50,
-              marginTop: Platform.OS === "android" ? 25 : 5,
+              marginTop: Platform.OS === "android" ? 55 : 5,
               alignItems: "center",
               textAlign: "justify",
               borderBottomWidth: 1,

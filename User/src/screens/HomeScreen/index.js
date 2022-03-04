@@ -223,14 +223,37 @@ export default ({ navigation }) => {
                               </Text>
                             </View>
                           </View>
-                          <View style={styles.busRight}>
-                            <Text style={styles.busTit}>
-                              {rowData.BUSSTOP_NM}
-                            </Text>
-                            <Text style={styles.busDirection}>
-                              {rowData.BUS_STOP_ID}
-                            </Text>
-                            <View style={styles.busListBox}>
+                          <View
+                            style={{
+                              ...styles.busRight,
+                              width: "100%",
+                              flexWrap: "wrap",
+                              flex: 1,
+                              flexDirection: "column",
+                            }}
+                          >
+                            <View style={{ width: "100%" }}>
+                              <Text style={styles.busTit}>
+                                {rowData.BUSSTOP_NM}
+                              </Text>
+                            </View>
+                            <View
+                              style={{
+                                width: "100%",
+                                height: 23,
+                              }}
+                            >
+                              <Text style={styles.busDirection}>
+                                {rowData.BUS_STOP_ID}
+                              </Text>
+                            </View>
+
+                            <View
+                              style={{
+                                ...styles.busListBox,
+                                width: "100%",
+                              }}
+                            >
                               <View style={styles.busLabel}>
                                 <Text style={styles.busLabelTxt}>저상</Text>
                               </View>
@@ -275,8 +298,10 @@ const styles = StyleSheet.create({
     borderRadius: 7,
     marginBottom: 10,
     flexWrap: "wrap",
+    flexDirection: "row",
     paddingTop: 15,
     paddingBottom: 18,
+    paddingRight: 15,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -285,7 +310,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 1.41,
     elevation: 0.6,
-    flexDirection: "row",
+    minHeight: 115,
   },
   busLeft: {
     width: 74,
@@ -294,7 +319,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "flex-start",
   },
-  busRight: { flexWrap: "wrap", flex: 1 },
+  busRight: {
+    flexWrap: "wrap",
+    flex: 1,
+    flexDirection: "column",
+  },
   away: {
     justifyContent: "center",
     alignItems: "center",
@@ -315,11 +344,15 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
   },
   busListBox: {
+    flex: 1,
     flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
   },
   busList: {
     flexDirection: "row",
     flexWrap: "wrap",
+    flex: 1,
   },
   busNum: {
     fontSize: 16,
@@ -334,6 +367,9 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     marginRight: 5,
     alignItems: "center",
+    flexBasis: "auto",
+    flexGrow: 0,
+    flexGrow: 0,
   },
   busLabelTxt: {
     fontSize: wp("3%"),
