@@ -55,7 +55,7 @@ export default ({ navigation }) => {
   const API_KEY =
     "VdRcdTnGThY8JlO8dlKwYiGDChsfzFgGBkkqw%2FTjJzaoVaDEPobGUUhI4uUStpL9MD2p5cCrr5eSKV8JOw4W3g%3D%3D";
 
-  const { data, loading, refetch } = useQuery(BUS_STATION_LIST_QUERY, {
+  const { data, loading } = useQuery(BUS_STATION_LIST_QUERY, {
     fetchPolicy: "network-only",
     variables: {
       latitude: location.latitude,
@@ -88,14 +88,6 @@ export default ({ navigation }) => {
   useEffect(() => {
     getLocation();
   }, []);
-
-  // useEffect(() => {
-  //   let timer = setInterval(() => {
-  //     refetch();
-  //   }, 15000);
-
-  //   return () => clearInterval(timer);
-  // }, []);
 
   const renderMap = () => {
     if (!loading) {

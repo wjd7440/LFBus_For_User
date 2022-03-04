@@ -40,7 +40,9 @@ export default ({ serviceKey, BusStopID }) => {
     //   dataLoader();
     // }, 10000);
 
-    // return () => clearInterval(timer);
+    // return () => {
+    //   clearInterval(timer);
+    // };
   }, []);
 
   if (!loaded || !data[0]) {
